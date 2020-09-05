@@ -25,7 +25,7 @@ $ yarn build
 $ yarn build --watch
 
 # Build specified package only
-$ PACKAGE=plugin-antd yarn build --watch
+$ PACKAGE=@wetrial-core yarn build --watch
 ```
 
 Run test.

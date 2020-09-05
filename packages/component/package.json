@@ -51,6 +51,7 @@
   },
   "dependencies": {
     "@ant-design/pro-layout": "^6.4.14",
+    "@wetrial/core":"^3.4.0",
     "@wetrial/hooks": "^3.1.0",
     "ahooks": "^2.5.0",
     "react-custom-scrollbars": "^4.2.1",
