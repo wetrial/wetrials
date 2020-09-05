@@ -1,0 +1,48 @@
+{
+  "name": "@wetrial/provider",
+  "version": "0.0.1-beta.1",
+  "description": "@wetrial/provider",
+  "keywords": [
+    "antd",
+    "admin",
+    "ant-design",
+    "ant-design-pro",
+    "wetrial"
+  ],
+  "homepage": "https://github.com/wetrial/wetrials/tree/master/packages/configProvider#readme",
+  "bugs": "https://github.com/wetrial/wetrials/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wetrial/wetrials"
+  },
+  "license": "MIT",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist",
+    "es"
+  ],
+  "browserslist": [
+    "last 2 versions",
+    "Firefox ESR",
+    "> 1%",
+    "ie >= 11"
+  ],
+  "dependencies": {
+    "rc-util": "^5.0.1"
+  },
+  "peerDependencies": {
+    "umi": "3.x"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "authors": [
+    "xiexingen <1002275364@qq.com> (https://github.com/xiexingen)"
+  ],
+  "devDependencies": {
+    "del": "^5.1.0"
+  }
+}

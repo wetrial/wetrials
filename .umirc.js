@@ -1,0 +1,62 @@
+import { readdirSync } from 'fs';
+import chalk from 'chalk';
+import { join } from 'path';
+
+const headPkgList = [];
+// utils must build before core
+// runtime must build before renderer-react
+const pkgList = readdirSync(join(__dirname, 'packages')).filter(
+  (pkg) => pkg.charAt(0) !== '.' && !headPkgList.includes(pkg),
+);
+
+const alias = pkgList.reduce((pre, pkg) => {
+  pre[`@wetrial/${pkg}`] = join(__dirname, 'packages', pkg, 'src');
+  return {
+    ...pre,
+  };
+}, {});
+
+console.log(`🌼 alias list \n${chalk.blue(Object.keys(alias).join('\n'))}`);
+
+const tailPkgList = pkgList
+  .map((path) => [join('packages', path, 'src'), join('packages', path, 'docs')])
+  .reduce((acc, val) => acc.concat(val), []);
+
+// const isProduction = process.env.NODE_ENV === 'production';
+
+export default {
+  title: 'Wetrial',
+  mode: 'site',
+  hash: true,
+  // history: 'hash',
+  base: '/wetrials',
+  publicPath: '/wetrials/',
+  exportStatic: {}, // 将所有路由输出为 HTML 目录结构，以免刷新页面时 404
+  logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+  extraBabelPlugins: [
+    [
+      'import',
+      {
+        libraryName: 'antd',
+        libraryDirectory: 'es',
+        style: true,
+      },
+    ],
+  ],
+  alias,
+  resolve: { includes: [...tailPkgList, 'docs'] },
+  navs: [
+    null,
+    {
+      title: 'GitHub',
+      path: 'https://github.com/wetrial/wetrials',
+    },
+  ],
+  // analytics: isProduction
+  //   ? {
+  //       ga: 'UA-173569162-1',
+  //     }
+  //   : false,
+  hash: true,
+  dynamicImport: {},
+};

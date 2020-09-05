@@ -1,0 +1,57 @@
+{
+  "name": "@wetrial/core",
+  "version": "3.4.0",
+  "description": "@wetrial/core",
+  "module": "es/index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "src",
+    "dist",
+    "es"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wetrial/wetrials"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "Firefox ESR",
+    "> 1%",
+    "ie >= 11"
+  ],
+  "keywords": [
+    "antd",
+    "admin",
+    "ant-design",
+    "wetrial"
+  ],
+  "authors": [
+    "xiexingen <1002275364@qq.com> (https://github.com/xiexingen)"
+  ],
+  "license": "MIT",
+  "bugs": "https://github.com/wetrial/wetrials/issues",
+  "homepage": "https://github.com/wetrial/wetrials/tree/master/packages/core#readme",
+  "peerDependencies": {
+    "antd": "^4.x",
+    "lodash": "^4.x",
+    "path-to-regexp": "^6.x",
+    "react": "^16.x",
+    "redux": "^4.x",
+    "umi": "^3.x"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "axios": "^0.20.0",
+    "crypto-js": "^4.0.0",
+    "jsencrypt": "^3.0.0-rc.1",
+    "store": "^2.0.12"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^3.1.47",
+    "del": "^5.1.0"
+  }
+}

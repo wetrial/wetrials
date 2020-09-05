@@ -1,0 +1,59 @@
+{
+  "name": "@wetrial/hooks",
+  "version": "3.1.0",
+  "description": "@wetrial/hooks",
+  "module": "es/index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "src",
+    "dist",
+    "es"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wetrial/wetrials"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "Firefox ESR",
+    "> 1%",
+    "ie >= 11"
+  ],
+  "keywords": [
+    "antd",
+    "admin",
+    "ant-design",
+    "wetrial"
+  ],
+  "authors": [
+    "xiexingen <1002275364@qq.com> (https://github.com/xiexingen)"
+  ],
+  "license": "MIT",
+  "bugs": "https://github.com/wetrial/wetrials/issues",
+  "homepage": "https://github.com/wetrial/wetrials/tree/master/packages/hooks#readme",
+  "peerDependencies": {
+    "@ant-design/icons": "^4.x",
+    "@wetrial/core": "^3.x",
+    "ahooks": "^2.x",
+    "antd": "^4.x",
+    "lodash": "^4.x",
+    "path-to-regexp": "^6.x",
+    "react": "^16.x",
+    "redux": "^4.x",
+    "umi": "^3.x"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^4.2.2",
+    "@wetrial/core": "^3.4.0",
+    "ahooks": "^2.5.0",
+    "pubsub-js": "^1.9.0"
+  },
+  "devDependencies": {
+    "@types/pubsub-js": "^1.8.0"
+  }
+}

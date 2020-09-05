@@ -1,0 +1,26 @@
+{
+  "eslint.validate": [
+    "javascript",
+    // jsx
+    "javascriptreact",
+    // ts
+    {
+      "language": "typescript",
+      "autoFix": true
+    },
+    // tsx
+    {
+      "language": "typescriptreact",
+      "autoFix": true
+    },
+    "html"
+  ],
+  // "typescript.validate.enable": false,
+  "eslint.autoFixOnSave": true,
+  "eslint.alwaysShowStatus": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": true,
+    "source.fixAll.eslint": true
+  }
+}
