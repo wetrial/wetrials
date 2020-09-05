@@ -27,6 +27,7 @@ interface Result {
 }
 
 const getTableData = (pageInfo: PaginatedParams[0], formData): Promise<Result> => {
+  // eslint-disable-next-line no-console
   console.log(pageInfo, formData);
   const { current, pageSize } = pageInfo;
   return fetch(`https://randomuser.me/api?results=55&page=${current}&size=${pageSize}`)

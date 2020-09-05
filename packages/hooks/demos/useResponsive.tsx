@@ -7,7 +7,7 @@ import { useResponsive } from '@wetrial/hooks';
 //   large: 1200,
 // });
 
-export default function () {
+export default () => {
   const { screen, size } = useResponsive();
   return (
     <>
@@ -18,4 +18,4 @@ export default function () {
       </p>
     </>
   );
-}
+};

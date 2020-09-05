@@ -20,7 +20,7 @@
     "test:coverage": "umi-test --coverage",
     "test:update": "umi-test --updateSnapshot",
     "update:deps": "yarn upgrade-interactive --latest",
-    "clean-build":"node ./scripts/clearBuild"
+    "clean":"node ./scripts/clearBuild"
   },
   "browserslist": [
     "last 2 versions",
@@ -109,7 +109,8 @@
     "webpack-cli": "^3.3.10",
     "write-pkg": "^4.0.0",
     "yorkie": "^2.0.0",
-    "@jsdevtools/npm-publish":"^1.2.0"
+    "@jsdevtools/npm-publish":"^1.2.0",
+    "del": "^5.1.0"
   },
   "gitHooks": {
     "pre-commit": "pretty-quick --staged",

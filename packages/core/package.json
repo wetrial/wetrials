@@ -51,7 +51,6 @@
     "store": "^2.0.12"
   },
   "devDependencies": {
-    "@types/crypto-js": "^3.1.47",
-    "del": "^5.1.0"
+    "@types/crypto-js": "^3.1.47"
   }
 }

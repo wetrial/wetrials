@@ -3,7 +3,7 @@
  * desc: 记录到localstorage中
  */
 import React, { useState, useEffect } from 'react';
-import { Button, Card, Radio, Divider, Row, Col } from 'antd';
+import { Card, Radio, Row, Col } from 'antd';
 import { useTableColumnStateMapStorage } from '@wetrial/hooks';
 
 type OpType = 'all' | 'even' | 'odd' | 'none';
@@ -30,7 +30,7 @@ const getColumnsByType = (columns: any[], type: OpType) => {
       }
     });
   } else {
-    columns.forEach((v, i) => {
+    columns.forEach((v) => {
       result[v.dataIndex] = {
         show: false,
       };

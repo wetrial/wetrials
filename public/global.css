@@ -1,0 +1,45 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+html .wt-form-operator,
+body .wt-form-operator,
+#root .wt-form-operator {
+  text-align: center;
+}
+html .wt-form-operator > .ant-btn,
+body .wt-form-operator > .ant-btn,
+#root .wt-form-operator > .ant-btn {
+  margin-right: 8;
+}
+html .wt-advance-search-form-operator,
+body .wt-advance-search-form-operator,
+#root .wt-advance-search-form-operator {
+  margin-left: auto;
+}
+html .wt-simple-search-form,
+body .wt-simple-search-form,
+#root .wt-simple-search-form {
+  display: inline-block;
+}
+html .wt-simple-search-form .ant-input-search.ant-input-group-wrapper,
+body .wt-simple-search-form .ant-input-search.ant-input-group-wrapper,
+#root .wt-simple-search-form .ant-input-search.ant-input-group-wrapper {
+  display: block;
+}
+html .w-full,
+body .w-full,
+#root .w-full {
+  width: 100%;
+}
+html .ant-pro-global-header-layout-mix,
+body .ant-pro-global-header-layout-mix,
+#root .ant-pro-global-header-layout-mix {
+  background-color: 'white';
+}
+html .ant-pro-global-header-layout-mix .anticon,
+body .ant-pro-global-header-layout-mix .anticon,
+#root .ant-pro-global-header-layout-mix .anticon {
+  color: 'black';
+}

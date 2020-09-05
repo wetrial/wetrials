@@ -34,15 +34,15 @@
     "rc-util": "^5.0.1"
   },
   "peerDependencies": {
-    "umi": "3.x"
+    "antd": "^4.x",
+    "lodash": "^4.x",
+    "react": "^16.x",
+    "umi": "^3.x"
   },
   "publishConfig": {
     "access": "public"
   },
   "authors": [
     "xiexingen <1002275364@qq.com> (https://github.com/xiexingen)"
-  ],
-  "devDependencies": {
-    "del": "^5.1.0"
-  }
+  ]
 }

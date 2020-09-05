@@ -16,7 +16,7 @@ function MessageList() {
   return (
     <>
       <Badge dot>消息</Badge>
-      <Input.TextArea value={messages}></Input.TextArea>
+      <Input.TextArea value={messages} />
     </>
   );
 }
@@ -52,12 +52,12 @@ function Chat() {
   );
 }
 
-export default function () {
+export default () => {
   return (
     <>
       <MessageList />
-      <Divider></Divider>
+      <Divider />
       <Chat />
     </>
   );
-}
+};
