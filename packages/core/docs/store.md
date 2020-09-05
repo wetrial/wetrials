@@ -3,6 +3,7 @@ title: store - 本地存储
 order: 3
 nav:
   title: 核心库
+  order: 3
   path: /core
 group:
   title: '核心库'

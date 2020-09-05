@@ -3,6 +3,7 @@ title: Editor - 富文本编辑器
 order: 1
 nav:
   title: 编辑器
+  order: 10
   path: /editor
 group:
   title: 编辑器

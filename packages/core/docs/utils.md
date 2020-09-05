@@ -3,6 +3,7 @@ title: utils - 辅助方法
 order: 2
 nav:
   title: 核心库
+  order: 3
   path: /core
 group:
   title: '核心库'

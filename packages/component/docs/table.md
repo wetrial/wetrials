@@ -3,10 +3,12 @@ title: Table - 表格组件
 order: 10
 nav:
   title: 组件
+  order: 1
   path: /component
 group:
-  title: 组件
-  path: /
+  title: 数据展示
+  order: 3
+  path: /data-display
 ---
 
 # Table - 表格组件

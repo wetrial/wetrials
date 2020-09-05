@@ -3,10 +3,12 @@ title: Exception - 异常
 order: 30
 nav:
   title: 组件
+  order: 1
   path: /component
 group:
-  title: 组件
-  path: /
+  title: 数据展示
+  order: 3
+  path: /data-display
 ---
 
 # Exception - 异常

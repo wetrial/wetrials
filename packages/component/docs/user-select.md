@@ -3,10 +3,12 @@ title: UserSelect - 人员选择器
 order: 30
 nav:
   title: 组件
+  order: 1
   path: /component
 group:
-  title: 组件
-  path: /
+  title: 数据录入
+  order: 2
+  path: /data-collect
 ---
 
 ## UserSelect - 人员选择器

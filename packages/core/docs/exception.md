@@ -3,6 +3,7 @@ title: 全局异常
 order: 16
 nav:
   title: 核心库
+  order: 3
   path: /core
 group:
   title: '核心库'

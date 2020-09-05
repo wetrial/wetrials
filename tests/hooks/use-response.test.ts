@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import { useResponsive } from '..';
+import { useResponsive } from '@wetrial/hooks';
 
 describe('useResponsive', () => {
   function changeWidth(width: number) {

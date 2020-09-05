@@ -3,10 +3,12 @@ title: 测试页面
 order: 1000
 nav:
   title: hooks
+  order: 2
   path: /hooks
 group:
   title: hooks
-  path: /
+  order: 10
+  path: /other
 ---
 
 # 测试页面

@@ -1,12 +1,14 @@
 ---
 title: useFormTable - 分页列表
-order: 2
+order: 1
 nav:
   title: hooks
+  order: 2
   path: /hooks
 group:
   title: hooks
-  path: /
+  order: 1
+  path: /ajax
 ---
 
 # useFormTable - 分页列表

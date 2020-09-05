@@ -24,13 +24,25 @@ $ yarn add @wetrial/component --dev
 import { Ellipsis } from '@wetrial/component';
 ```
 
-## 🖥 Development
+## 文档说明
 
-```
-$ git clone git@github.com:wetrial/component.git
-$ cd hooks
-$ npm install
-$ npm start
-```
+### nav
 
-Open your browser and visit http://127.0.0.1:8001 , see more at Development.
+对应顶部菜单栏，排在第一位；配置如下；
+
+| 配置项 | 说明                   | 值         |
+| ------ | ---------------------- | ---------- |
+| title  | 显示在顶部菜单中的名称 | 组件       |
+| order  | 在顶部菜单中的顺序     | 1          |
+| path   | 路由的基础路径         | /component |
+
+### group
+
+对应左边的左侧菜单栏分组
+
+| order | title    | path             |
+| ----- | -------- | ---------------- |
+| 1     | 通用     | /common          |
+| 2     | 数据录入 | /data-collection |
+| 3     | 数据展示 | /data-display    |
+| 10    | 其他     | /other           |

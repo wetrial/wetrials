@@ -1,12 +1,14 @@
 ---
 title: 测试页面
-order: 10
+order: 1000
 nav:
   title: 组件
+  order: 1
   path: /component
 group:
-  title: 组件
-  path: /
+  title: 其他
+  order: 10
+  path: /other
 ---
 
 # 测试页面

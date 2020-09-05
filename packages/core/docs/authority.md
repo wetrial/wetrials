@@ -3,6 +3,7 @@ title: authority - 权限相关
 order: 5
 nav:
   title: 核心库
+  order: 3
   path: /core
 group:
   title: '核心库'

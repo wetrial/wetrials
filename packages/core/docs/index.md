@@ -3,6 +3,7 @@ title: request - 请求库
 order: 1
 nav:
   title: 核心库
+  order: 3
   path: /core
 group:
   title: '核心库'

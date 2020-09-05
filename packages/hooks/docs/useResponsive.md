@@ -3,10 +3,12 @@ title: useResponsive - 响应式
 order: 20
 nav:
   title: hooks
+  order: 2
   path: /hooks
 group:
   title: hooks
-  path: /
+  order: 3
+  path: /dom
 ---
 
 # useResponsive - 响应式

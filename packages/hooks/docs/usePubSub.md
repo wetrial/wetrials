@@ -3,10 +3,12 @@ title: usePubSub - 发布订阅
 order: 80
 nav:
   title: hooks
+  order: 2
   path: /hooks
 group:
   title: hooks
-  path: /
+  order: 2
+  path: /advance
 ---
 
 # usePubSub - 发布订阅

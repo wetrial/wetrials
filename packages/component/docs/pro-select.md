@@ -3,10 +3,12 @@ title: ProSelect - 下拉选择
 order: 30
 nav:
   title: 组件
+  order: 1
   path: /component
 group:
-  title: 组件
-  path: /
+  title: 数据录入
+  order: 2
+  path: /data-collection
 ---
 
 # ProSelect - 下拉选择

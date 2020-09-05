@@ -3,10 +3,12 @@ title: IconFont - 字体图标
 order: 40
 nav:
   title: 组件
+  order: 1
   path: /component
 group:
-  title: 组件
-  path: /
+  title: 通用
+  order: 1
+  path: /common
 ---
 
 # IconFont - 字体图标

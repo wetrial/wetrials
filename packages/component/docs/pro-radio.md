@@ -3,10 +3,12 @@ title: ProRadio - 可取消的单选
 order: 31
 nav:
   title: 组件
+  order: 1
   path: /component
 group:
-  title: 组件
-  path: /
+  title: 数据录入
+  order: 2
+  path: /data-collection
 ---
 
 # ProRadio 可取消的单选

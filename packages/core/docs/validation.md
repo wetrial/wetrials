@@ -3,6 +3,7 @@ title: validation - 验证消息
 order: 1
 nav:
   path: /core
+  order: 3
   title: 核心库
 group:
   title: '核心库'

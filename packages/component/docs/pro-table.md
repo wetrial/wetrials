@@ -3,10 +3,12 @@ title: ProTable Table组件
 order: 20
 nav:
   title: 组件
+  order: 1
   path: /component
 group:
-  title: 组件
-  path: /
+  title: 数据展示
+  order: 3
+  path: /data-display
 ---
 
 # ProTable Table 组件

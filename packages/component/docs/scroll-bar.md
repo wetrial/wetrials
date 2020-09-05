@@ -3,10 +3,12 @@ title: ScrollBar - 虚拟滚动条
 order: 10
 nav:
   title: 组件
+  order: 1
   path: /component
 group:
-  title: 组件
-  path: /
+  title: 通用
+  order: 1
+  path: /common
 ---
 
 # ScrollBar - 虚拟滚动条

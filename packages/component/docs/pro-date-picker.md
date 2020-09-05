@@ -3,10 +3,12 @@ title: ProDatePicker 日期选择器
 order: 39
 nav:
   title: 组件
+  order: 1
   path: /component
 group:
-  title: 组件
-  path: /
+  title: 数据录入
+  order: 2
+  path: /data-collection
 ---
 
 ## 日期选择器
