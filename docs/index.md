@@ -32,6 +32,16 @@ features:
 footer: Open-source MIT Licensed | Copyright © 2020-present
 ---
 
+# 常用资料连
+
+| 名称 | 简介 | 链接 |
+| --- | --- | --- |
+| [Ant Design](https://ant.design/components/overview-cn) | 业界第二的 UI 组件库 | https://ant.design/components/overview-cn/ |
+| [UMI](https://umijs.org/zh-CN/docs) | 可插拔的企业级 react 应用框架 | https://umijs.org/zh-CN/docs |
+| [Lodash](https://lodash.com/docs) | js 工具库 | https://lodash.com/docs |
+| [TypeScript](https://www.typescriptlang.org/docs/) | 强类型的 js | https://www.typescriptlang.org/docs/ |
+| [React](https://zh-hans.reactjs.org/docs/getting-started.html) | 一个用于构建用户界面的 JavaScript 库 | https://zh-hans.reactjs.org/docs/getting-started.html |
+
 ## 组件看板
 
 | 组件 | 下载量 | 版本 |

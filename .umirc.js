@@ -49,7 +49,8 @@ export default {
     '@wetrial/component/es': join(__dirname, 'packages', 'component/src'),
     ...alias,
   },
-  resolve: { includes: [...tailPkgList, 'docs'] },
+  resolve: { includes: [...tailPkgList, 'docs', 'wetrial-doc'] },
+  locales: [['zh-CN', '中文']],
   navs: [
     null,
     {
