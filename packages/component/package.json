@@ -1,6 +1,6 @@
 {
   "name": "@wetrial/component",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "@wetrial/component",
   "module": "es/index.js",
   "main": "lib/index.js",
@@ -51,8 +51,8 @@
   },
   "dependencies": {
     "@ant-design/pro-layout": "^6.4.14",
-    "@wetrial/core":"^3.4.0",
-    "@wetrial/hooks": "^3.1.0",
+    "@wetrial/core": "^3.4.1",
+    "@wetrial/hooks": "^3.1.1",
     "ahooks": "^2.5.0",
     "react-custom-scrollbars": "^4.2.1",
     "react-dnd": "^11.1.3",
