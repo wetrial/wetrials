@@ -1,6 +1,6 @@
 {
   "name": "@wetrial/core",
-  "version": "3.4.2",
+  "version": "3.4.3",
   "description": "@wetrial/core",
   "module": "es/index.js",
   "main": "lib/index.js",
