@@ -1,0 +1,29 @@
+name: Deploy CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - run: yarn
+      - run: npm run lint
+      # - run: yarn run tsc
+      - name: Build and Deploy
+        uses: JamesIves/github-pages-deploy-action@master
+        env:
+          CI: true
+          PROGRESS: none
+          GIT_CONFIG_NAME: xiexingen
+          GIT_CONFIG_EMAIL: 1002275364@qq.com
+          NODE_OPTIONS: --max_old_space_size=4096
+          ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION: site
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: 'dist/'
+          BUILD_SCRIPT: yarn && npm run site && git checkout . && git clean -df
