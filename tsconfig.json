@@ -9,11 +9,10 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
-    "noImplicitAny": false,
-    "isolatedModules": true,
     "suppressImplicitAnyIndexErrors": true,
     "declaration": true,
     "skipLibCheck": true,
+    "noImplicitAny": false,
     "paths": {
       "@wetrial/core": ["./packages/core/src/index.tsx"],
       "@wetrial/component": ["./packages/component/src/index.tsx"],

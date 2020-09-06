@@ -1,6 +1,7 @@
 import { readdirSync } from 'fs';
 import chalk from 'chalk';
 import { join } from 'path';
+const { REACT_APP_ENV } = process.env;
 
 const isSite = REACT_APP_ENV !== 'dev';
 
@@ -67,5 +68,7 @@ export default {
   //   : false,
   hash: true,
   dynamicImport: {},
-  styles: [`${isSite ? 'https://wetrial.github.io' : 'http://localhost:8000'}/wetrials/global.css`],
+  styles: [
+    `${isSite ? 'https://wetrial.github.io' : 'http://localhost:10000'}/wetrials/global.css`,
+  ],
 };
