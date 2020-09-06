@@ -110,7 +110,7 @@ export default () => {
   return (
     <div>
       <Button
-        type="danger"
+        danger
         onClick={() => {
           history.push({
             pathname: '/hooks/other/other',

@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useResponsive should response to window width changes 1`] = `
+Object {
+  "screen": "lg",
+  "size": Object {
+    "height": 700,
+    "width": 1024,
+  },
+}
+`;
+
+exports[`useResponsive should response to window width changes 2`] = `
+Object {
+  "screen": "xs",
+  "size": Object {
+    "height": 700,
+    "width": 300,
+  },
+}
+`;
+
+exports[`useResponsive should response to window width changes 3`] = `
+Object {
+  "screen": "sm",
+  "size": Object {
+    "height": 700,
+    "width": 700,
+  },
+}
+`;
+
+exports[`useResponsive should response to window width changes 4`] = `
+Object {
+  "screen": "md",
+  "size": Object {
+    "height": 700,
+    "width": 800,
+  },
+}
+`;
+
+exports[`useResponsive should response to window width changes 5`] = `
+Object {
+  "screen": "lg",
+  "size": Object {
+    "height": 700,
+    "width": 1000,
+  },
+}
+`;
+
+exports[`useResponsive should response to window width changes 6`] = `
+Object {
+  "screen": "xl",
+  "size": Object {
+    "height": 700,
+    "width": 1200,
+  },
+}
+`;
+
+exports[`useResponsive should response to window width changes 7`] = `
+Object {
+  "screen": "xxl",
+  "size": Object {
+    "height": 700,
+    "width": 1600,
+  },
+}
+`;

@@ -20,7 +20,7 @@ let _formatResult: TFormatResult;
 // 缓存前缀
 const TABLECACHEPREFIX = '__WETRIAL_USEFORMTABLE__';
 
-export {
+export type{
   CombineService,
   PaginatedParams,
   BasePaginatedOptions,

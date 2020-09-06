@@ -78,5 +78,12 @@ const columns: ColumnType<TableListItem>[] = [
 ];
 
 export default () => {
-  return <Table<TableListItem> columns={columns} rowKey="key" dataSource={tableListDataSource} />;
+  return (
+    <Table<TableListItem>
+      columns={columns}
+      resizeable
+      rowKey="key"
+      dataSource={tableListDataSource}
+    />
+  );
 };

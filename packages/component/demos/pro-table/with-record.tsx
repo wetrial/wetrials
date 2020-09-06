@@ -2,8 +2,9 @@ import React from 'react';
 import { useLocation, Link } from 'umi';
 import { Row, Col, Input, Button, Form, Space, Tooltip, Alert } from 'antd';
 import { MoreOutlined } from '@ant-design/icons';
-import { ProTable, ProColumns, TableDropdown } from '@wetrial/component';
-import { LAYOUT_FORM_TWO, LAYOUT_COL_SEARCH_SIX } from '@wetrial/core';
+import { ProTable } from '@wetrial/component';
+import { LAYOUT_FORM_TWO, LAYOUT_COL_SEARCH_SIX } from '@wetrial/core/es/constants';
+import { ProColumns, TableDropdown } from '@wetrial/component/es/ProTable';
 import { useFormTable, formatFormTableParams } from '@wetrial/hooks';
 import { PageContainer } from '@ant-design/pro-layout';
 

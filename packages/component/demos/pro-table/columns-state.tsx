@@ -1,8 +1,10 @@
 import React from 'react';
 import { Row, Col, Input, Button, Form, Space, Tooltip } from 'antd';
 import { MoreOutlined } from '@ant-design/icons';
-import { ProTable, ProColumns, TableDropdown } from '@wetrial/component';
-import { LAYOUT_FORM_TWO, LAYOUT_COL_SEARCH_SIX } from '@wetrial/core';
+import { LAYOUT_FORM_TWO, LAYOUT_COL_SEARCH_SIX } from '@wetrial/core/es/constants';
+import { ProTable } from '@wetrial/component';
+import { ProColumns, TableDropdown } from '@wetrial/component/es/ProTable';
+import { ColumnsState } from '@wetrial/component/es/Table';
 import { useLocalStorageState } from 'ahooks';
 import { useFormTable, formatFormTableParams } from '@wetrial/hooks';
 import { PageContainer } from '@ant-design/pro-layout';

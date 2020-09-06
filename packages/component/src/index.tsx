@@ -16,7 +16,7 @@ export { default as ProRadio } from './ProRadio';
 
 export { default as ProSelect } from './ProSelect';
 
-export { default as ProTable, ProColumns, TableDropdown } from './ProTable';
+export { default as ProTable } from './ProTable';
 
 export { default as ScrollBar } from './ScrollBar';
 
