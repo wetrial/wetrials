@@ -14,7 +14,6 @@
     "suppressImplicitAnyIndexErrors": true,
     "declaration": true,
     "skipLibCheck": true,
-    "incremental": true, // # disable --noEmit
     "paths": {
       "@wetrial/core": ["./packages/core/src/index.tsx"],
       "@wetrial/component": ["./packages/component/src/index.tsx"],
