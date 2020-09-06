@@ -2,6 +2,8 @@ import { readdirSync } from 'fs';
 import chalk from 'chalk';
 import { join } from 'path';
 
+const isSite = REACT_APP_ENV !== 'dev';
+
 const headPkgList = [];
 // utils must build before core
 // runtime must build before renderer-react
@@ -65,4 +67,5 @@ export default {
   //   : false,
   hash: true,
   dynamicImport: {},
+  styles: [`${isSite ? 'https://wetrial.github.io' : 'http://localhost:8000'}/wetrials/global.css`],
 };

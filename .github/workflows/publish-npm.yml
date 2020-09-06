@@ -15,8 +15,8 @@ jobs:
           node-version: 12
           registry-url: 'https://registry.npmjs.org'
           scope: '@wetrial'
-      - name: authority npm
-        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+      # - name: authority npm
+      #   run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
       - name: run install
         run: yarn
       - name: run release
