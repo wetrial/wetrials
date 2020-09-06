@@ -2,8 +2,8 @@ name: publish-npm
 
 on:
   push:
-    tags:
-      - '.*'
+    branchs:
+      - /@wetrial\/.*/
 
 jobs:
   build:
