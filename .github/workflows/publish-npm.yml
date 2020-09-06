@@ -3,7 +3,7 @@ name: publish-npm
 on:
   push:
     tags:
-      - '*'
+      - \@wetrial/*
 
 jobs:
   build:
