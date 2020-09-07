@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Select, Avatar, Button, Popover } from 'antd';
 import { PlusOutlined, DownOutlined } from '@ant-design/icons';
 import './index.less';
-import { IKeyValue } from '@wetrial/core';
 
 interface UserSelectFields {
   id: string;
@@ -12,7 +11,7 @@ interface UserSelectFields {
 
 interface UserSelectProps {
   defaultValue?: string[];
-  dataSource: IKeyValue<any>[];
+  dataSource: { [key: string]: any }[];
   onChange?: (value) => void;
   value?: string[] | string | undefined;
   fields?: UserSelectFields | undefined;

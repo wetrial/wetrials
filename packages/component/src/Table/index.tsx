@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Table } from 'antd';
 import { TableProps } from 'antd/es/table';
 import { Resizable } from 'react-resizable';
-import { IKeyValue } from '@wetrial/core';
 
 import './index.less';
 
@@ -53,7 +52,7 @@ const ResizeableTalbe = <RecordType extends object = any>(
 ) => {
   const { resizeable, columns = [], tableLayout = 'fixed', scroll, ...restProps } = props;
 
-  const [columnSize, setColumnSize] = useState<IKeyValue<number>>(() => {
+  const [columnSize, setColumnSize] = useState<{ [key: string]: number }>(() => {
     return columns.reduce((size: any, column: any) => {
       const columnKey = getColumnKey(column.dataIndex || column.key);
       // eslint-disable-next-line no-param-reassign

@@ -12,9 +12,9 @@ export { default as store } from './store';
 
 export { base64, debase64, encrypt, decrypt, encryptKey, encryptBtoa, decryptAtob } from './crypto';
 
-export type { IKeyValue, IWithFalse } from './core';
+export type { IWithFalse } from './core';
 
-export { CryptoType } from './core';
+export { IKeyValue, CryptoType } from './core';
 
 interface IWetrialCoreProps {
   /**
