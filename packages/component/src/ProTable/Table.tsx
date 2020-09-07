@@ -263,7 +263,11 @@ const ProTable = <T extends {}, U extends object>(props: ProTableProps<T, U>) =>
     <ConfigProvider
       getPopupContainer={() => ((rootRef.current || document.body) as any) as HTMLElement}
     >
-      <div className={containerClassName} style={containerStyle} ref={rootRef}>
+      <div
+        className={`ant-pro-table-advance-search ${containerClassName ?? ''}`}
+        style={containerStyle}
+        ref={rootRef}
+      >
         {searchType === 'advance' && renderSearch ? renderSearch() : null}
         {tableAlertRender ? tableAlertRender() : null}
         <div style={{ position: 'relative' }}>
