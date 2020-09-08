@@ -51,7 +51,6 @@ const UserSelect: React.ForwardRefRenderFunction<unknown, UserSelectProps> = (pr
         return ref;
       });
       setAva(initAva);
-      triggerChange();
     } else {
       values?.forEach((i) => {
         dataSource?.forEach((item) => {
@@ -65,9 +64,9 @@ const UserSelect: React.ForwardRefRenderFunction<unknown, UserSelectProps> = (pr
           }
         });
         setAva(initAva);
-        triggerChange();
       });
     }
+    triggerChange();
   }, [values]);
 
   const showPanel = () => {
