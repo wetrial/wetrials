@@ -46,7 +46,8 @@ group:
 | 参数 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | picker | date/week/month/quarter/year | date | 必填，决定日期选择器的模式 |
-| value | array | undefined | 当前值 |
+| value | array | - | 当前值 |
 | allow | boolean | false | 是否可以填写 NA 日期 |
 | partialDate | boolean | false | 是否可以填写部分未知日期 |
-| onChange | function | undefined | change 事件，参数`v`为已选中用户 id 的字符串数组 |
+| onChange | `function(date: moment)` | - | change 事件，参数`date`为已选中用户 id 的字符串数组 |
+| [更多属性](https://ant.design/components/date-picker-cn/#API) |  |  |
