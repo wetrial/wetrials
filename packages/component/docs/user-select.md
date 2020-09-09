@@ -52,5 +52,5 @@ WT 人员选择插件（单一层级）
 | defaultValue | array | - | 默认值 |
 | multiple | boolean | true | 是否多选模式 |
 | fields | object | `{id:'UserId',name:'FullName',avatar:'Avatar'}` | 数据源中 id，名称，头像对应的字段名，可以自定义 |
-| cardRender | function | - | 用户信息卡上显示的内容，通过参数(id)查找并返回自己需要的内容 |
+| cardRender | `(id) => ReactNode` | - | 用户信息卡上显示的内容，通过参数(id)查找并返回自己需要的内容 |
 | onChange | `function(value:array)` | - | change 事件，参数`value`为已选中用户 id 的字符串数组 |
