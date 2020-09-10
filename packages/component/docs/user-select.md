@@ -47,10 +47,10 @@ WT 人员选择插件（单一层级）
 
 | 参数 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| dataSource | array | undefined | 数据源，必须包含用户 id,用户名称，用户头像 |
-| value | array | undefined | 当前值 |
-| defaultValue | array | undefined | 默认值 |
+| dataSource | array | - | 数据源，必须包含用户 id,用户名称，用户头像 |
+| value | array | - | 当前值 |
+| defaultValue | array | - | 默认值 |
 | multiple | boolean | true | 是否多选模式 |
 | fields | object | `{id:'UserId',name:'FullName',avatar:'Avatar'}` | 数据源中 id，名称，头像对应的字段名，可以自定义 |
-| cardRender | function | undefined | 用户信息卡上显示的内容，通过参数(id)查找并返回自己需要的内容 |
-| onChange | function | undefined | change 事件，参数`v`为已选中用户 id 的字符串数组 |
+| cardRender | `(id) => ReactNode` | - | 用户信息卡上显示的内容，通过参数(id)查找并返回自己需要的内容 |
+| onChange | `function(value:array)` | - | change 事件，参数`value`为已选中用户 id 的字符串数组 |

@@ -3,7 +3,7 @@ title: 测试
 order: 10
 group:
   title: 其他
-  path: /design
+  path: /other
   order: 10
 nav:
   title: 前端文档
