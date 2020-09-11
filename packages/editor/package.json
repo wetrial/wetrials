@@ -35,6 +35,7 @@
   "homepage": "https://github.com/wetrial/wetrials/tree/master/packages/editor#readme",
   "peerDependencies": {
     "antd": "^4.x",
+    "@ant-design/icons": "^4.x",
     "lodash": "^4.x",
     "path-to-regexp": "^6.x",
     "react": "^16.x",

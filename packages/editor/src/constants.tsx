@@ -30,14 +30,15 @@ const COLORS = [
   '#333333',
   '#000000',
 ];
+
 // 存储默认前景颜色
-const defaultColors: React.ReactElement[] = [];
+const DEFAULT_COLORS: React.ReactElement[] = [];
 
 // 存储默认背景颜色
-const defaultBackgrounds: React.ReactElement[] = [];
+const DEFAULT_BACKGROUNDS: React.ReactElement[] = [];
 
 COLORS.forEach((color, index) => {
-  defaultBackgrounds.push(
+  DEFAULT_BACKGROUNDS.push(
     <Button
       size="small"
       className="background-item"
@@ -48,7 +49,7 @@ COLORS.forEach((color, index) => {
     />,
   );
 
-  defaultColors.push(
+  DEFAULT_COLORS.push(
     <Button
       size="small"
       className="background-item"
@@ -60,4 +61,14 @@ COLORS.forEach((color, index) => {
   );
 });
 
-export { defaultColors, defaultBackgrounds };
+/**
+ * 默认文字尺寸
+ */
+const DEFAULT_SIZE = ['32px', '24px', '20px', '18px', '16px', '14px', '13px', '12px'];
+
+/**
+ * 默认Header定义
+ */
+const DEFAULT_HEADER = ['1', '2', '3', '4', '5', '6', false];
+
+export { DEFAULT_SIZE, DEFAULT_COLORS, DEFAULT_BACKGROUNDS, DEFAULT_HEADER };
