@@ -19,10 +19,10 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
       - run: echo ${{github.ref}}
-      - run: yarn --ignore-engines
-      - run: yarn run lint
-      - run: yarn run build
-      - run: yarn run test
+      - run: npm --ignore-engines
+      - run: npm run lint
+      - run: npm run build
+      - run: npm run test
         env:
           CI: true
           PROGRESS: none
