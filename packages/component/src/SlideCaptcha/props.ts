@@ -1,20 +1,20 @@
 export interface ISlideCaptcha {
   /**
-   * 显示方式
+   * 当前标识客户端的token，验证的时候会发送回服务器端
    */
-  showType?: 'fixed' | 'hover';
+  token: string;
   /**
-   * 刷新方式
+   * 图形高度
    */
-  resetType?: 'auto' | 'manual';
+  height?: number;
   /**
-   * 重置按钮 none:不现实  inline:内嵌
+   * 图形宽度
    */
-  resetButton?: 'none' | 'inline';
+  width?: number;
   /**
-   * 浮动显示验证码图片的情况下，相对拖拽块的显示位置
+   * 拼接块距离顶部的像素
    */
-  hoverPosition?: 'top' | 'bottom';
+  top: number;
   /**
    * 显示的提示文字
    */
@@ -26,43 +26,27 @@ export interface ISlideCaptcha {
   /**
    * 背景图片地址,img src支持的地址
    */
-  bgUrl: string;
+  bgSrc: string;
   /**
    * 填充图片地址,img src支持的地址
    */
-  captchUrl: string;
+  captchSrc: string;
   /**
    * 提交验证的方法,需要返回一个 true(成功)或者false(失败)
    */
-  validate: (validateValue: number) => Promise<string>;
+  validate: (validateValue: any) => Promise<string>;
   /**
    * 验证成功执行的函数
    */
-  onValidateSuccess?: (validKey: string) => void;
+  onFinish?: (validKey: string) => void;
   /**
    * 验证失败执行的函数
    */
-  onValidatedFail?: (error: any) => void;
+  onFinishFailed?: (error: any) => void;
   /**
    * 重置执行的函数
    */
   onReset?: () => void;
-  /**
-   * 滑动元素
-   */
-  slideElement?: React.ReactElement;
-  /**
-   * 滑动中显示的元素
-   */
-  slideElementMoving?: React.ReactElement;
-  /**
-   * 成功显示的滑块元素
-   */
-  slideElementSuccess?: React.ReactElement;
-  /**
-   * 失败显示的滑块元素
-   */
-  slideElementError?: React.ReactElement;
   /**
    * 滑块容器上的样式
    */
@@ -72,19 +56,44 @@ export interface ISlideCaptcha {
    */
   style?: React.CSSProperties;
   /**
-   * 提提示块上的样式
+   * 刷新提示文字
    */
-  tipClassName?: React.CSSProperties;
+  refreshTitle?: string;
+  onRefresh: () => void;
+}
+
+export interface ISlideCaptchaState {
   /**
-   * 提示块上的style
+   * 记录开始滑动的时间
    */
-  tipStyle?: React.CSSProperties;
+  startTime: Date;
   /**
-   * 浮窗面板className
+   * 记录结束滑动的时间
    */
-  hoverPanelClassName?: string;
+  endTime: Date;
   /**
-   * 浮窗面板style
+   * 当前是否正在移动中
    */
-  hoverPanelStyle?: React.CSSProperties;
+  isMove: boolean;
+  /**
+   * 位置差(相当于页面浏览器最左端)
+   */
+  poorX: number;
+  /**
+   * 拖拽记录
+   */
+  tracks: string[];
+  /**
+   * 拖拽元素距离左边的距离
+   */
+  distance: 0;
+}
+
+export interface ISlideCaptchaAction {
+  type: string;
+  payload?: any;
+}
+
+export interface ISlideCaptchaRefProp {
+  refresh: () => void;
 }

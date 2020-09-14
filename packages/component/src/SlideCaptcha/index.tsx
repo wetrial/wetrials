@@ -1,424 +1,219 @@
-/* eslint-disable jsx-a11y/mouse-events-have-key-events */
-import React from 'react';
-import { Button, Spin } from 'antd';
-import { ConfigConsumer, ConfigConsumerProps } from 'antd/lib/config-provider';
-import { ArrowRightOutlined, CloseOutlined, CheckOutlined } from '@ant-design/icons';
-import { ISlideCaptcha } from './props';
+import React, { useEffect, useReducer } from 'react';
+import { Spin } from 'antd';
+import { ConfigConsumer, ConfigConsumerProps } from 'antd/es/config-provider';
+import { initState, reducer } from './reducer';
+import { ISlideCaptcha, ISlideCaptchaRefProp } from './props';
+import './index.less';
 
-enum EValidateStatus {
-  init = 1,
-  success = 2,
-  error = 3,
-}
+const SlideCaptcha: React.ForwardRefRenderFunction<ISlideCaptchaRefProp, ISlideCaptcha> = (
+  props,
+  ref,
+) => {
+  const { width = 200, height = 100, onRefresh, validate } = props;
+  // 最大滑动距离
+  const maxSlideWidth = width - 36;
 
-interface ISlideCaptchaState {
-  originX: number;
-  offsetX: number;
-  originY: number;
-  totalY: number;
-  isMoving: boolean;
-  isTouchEndSpan: boolean;
-  isSliderHover: boolean;
-  validated: EValidateStatus;
-}
+  const [state, dispatch] = useReducer(
+    reducer,
+    {
+      // 记录开始滑动的时间
+      startTime: new Date(),
+      // 记录结束滑动的时间
+      endTime: new Date(),
+      // 当前是否正在移动中
+      isMove: false,
+      // 位置差(相当于页面浏览器最左端)
+      poorX: 0,
+      // 拖拽记录
+      tracks: [],
+      // 拖拽元素距离左边的距离
+      distance: 0,
+    },
+    initState,
+  );
 
-export default class SlideCaptcha extends React.Component<ISlideCaptcha, ISlideCaptchaState> {
-  public static defaultProps = {
-    showType: 'fixed',
-    resetType: 'auto',
-    resetButton: 'inline',
-    hoverPosition: 'top',
-    tip: '向右滑动滑块填充拼图',
-    loading: false,
-    slideElement: <Button icon={<ArrowRightOutlined />} />,
-    slideElementError: <Button icon={<CloseOutlined />} />,
-    slideElementSuccess: <Button icon={<CheckOutlined />} />,
-  };
-
-  state: ISlideCaptchaState = {
-    offsetX: 0,
-    originX: 0,
-    originY: 0,
-    totalY: 0,
-    isTouchEndSpan: false,
-    isMoving: false,
-    isSliderHover: false,
-    validated: EValidateStatus.init,
-  };
-
-  private maxSlidedWidth: number = 0;
-  private ctrlWidth: any = null;
-  private sliderWidth: any = null;
-  private timeout: any = null;
-  private reset: any = null;
-
-  componentDidMount() {
-    document.addEventListener('mouseup', this.listenMouseUp);
-
-    document.addEventListener('mousemove', this.listenMouseMove);
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps: Readonly<ISlideCaptcha>): void {
-    if (nextProps.resetType === 'manual') {
-      this.resetCaptcha(false);
-    }
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('mouseup', this.listenMouseUp);
-    document.removeEventListener('mousemove', this.listenMouseMove);
-  }
-
-  private getClientX = (e): number => {
-    if (e.type.indexOf('mouse') > -1) {
-      return e.clientX;
-    }
-    if (e.type.indexOf('touch') > -1) {
-      return e.touches[0].clientX;
-    }
-    return 0;
-  };
-
-  private getClientY = (e): number => {
-    if (e.type.indexOf('mouse') > -1) {
-      return e.clientY;
-    }
-    if (e.type.indexOf('touch') > -1) {
-      return e.touches[0].clientY;
-    }
-    return 0;
-  };
-
-  private move = (e): void => {
-    const clientX = this.getClientX(e);
-    const clientY = this.getClientY(e);
-    let offsetX = clientX - this.state.originX;
-    const offsetY = Math.abs(clientY - this.state.originY);
-    const totalY = this.state.totalY + offsetY;
-    if (offsetX > 0) {
-      if (offsetX > this.maxSlidedWidth) {
-        offsetX = this.maxSlidedWidth;
-      }
-      this.setState({
-        offsetX,
-        totalY,
-      });
-    }
-  };
-
-  public validatedSuccess = (callback: () => any): void => {
-    this.setState(
-      {
-        validated: EValidateStatus.success,
-      },
-      () => {
-        callback();
-        if (this.props.resetType === 'auto') {
-          setTimeout(() => {
-            this.resetCaptcha();
-          }, 500);
-        }
-      },
-    );
-  };
-
-  public validatedFail = (callback: () => any): any => {
-    this.setState(
-      {
-        validated: EValidateStatus.error,
-      },
-      () => {
-        callback();
-        if (this.props.resetType === 'auto') {
-          setTimeout(() => {
-            this.resetCaptcha();
-          }, 500);
-        }
-      },
-    );
-  };
-
-  private handleTouchStart = (e): void => {
+  const defaultEvent = (e) => {
     e.preventDefault();
-    if (this.state.isTouchEndSpan || this.props.loading) {
-      return;
-    }
-    this.setState({
-      originX: this.getClientX(e),
-      originY: this.getClientY(e),
-    });
   };
 
-  private handleTouchMove = (e): void => {
-    e.preventDefault();
-    if (this.state.isTouchEndSpan || this.props.loading) {
-      return;
-    }
-    this.move(e);
-    this.setState({
-      isMoving: true,
-    });
+  const refresh = () => {
+    dispatch({ type: 'reset' });
+    onRefresh?.();
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private handleTouchEnd = async (e) => {
-    if (this.state.isTouchEndSpan || this.props.loading) {
-      return;
-    }
+  /**
+   * 鼠标/手指开始滑动
+   * @param {*} currentPageX 当前所处位置距离浏览器最左边的位置
+   */
+  const dragStart = (currentPageX) => {
+    dispatch({ type: 'setMove', payload: true });
+    // 当前位置减去已拖拽的位置作为位置差
+    dispatch({ type: 'setPoorX', payload: currentPageX - state.distance });
+    dispatch({ type: 'setStartTime', payload: new Date() });
+  };
 
-    if (this.state.offsetX > 0) {
-      if (this.state.isTouchEndSpan || this.props.loading) {
-        return;
+  /**
+   * 拖拽移动过程触发
+   * @param {*} currentPageX 当前所处位置距离浏览器最左边的位置
+   */
+  const dragMoving = (currentPageX) => {
+    const distance = currentPageX - state.poorX;
+    if (state.isMove) {
+      dispatch({ type: 'setDistance', payload: distance });
+      if (distance > 0 && distance <= maxSlideWidth) {
+        dispatch({ type: 'appendTracks', payload: `${distance},${new Date().getTime()}` });
       }
+      // 鼠标指针移动距离超过最大时清空事件
+      else {
+        dispatch({ type: 'reset' });
+      }
+    }
+  };
 
-      if (this.state.offsetX > 0) {
-        const validateValue = this.state.offsetX / this.maxSlidedWidth;
-        this.setState({
-          isTouchEndSpan: true,
-          isMoving: false,
+  /**
+   * 拖拽结束触发
+   * @param {*} currentPageX 当前所处位置距离浏览器最左边的位置
+   */
+  const dragEnd = () => {
+    // 距离不能少于5 否则算没拖动
+    if (!state.isMove || state.distance < 5) {
+      return;
+    }
+    dispatch({ type: 'setMove', payload: false });
+    if (state.poorX === undefined) {
+      return;
+    }
+    dispatch({ type: 'setEndTime', payload: new Date() });
+    // 调用远程进行校验
+    setTimeout(() => {
+      validate?.({
+        token: props.token,
+        point: state.distance,
+        timespan: Number(state.endTime) - Number(state.startTime),
+        datelist: state.tracks.join('|'),
+      })
+        .then((result) => {
+          props.onFinish?.(result);
+          return result;
+        })
+        .catch((err) => {
+          if (props.onFinishFailed) {
+            props.onFinishFailed(err);
+          } else {
+            refresh();
+          }
         });
-
-        try {
-          const result = await this.props.validate(validateValue);
-          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-          this.props.onValidateSuccess && this.props.onValidateSuccess(result);
-        } catch (error) {
-          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-          this.props.onValidatedFail && this.props.onValidatedFail(error);
-        }
-
-        // if (this.props.validate) {
-        //   this.props.onRequest(validateValue,
-        //                       this.validatedSuccess,
-        //                       this.validatedFail,
-        //                       this.resetCaptcha,
-        //                       );
-        // }
-      }
-    }
+    }, 0);
   };
 
-  resetCaptcha = (isReset: boolean = true) => {
-    const targetPercent = 0;
-    const speed = this.maxSlidedWidth / 30;
-    const animate = () => {
-      const percent = this.state.offsetX;
-      const currentProgress = percent < speed ? 0 : percent - speed;
-      if (percent > targetPercent) {
-        this.setState(
-          {
-            offsetX: currentProgress,
-          },
-          () => {
-            window.requestAnimationFrame(animate);
-          },
-        );
-      } else {
-        this.setState(
-          {
-            offsetX: 0,
-            originX: 0,
-            originY: 0,
-            totalY: 0,
-            isTouchEndSpan: false,
-            isMoving: false,
-            validated: EValidateStatus.init,
-            isSliderHover: false,
-          },
-          () => {
-            if (this.props.onReset && isReset) {
-              this.props.onReset();
-            }
-          },
-        );
-      }
+  const handleMouseMove = (e) => {
+    dragMoving(e.pageX);
+  };
+
+  const handleMouseUp = () => {
+    dragEnd();
+  };
+
+  const handleTouchMove = (e) => {
+    dragMoving(e.originalEvent.touches[0].pageX);
+  };
+
+  const handleTouchend = () => {
+    dragEnd();
+    // 阻止页面的滑动默认事件
+    document.removeEventListener('touchmove', defaultEvent, false);
+  };
+
+  useEffect(() => {
+    // 移动鼠标、松开鼠标
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+
+    // 触摸移动 结束
+    window.addEventListener('touchmove', handleTouchMove);
+    window.addEventListener('touchend', handleTouchend);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('touchmove', handleMouseUp);
+      window.removeEventListener('touchend', handleMouseUp);
     };
-    window.requestAnimationFrame(animate);
-  };
+  }, [handleMouseMove, handleMouseUp, handleTouchMove, handleTouchend]);
 
-  handlerMouseDown = (e) => {
+  React.useImperativeHandle(ref, () => ({
+    refresh,
+  }));
+
+  const handleRefreshCaptcha = (e) => {
     e.preventDefault();
-    if (this.state.isTouchEndSpan || this.props.loading) {
-      return;
-    }
-    this.setState({
-      originX: this.getClientX(e),
-      originY: this.getClientY(e),
-      isMoving: true,
-    });
+    refresh();
   };
 
-  handlerMouseMove = (e) => {
-    e.preventDefault();
-    if (this.state.isTouchEndSpan || this.props.loading) {
-      return;
-    }
-    if (this.state.isMoving) {
-      this.move(e);
-    }
-  };
-
-  handlerMouseUp = (e) => {
-    e.preventDefault();
-    if (this.state.isTouchEndSpan || this.props.loading) {
-      return;
-    }
-    this.setState({
-      isMoving: false,
-      // isTouchEndSpan: true,
-    });
-    this.handleTouchEnd(e);
-  };
-
-  handleMoveOut = (e) => {
-    e.preventDefault();
-    if (this.state.validated === EValidateStatus.init) {
-      this.setState({
-        isSliderHover: false,
-      });
-    }
-  };
-
-  listenMouseUp = (e) => {
-    if (this.state.isMoving === true) {
-      this.handlerMouseUp(e);
-    }
-  };
-
-  listenMouseMove = (e) => {
-    this.handlerMouseMove(e);
-  };
-
-  renderCtrlClassName = (
-    slideElement,
-    slideElementSuccess,
-    slideElementError,
-    slideElementMoving,
-  ) => {
-    let ctrlClassName;
-    let slidedImageValue = slideElement;
-    if (this.state.isMoving) {
-      ctrlClassName = 'slider-moving';
-      slidedImageValue = slideElementMoving;
-    } else {
-      // eslint-disable-next-line no-lonely-if
-      if (this.state.isTouchEndSpan) {
-        if (this.state.validated === EValidateStatus.success) {
-          ctrlClassName = 'slider-end slider-success';
-          slidedImageValue = slideElementSuccess;
-        } else if (this.state.validated === EValidateStatus.error) {
-          ctrlClassName = 'slider-end slider-error';
-          slidedImageValue = slideElementError;
-        } else {
-          ctrlClassName = 'slider-moving';
-        }
-      } else {
-        // eslint-disable-next-line no-lonely-if
-        if (this.state.validated === EValidateStatus.init && this.state.isSliderHover) {
-          ctrlClassName = 'slider-moving';
-          slidedImageValue = slideElementMoving;
-        } else {
-          ctrlClassName = '';
-        }
-      }
-    }
-    return { ctrlClassName, slidedImage: slidedImageValue };
-  };
-
-  render() {
-    const { ctrlClassName, slidedImage } = this.renderCtrlClassName(
-      this.props.slideElement,
-      this.props.slideElementSuccess,
-      this.props.slideElementError,
-      this.props.slideElementMoving,
-    );
-
-    let positionObj;
-
-    let buttonElement;
-    let tipsText;
-
-    if (this.state.isMoving) {
-      if (this.props.loading) {
-        tipsText = '加载中...';
-      } else {
-        tipsText = null;
-      }
-    } else if (this.props.loading) {
-      tipsText = '加载中...';
-    } else {
-      tipsText = this.props.tip;
-    }
-
-    if (this.state.validated !== EValidateStatus.init) {
-      tipsText = null;
-    }
-
-    return (
-      <ConfigConsumer>
-        {({ getPrefixCls }: ConfigConsumerProps) => (
-          <div
-            className={getPrefixCls('wt-slide-captcha')}
-            style={this.props.style}
-            onMouseMove={this.handlerMouseMove}
-            onMouseUp={this.handlerMouseUp}
-          >
-            <div className="panel" style={{ ...positionObj, display: 'block' }}>
-              <Spin spinning={this.props.loading}>
-                <div className="bgContainer">
-                  <img alt="验证码" src={this.props.bgUrl} className="bgImg" />
-                  <img
-                    alt="验证码"
-                    src={this.props.captchUrl}
-                    className="puzzleImg"
-                    style={{ left: `${this.state.offsetX}px` }}
-                  />
-                </div>
-              </Spin>
+  return (
+    <ConfigConsumer>
+      {({ getPrefixCls }: ConfigConsumerProps) => (
+        <Spin spinning={props.loading}>
+          <div className={getPrefixCls('wt-slide-captcha')} style={{ height: height + 34, width }}>
+            <div style={{ width, height, background: '#e8e8e8' }}>
               <div
-                className="reset reset-inline"
-                ref={(el) => {
-                  this.reset = el;
+                className="captcha-img"
+                style={{
+                  backgroundImage: `url(${props.bgSrc})`,
+                  width: props.width,
+                  height: props.height,
                 }}
-              >
-                <div className="rest-container" onClick={() => this.resetCaptcha()}>
-                  {buttonElement}
-                </div>
-              </div>
+              />
+              <div
+                className="small-drag"
+                style={{
+                  backgroundImage: `url(${props.captchSrc})`,
+                  top: props.top,
+                  left: state.distance,
+                }}
+              />
             </div>
-            <div>
-              <div
-                className={`control ${ctrlClassName || ''}`}
-                ref={(el) => {
-                  this.ctrlWidth = el;
-                }}
-              >
-                <div className="slided" style={{ width: `${this.state.offsetX}px` }} />
-                <div
-                  className="slider"
-                  ref={(el) => {
-                    this.sliderWidth = el;
-                  }}
-                  style={{ left: `${this.state.offsetX}px` }}
-                  onTouchStart={this.handleTouchStart}
-                  onTouchMove={this.handleTouchMove}
-                  onTouchEnd={this.handleTouchEnd}
-                  onMouseDown={this.handlerMouseDown}
-                  onMouseOut={this.handleMoveOut}
-                >
-                  {slidedImage}
-                </div>
-                <div
-                  className={`tips ${this.props.tipClassName ? this.props.tipClassName : ''}`}
-                  style={this.props.tipStyle || {}}
-                >
-                  <span>{tipsText}</span>
-                </div>
+            <div className="drag" style={{ width: props.width }}>
+              <div className="drag-bg" style={{ width: state.distance }} />
+              <div className="drag-text" unselectable="on" style={{ width: props.width }}>
+                {props.tip}
               </div>
+              <div
+                onMouseDown={(e) => dragStart(e.pageX)}
+                onTouchStart={(e) => {
+                  dragStart(e.touches[0].pageX);
+                  document.addEventListener('touchmove', defaultEvent, false);
+                }}
+                className="handler handler-bg"
+                style={{ left: state.distance }}
+              />
+              <a title={props.refreshTitle} style={{ width: 16, height: 16 }}>
+                <div
+                  className="refesh-bg"
+                  onClick={handleRefreshCaptcha}
+                  style={{
+                    left: width - 20,
+                    display: 'block',
+                    visibility: state.isMove ? 'hidden' : 'visible',
+                  }}
+                />
+              </a>
             </div>
           </div>
-        )}
-      </ConfigConsumer>
-    );
-  }
-}
+        </Spin>
+      )}
+    </ConfigConsumer>
+  );
+};
+
+const SlideCaptchaComponent = React.forwardRef(SlideCaptcha);
+
+SlideCaptchaComponent.defaultProps = {
+  tip: '向右滑动滑块填充拼图',
+  refreshTitle: '换一张',
+  loading: true,
+  height: 100,
+  width: 200,
+};
+
+export default SlideCaptchaComponent;

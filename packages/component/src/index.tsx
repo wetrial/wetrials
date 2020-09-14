@@ -20,6 +20,8 @@ export { default as ProTable } from './ProTable';
 
 export { default as ScrollBar } from './ScrollBar';
 
+export { default as SlideCaptcha } from './SlideCaptcha';
+
 export { default as Table } from './Table';
 
 interface IWetrialComponentProps {
