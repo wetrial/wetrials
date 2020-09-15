@@ -18,9 +18,9 @@ jobs:
       # - name: authority npm
       #   run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
       - name: run install
-        run: npm install
+        run: yarn
       - name: run release
-        run: npm run release -- --tag=${{ github.ref }} --npm_token=${{ secrets.NPM_TOKEN }}
+        run: yarn run release -- --tag=${{ github.ref }} --npm_token=${{ secrets.NPM_TOKEN }}
         # - name: Publish to NPMJS
         #   run: yarn && npm run release -- --tag=${{ github.ref }} --npm_token=${{ secrets.NPM_TOKEN }}
         env:
