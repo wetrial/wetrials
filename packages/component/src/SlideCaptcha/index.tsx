@@ -9,7 +9,7 @@ const SlideCaptcha: React.ForwardRefRenderFunction<ISlideCaptchaRefProp, ISlideC
   props,
   ref,
 ) => {
-  const { width = 200, height = 100, onRefresh, validate } = props;
+  const { width = 200, height = 100, onRefresh, validate, tracks } = props;
   // 最大滑动距离
   const maxSlideWidth = width - 36;
 
@@ -37,8 +37,8 @@ const SlideCaptcha: React.ForwardRefRenderFunction<ISlideCaptchaRefProp, ISlideC
   };
 
   const refresh = () => {
-    dispatch({ type: 'reset' });
     onRefresh?.();
+    dispatch({ type: 'reset' });
   };
 
   /**
@@ -58,10 +58,12 @@ const SlideCaptcha: React.ForwardRefRenderFunction<ISlideCaptchaRefProp, ISlideC
    */
   const dragMoving = (currentPageX) => {
     const distance = currentPageX - state.poorX;
-    if (state.isMove) {
+    if (state.isMove && distance !== state.distance) {
       dispatch({ type: 'setDistance', payload: distance });
-      if (distance > 0 && distance <= maxSlideWidth) {
-        dispatch({ type: 'appendTracks', payload: `${distance},${new Date().getTime()}` });
+      if (distance >= 0 && distance <= maxSlideWidth) {
+        if (tracks) {
+          dispatch({ type: 'appendTracks', payload: `${distance},${new Date().getTime()}` });
+        }
       }
       // 鼠标指针移动距离超过最大时清空事件
       else {
@@ -84,12 +86,12 @@ const SlideCaptcha: React.ForwardRefRenderFunction<ISlideCaptchaRefProp, ISlideC
       return;
     }
     dispatch({ type: 'setEndTime', payload: new Date() });
-    // 调用远程进行校验
     setTimeout(() => {
+      // 调用远程进行校验
       validate?.({
         token: props.token,
         point: state.distance,
-        timespan: Number(state.endTime) - Number(state.startTime),
+        timespan: Math.abs(Number(state.endTime) - Number(state.startTime)),
         datelist: state.tracks.join('|'),
       })
         .then((result) => {
@@ -103,7 +105,7 @@ const SlideCaptcha: React.ForwardRefRenderFunction<ISlideCaptchaRefProp, ISlideC
             refresh();
           }
         });
-    }, 0);
+    });
   };
 
   const handleMouseMove = (e) => {
@@ -214,6 +216,7 @@ SlideCaptchaComponent.defaultProps = {
   loading: true,
   height: 100,
   width: 200,
+  tracks: false,
 };
 
 export default SlideCaptchaComponent;

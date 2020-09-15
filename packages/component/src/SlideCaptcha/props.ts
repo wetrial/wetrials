@@ -59,6 +59,10 @@ export interface ISlideCaptcha {
    * 刷新提示文字
    */
   refreshTitle?: string;
+  /**
+   * 是否记录轨迹 默认false
+   */
+  tracks?: boolean;
   onRefresh: () => void;
 }
 
