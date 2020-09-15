@@ -34,7 +34,7 @@ export interface ISlideCaptcha {
   /**
    * 提交验证的方法,需要返回一个 true(成功)或者false(失败)
    */
-  validate: (validateValue: any) => Promise<string>;
+  validate: (validateValue: any) => Promise<any>;
   /**
    * 验证成功执行的函数
    */
