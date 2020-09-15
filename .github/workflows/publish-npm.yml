@@ -20,7 +20,7 @@ jobs:
       - name: run install
         run: yarn
       - name: run release
-        run: npm run release -- --tag=${{ github.ref }} --npm_token=${{ secrets.NPM_TOKEN }}
+        run: npm release -- --tag=${{ github.ref }} --npm_token=${{ secrets.NPM_TOKEN }}
         # - name: Publish to NPMJS
         #   run: yarn && npm run release -- --tag=${{ github.ref }} --npm_token=${{ secrets.NPM_TOKEN }}
         env:
