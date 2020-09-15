@@ -1,6 +1,6 @@
 {
   "name": "@wetrial/hooks",
-  "version": "3.1.5",
+  "version": "3.1.6",
   "description": "@wetrial/hooks",
   "module": "es/index.js",
   "main": "lib/index.js",
