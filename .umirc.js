@@ -52,7 +52,7 @@ export default {
     '@wetrial/component/es': join(__dirname, 'packages', 'component/src'),
     ...alias,
   },
-  resolve: { includes: [...tailPkgList, 'docs', 'wetrial-doc'] },
+  resolve: { includes: [...tailPkgList, 'docs', 'wetrial-doc', 'wetrial-samples'] },
   locales: [['zh-CN', '中文']],
   navs: [
     null,
