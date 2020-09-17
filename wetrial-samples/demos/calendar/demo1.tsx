@@ -28,20 +28,21 @@ export default function sample() {
     const listData = [] as any[];
     eventList.map((item) => {
       if (
-        item.startTime === item.endTime &&
-        value.format('YYYY-MM-DD') === item.startTime.format('YYYY-MM-DD')
-      ) {
-        listData.push({ type: item.type, content: item.content, position: 'single' });
-      } else if (
         item.startTime.format('YYYY-MM-DD') < value.format('YYYY-MM-DD') &&
         value.format('YYYY-MM-DD') < item.endTime.format('YYYY-MM-DD')
       ) {
         listData.push({ type: item.type, content: item.content, position: 'middle' });
+      } else if (
+        item.startTime.format('YYYY-MM-DD') === value.format('YYYY-MM-DD') &&
+        item.endTime.format('YYYY-MM-DD') === value.format('YYYY-MM-DD')
+      ) {
+        listData.push({ type: item.type, content: item.content, position: 'single' });
       } else if (value.format('YYYY-MM-DD') === item.startTime.format('YYYY-MM-DD')) {
         listData.push({ type: item.type, content: item.content, position: 'start' });
       } else if (value.format('YYYY-MM-DD') === item.endTime.format('YYYY-MM-DD')) {
         listData.push({ type: item.type, content: item.content, position: 'end' });
       }
+
       return null;
     });
     return listData || [];
