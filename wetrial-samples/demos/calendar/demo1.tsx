@@ -10,20 +10,37 @@ const eventList = [
     type: 'warning',
     content: '长事件',
   },
+  {
+    startTime: moment('20200917'),
+    endTime: moment('20200918'),
+    type: 'success',
+    content: '两天',
+  },
+  {
+    startTime: moment('20200920'),
+    endTime: moment('20200920'),
+    type: 'processing',
+    content: '单日',
+  },
 ];
 export default function sample() {
   function getListData(value) {
-    let listData;
+    const listData = [] as any[];
     eventList.map((item) => {
       if (
+        item.startTime === item.endTime &&
+        value.format('YYYY-MM-DD') === item.startTime.format('YYYY-MM-DD')
+      ) {
+        listData.push({ type: item.type, content: item.content, position: 'single' });
+      } else if (
         item.startTime.format('YYYY-MM-DD') < value.format('YYYY-MM-DD') &&
         value.format('YYYY-MM-DD') < item.endTime.format('YYYY-MM-DD')
       ) {
-        listData = [{ type: item.type, content: item.content, position: 'middle' }];
+        listData.push({ type: item.type, content: item.content, position: 'middle' });
       } else if (value.format('YYYY-MM-DD') === item.startTime.format('YYYY-MM-DD')) {
-        listData = [{ type: item.type, content: item.content, position: 'start' }];
+        listData.push({ type: item.type, content: item.content, position: 'start' });
       } else if (value.format('YYYY-MM-DD') === item.endTime.format('YYYY-MM-DD')) {
-        listData = [{ type: item.type, content: item.content, position: 'end' }];
+        listData.push({ type: item.type, content: item.content, position: 'end' });
       }
       return null;
     });
