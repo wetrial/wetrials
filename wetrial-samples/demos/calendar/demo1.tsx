@@ -5,18 +5,42 @@ import moment from 'moment';
 
 const eventList = [
   {
+    key: '001',
     startTime: moment('20200912'),
     endTime: moment('20200925'),
     type: 'warning',
     content: '长事件',
   },
   {
+    key: '002',
     startTime: moment('20200917'),
     endTime: moment('20200918'),
     type: 'success',
     content: '两天',
   },
   {
+    key: '003',
+    startTime: moment('20200920'),
+    endTime: moment('20200920'),
+    type: 'processing',
+    content: '单日',
+  },
+  {
+    key: '004',
+    startTime: moment('20200920'),
+    endTime: moment('20200920'),
+    type: 'processing',
+    content: '单日',
+  },
+  {
+    key: '005',
+    startTime: moment('20200920'),
+    endTime: moment('20200920'),
+    type: 'processing',
+    content: '单日',
+  },
+  {
+    key: '006',
     startTime: moment('20200920'),
     endTime: moment('20200920'),
     type: 'processing',
@@ -31,16 +55,26 @@ export default function sample() {
         item.startTime.format('YYYY-MM-DD') < value.format('YYYY-MM-DD') &&
         value.format('YYYY-MM-DD') < item.endTime.format('YYYY-MM-DD')
       ) {
-        listData.push({ type: item.type, content: item.content, position: 'middle' });
+        listData.push({
+          key: item.key,
+          type: item.type,
+          content: item.content,
+          position: 'middle',
+        });
       } else if (
         item.startTime.format('YYYY-MM-DD') === value.format('YYYY-MM-DD') &&
         item.endTime.format('YYYY-MM-DD') === value.format('YYYY-MM-DD')
       ) {
-        listData.push({ type: item.type, content: item.content, position: 'single' });
+        listData.push({
+          key: item.key,
+          type: item.type,
+          content: item.content,
+          position: 'single',
+        });
       } else if (value.format('YYYY-MM-DD') === item.startTime.format('YYYY-MM-DD')) {
-        listData.push({ type: item.type, content: item.content, position: 'start' });
+        listData.push({ key: item.key, type: item.type, content: item.content, position: 'start' });
       } else if (value.format('YYYY-MM-DD') === item.endTime.format('YYYY-MM-DD')) {
-        listData.push({ type: item.type, content: item.content, position: 'end' });
+        listData.push({ key: item.key, type: item.type, content: item.content, position: 'end' });
       }
 
       return null;
@@ -53,7 +87,7 @@ export default function sample() {
     return (
       <ul className="events">
         {listData.map((item) => (
-          <Tooltip key={item.content} title={item.content}>
+          <Tooltip key={item.key} title={item.content}>
             <li className={item.position}>
               <Tag color={item.type}>{item.content}</Tag>
             </li>
