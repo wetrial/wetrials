@@ -62,6 +62,16 @@ export default function sample() {
           position: 'middle',
         });
       } else if (
+        value.format('YYYY-MM-DD') === item.startTime.format('YYYY-MM-DD') &&
+        item.startTime.format('YYYY-MM-DD') !== item.endTime.format('YYYY-MM-DD')
+      ) {
+        listData.push({ key: item.key, type: item.type, content: item.content, position: 'start' });
+      } else if (
+        value.format('YYYY-MM-DD') === item.endTime.format('YYYY-MM-DD') &&
+        item.startTime.format('YYYY-MM-DD') !== item.endTime.format('YYYY-MM-DD')
+      ) {
+        listData.push({ key: item.key, type: item.type, content: item.content, position: 'end' });
+      } else if (
         item.startTime.format('YYYY-MM-DD') === value.format('YYYY-MM-DD') &&
         item.endTime.format('YYYY-MM-DD') === value.format('YYYY-MM-DD')
       ) {
@@ -71,10 +81,6 @@ export default function sample() {
           content: item.content,
           position: 'single',
         });
-      } else if (value.format('YYYY-MM-DD') === item.startTime.format('YYYY-MM-DD')) {
-        listData.push({ key: item.key, type: item.type, content: item.content, position: 'start' });
-      } else if (value.format('YYYY-MM-DD') === item.endTime.format('YYYY-MM-DD')) {
-        listData.push({ key: item.key, type: item.type, content: item.content, position: 'end' });
       }
 
       return null;
