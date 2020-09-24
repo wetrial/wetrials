@@ -1,6 +1,6 @@
 {
   "name": "@wetrial/component",
-  "version": "0.5.9",
+  "version": "0.5.10",
   "description": "@wetrial/component",
   "module": "es/index.js",
   "main": "lib/index.js",
