@@ -7,5 +7,5 @@ export default () => {
     { value: 'PPT', label: '最好的语言' },
     { value: 'react', label: 'React' },
   ];
-  return <ProSelect style={{ width: 200 }} enums={list} allowClear />;
+  return <ProSelect style={{ width: 200 }} options={list} allowClear />;
 };

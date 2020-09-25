@@ -2,10 +2,6 @@ import React from 'react';
 import { ProSelect } from '@wetrial/component';
 
 export default () => {
-  const list = [
-    { value: 'C#', label: 'C#' },
-    { value: 'PPT', label: '最好的语言' },
-    { value: 'react', label: 'React' },
-  ];
+  const list = ['C#', 'PPT', 'react'];
   return <ProSelect style={{ width: 200 }} enums={list} allowClear />;
 };

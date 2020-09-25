@@ -21,9 +21,17 @@ group:
 
 <code src="../demos/pro-select/demo1.tsx" />
 
+### 字符串数组
+
+<code src="../demos/pro-select/demo-string-array.tsx" />
+
 ### 指定 keyProp、labelProp
 
 <code src="../demos/pro-select/demo2.tsx" />
+
+### 使用默认 options
+
+<code src="../demos/pro-select/demo-options.tsx" />
 
 ### 案例
 
@@ -33,7 +41,7 @@ group:
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| list | 数据源数组 | `Array<T>` | - |
+| enums | 数据源数组 | Array<string \| T> | - |
 | keyProp | 数据源中作为 key 的属性名 | `string` | key |
 | labelProp | 数据源中作为 label 的属性名 | `string` | label |
 | [更多 属性 ](https://next.ant.design/components/select-cn/#Select-props) |  |  |  |
