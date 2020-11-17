@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
+import { Sources } from 'quill';
 
 /**
  * 定义默认前景色、背景色
@@ -71,4 +72,17 @@ const DEFAULT_SIZE = ['32px', '24px', '20px', '18px', '16px', '14px', '13px', '1
  */
 const DEFAULT_HEADER = ['1', '2', '3', '4', '5', '6', false];
 
-export { DEFAULT_SIZE, DEFAULT_COLORS, DEFAULT_BACKGROUNDS, DEFAULT_HEADER };
+/**
+ * Quill api常量
+ */
+const QUILL_SOURCES: {
+  API: Sources;
+  USER: Sources;
+  SILENT: Sources;
+} = {
+  API: 'api',
+  USER: 'user',
+  SILENT: 'silent',
+};
+
+export { DEFAULT_SIZE, DEFAULT_COLORS, DEFAULT_BACKGROUNDS, DEFAULT_HEADER, QUILL_SOURCES };

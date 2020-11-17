@@ -90,7 +90,7 @@ interface ICustomItem extends ICustomBase {
   handle: (...args: any[]) => void;
 }
 
-interface ICustomInsert {
+export interface ICustomInsert {
   [key: string]: ICustomItem | ICustomInsertValue;
 }
 
@@ -233,8 +233,8 @@ const Toolbar: React.FunctionComponent<IToolbar> = (props) => {
       const customConfig = customInsert[configKey];
       // 自定义按钮
       if ('handle' in customConfig) {
-        cls = classNames('action custom-insert', {
-          [`ql-${configKey}-custom-insert`]: true,
+        cls = classNames('action custom-insert custom-insert-button', {
+          [`ql-custom-insert-${configKey}`]: true,
           [`${customConfig.className}`]: !!customConfig.className,
         });
         result = <Button key={key} className={cls} icon={customConfig.icon} size="small" />;

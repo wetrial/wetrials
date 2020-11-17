@@ -34,8 +34,8 @@
   "bugs": "https://github.com/wetrial/wetrials/issues",
   "homepage": "https://github.com/wetrial/wetrials/tree/master/packages/editor#readme",
   "peerDependencies": {
-    "antd": "^4.x",
     "@ant-design/icons": "^4.x",
+    "antd": "^4.x",
     "lodash": "^4.x",
     "path-to-regexp": "^6.x",
     "react": "^16.x",
@@ -46,6 +46,11 @@
     "access": "public"
   },
   "dependencies": {
+    "quill": "2.0.0-dev.4",
+    "quill-better-table": "^1.2.10",
     "react-quill": "^2.0.0-beta.2"
+  },
+  "devDependencies": {
+    "@types/quill": "^2.0.3"
   }
 }
