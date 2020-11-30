@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Table } from 'antd';
+import { ConfigConsumer, ConfigConsumerProps } from 'antd/es/config-provider';
 import { TableProps } from 'antd/es/table';
 import { Resizable } from 'react-resizable';
 
@@ -25,7 +26,7 @@ const ResizeableTitle = (props) => {
       height={0}
       handle={
         <span
-          className="wetrial-resizable-handle"
+          className="resizable-handle"
           onClick={(e) => {
             e.stopPropagation();
           }}
@@ -103,8 +104,17 @@ const ResizeableTalbe = <RecordType extends object = any>(
       }),
     };
   }
-
-  return <Table {...restProps} {...tableProps} />;
+  return (
+    <ConfigConsumer>
+      {({ getPrefixCls }: ConfigConsumerProps) => (
+        <Table
+          {...restProps}
+          {...tableProps}
+          className={`${restProps.className} ${getPrefixCls('wt-table')}`}
+        />
+      )}
+    </ConfigConsumer>
+  );
 };
 
 export default ResizeableTalbe;

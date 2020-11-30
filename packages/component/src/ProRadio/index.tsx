@@ -1,7 +1,17 @@
-import { RadioProps } from 'antd/es/radio';
+import { RadioProps } from 'antd/lib/radio';
 import InternalRadio from './radio';
 import Group from './group';
 import Button from './radioButton';
+
+export {
+  RadioGroupButtonStyle,
+  RadioGroupOptionType,
+  RadioGroupProps,
+  RadioGroupContextProps,
+  RadioProps,
+  RadioChangeEventTarget,
+  RadioChangeEvent,
+} from 'antd/lib/radio';
 
 interface CompoundedComponent
   extends React.ForwardRefExoticComponent<RadioProps & React.RefAttributes<HTMLElement>> {

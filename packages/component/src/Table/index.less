@@ -1,14 +1,21 @@
-.react-resizable {
-  position: relative;
-  background-clip: padding-box;
-}
+@import '~antd/lib/style/themes/default.less';
+@import '~antd/lib/list/style/index.less';
 
-.wetrial-resizable-handle {
-  position: absolute;
-  width: 10px;
-  height: 100%;
-  bottom: 0;
-  right: -5px;
-  cursor: col-resize;
-  z-index: 1;
+@table-prefix-cls: ~'@{ant-prefix}-wt-table';
+
+.@{table-prefix-cls} {
+  .react-resizable {
+    position: relative;
+    background-clip: padding-box;
+  }
+
+  .resizable-handle {
+    position: absolute;
+    width: 10px;
+    height: 100%;
+    bottom: 0;
+    right: -5px;
+    cursor: col-resize;
+    z-index: 1;
+  }
 }
