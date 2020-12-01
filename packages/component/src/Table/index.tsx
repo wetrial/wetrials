@@ -104,6 +104,7 @@ const ResizeableTalbe = <RecordType extends object = any>(
       }),
     };
   }
+
   return (
     <ConfigConsumer>
       {({ getPrefixCls }: ConfigConsumerProps) => (
