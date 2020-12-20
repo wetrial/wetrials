@@ -1,40 +1,21 @@
-@import '~antd/es/style/themes/default.less';
+@import '~antd/lib/style/themes/default.less';
+@import '~antd/lib/list/style/index.less';
 
-@pro-table-prefix-cls: ~'@{ant-prefix}-pro-table';
+@pro-table-prefix-cls: ~'@{ant-prefix}-wt-pro-table';
 
-.@{pro-table-prefix-cls}-advance-search {
-  padding-top: 8px;
+.@{pro-table-prefix-cls} {
+  .react-resizable {
+    position: relative;
+    background-clip: padding-box;
+  }
+
+  .resizable-handle {
+    position: absolute;
+    right: -5px;
+    bottom: 0;
+    z-index: 1;
+    width: 10px;
+    height: 100%;
+    cursor: col-resize;
+  }
 }
-
-//.@{pro-table-prefix-cls} {
-//   z-index: 1;
-//   &:not(:root):fullscreen {
-//     min-height: 100vh;
-//     overflow: auto;
-//     background: @component-background;
-//   }
-
-//   .@{ant-prefix}-pagination {
-//     padding: 0 24px;
-//   }
-
-//   .@{ant-prefix}-table-row .@{ant-prefix}-table-cell:first-child {
-//     padding-left: 24px;
-//     a {
-//       padding: 0;
-//     }
-//   }
-
-//   .@{ant-prefix}-table-content tr:first-child > th:first-child {
-//     padding-left: 24px;
-//     a {
-//       padding: 0;
-//     }
-//   }
-
-//   td.@{ant-prefix}-table-cell {
-//     > a {
-//       font-size: 14px;
-//     }
-//   }
-//}

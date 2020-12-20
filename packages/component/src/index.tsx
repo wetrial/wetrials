@@ -22,8 +22,6 @@ export { default as ScrollBar } from './ScrollBar';
 
 export { default as SlideCaptcha } from './SlideCaptcha';
 
-export { default as Table } from './Table';
-
 interface IWetrialComponentProps {
   /**
    * 字体图标文件地址

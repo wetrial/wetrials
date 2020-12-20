@@ -17,17 +17,12 @@
   dependencies:
     "@ctrl/tinycolor" "^3.1.6"
 
-"@ant-design/css-animation@^1.7.2":
-  version "1.7.3"
-  resolved "https://registry.npmjs.org/@ant-design/css-animation/-/css-animation-1.7.3.tgz#60a1c970014e86b28f940510d69e503e428f1136"
-  integrity sha512-LrX0OGZtW+W6iLnTAqnTaoIsRelYeuLZWsrmBJFUXDALQphPsN8cE5DCsmoSlL0QYb94BQxINiuS70Ar/8BNgA==
-
 "@ant-design/icons-svg@^4.0.0":
   version "4.1.0"
   resolved "https://registry.npmjs.org/@ant-design/icons-svg/-/icons-svg-4.1.0.tgz#480b025f4b20ef7fe8f47d4a4846e4fee84ea06c"
   integrity sha512-Fi03PfuUqRs76aI3UWYpP864lkrfPo0hluwGqh7NJdLhvH4iRDc3jbJqZIvRDLHKbXrvAfPPV3+zjUccfFvWOQ==
 
-"@ant-design/icons@^4.0.0", "@ant-design/icons@^4.2.2", "@ant-design/icons@^4.3.0":
+"@ant-design/icons@^4.0.0", "@ant-design/icons@^4.1.0", "@ant-design/icons@^4.2.1", "@ant-design/icons@^4.2.2", "@ant-design/icons@^4.3.0":
   version "4.3.0"
   resolved "https://registry.npmjs.org/@ant-design/icons/-/icons-4.3.0.tgz#420e0cd527486c0fe57f81310d681950fc4cfacf"
   integrity sha512-UoIbw4oz/L/msbkgqs2nls2KP7XNKScOxVR54wRrWwnXOzJaGNwwSdYjHQz+5ETf8C53YPpzMOnRX99LFCdeIQ==
@@ -38,6 +33,65 @@
     classnames "^2.2.6"
     insert-css "^2.0.0"
     rc-util "^5.0.1"
+
+"@ant-design/pro-field@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.npmjs.org/@ant-design/pro-field/-/pro-field-1.2.1.tgz#1a0eb53acfdba1e446102524c25a432f80c69e91"
+  integrity sha512-M5PsigB9ZRZ7hiK6ecWwVVY0VlEJB/a/DP4uraLSe3uSpbcGeTuGtGTI8uzAEYzMx07ZRUtrO+ryy3BbQvg5IQ==
+  dependencies:
+    "@ant-design/icons" "^4.2.1"
+    "@ant-design/pro-provider" "1.2.1"
+    "@ant-design/pro-utils" "1.3.0"
+    classnames "^2.2.6"
+    lodash.tonumber "^4.0.3"
+    moment "^2.27.0"
+    omit.js "^2.0.2"
+    rc-util "^5.4.0"
+    swr "^0.3.6"
+
+"@ant-design/pro-field@1.4.1":
+  version "1.4.1"
+  resolved "https://registry.npmjs.org/@ant-design/pro-field/-/pro-field-1.4.1.tgz#b8c60fd5a0ee7349a684645f0637749ba229c6dc"
+  integrity sha512-PyksttxMLB57d1LGyC2WuGN69z8wwJ/S2A/z3KeKVYNHc6FpfAq/ub8QJPYjCbgHeu23iWIBZeSAqCg8VHTasQ==
+  dependencies:
+    "@ant-design/icons" "^4.2.1"
+    "@ant-design/pro-provider" "1.2.4"
+    "@ant-design/pro-utils" "1.5.1"
+    classnames "^2.2.6"
+    lodash.tonumber "^4.0.3"
+    moment "^2.27.0"
+    omit.js "^2.0.2"
+    rc-util "^5.4.0"
+    swr "^0.3.6"
+
+"@ant-design/pro-form@1.7.1":
+  version "1.7.1"
+  resolved "https://registry.npmjs.org/@ant-design/pro-form/-/pro-form-1.7.1.tgz#af3d8efc107f08ae10b1fe6642dbb855f570eed3"
+  integrity sha512-5vvVK1B68eE6HpZbQEMACofGgqEvoiVqwD7D5ydE8O8MdQt6Hys+a830yiWV2aGBgZqCDpqfzazMFvhfGeYVeg==
+  dependencies:
+    "@ant-design/icons" "^4.2.1"
+    "@ant-design/pro-field" "1.2.1"
+    "@ant-design/pro-provider" "1.2.1"
+    "@ant-design/pro-utils" "1.3.0"
+    classnames "^2.2.6"
+    omit.js "^2.0.2"
+    rc-resize-observer "^0.2.3"
+    use-media-antd-query "^1.0.3"
+
+"@ant-design/pro-form@^1.10.2":
+  version "1.10.2"
+  resolved "https://registry.npmjs.org/@ant-design/pro-form/-/pro-form-1.10.2.tgz#1928ad31990f3df51686457b158daf3981d13419"
+  integrity sha512-2q0bQZZ6wLHsE0PyHEJ6rNLvymfWNJZYwKYVq2xBwT4UGDl4BheOo1edfwyyKxHmTrwpg2uMOCnEfXHArZvmxw==
+  dependencies:
+    "@ant-design/icons" "^4.2.1"
+    "@ant-design/pro-field" "1.4.1"
+    "@ant-design/pro-provider" "1.2.4"
+    "@ant-design/pro-utils" "1.5.1"
+    classnames "^2.2.6"
+    omit.js "^2.0.2"
+    rc-resize-observer "^0.2.3"
+    rc-util "^5.0.6"
+    use-media-antd-query "^1.0.3"
 
 "@ant-design/pro-layout@^6.4.14":
   version "6.5.16"
@@ -70,6 +124,35 @@
   dependencies:
     rc-util "^5.0.1"
 
+"@ant-design/pro-provider@1.2.4":
+  version "1.2.4"
+  resolved "https://registry.npmjs.org/@ant-design/pro-provider/-/pro-provider-1.2.4.tgz#de1dc8fdf9c3e3156e0540a4d5db61c4e6c4e2c1"
+  integrity sha512-tYk97VmhctXY/BAv6K+qVRBddHxmWkSf3QbU6cRhmnb0ofPV26wEX8oWa26MBqlS4QPry0+L4VO8n4iLQ8HaUw==
+  dependencies:
+    rc-util "^5.0.1"
+
+"@ant-design/pro-table@^2.12.1":
+  version "2.12.1"
+  resolved "https://registry.npmjs.org/@ant-design/pro-table/-/pro-table-2.12.1.tgz#b7c7a2bd868c8ac82be4e916cbdc34381ba8cd2f"
+  integrity sha512-hpbBgR5A+i/JMEMbBBZc3jFaKIjiDkcRI5T/7hleapg3FLjoVydaeJaIQJWy/0/rb6GISjZPJSz9xFR+PqSKDA==
+  dependencies:
+    "@ant-design/icons" "^4.1.0"
+    "@ant-design/pro-field" "1.2.1"
+    "@ant-design/pro-form" "1.7.1"
+    "@ant-design/pro-provider" "1.2.1"
+    "@ant-design/pro-utils" "1.3.0"
+    classnames "^2.2.6"
+    dnd-core "^10.0.2"
+    moment "^2.24.0"
+    omit.js "^2.0.2"
+    rc-resize-observer "^0.2.1"
+    rc-util "^5.0.1"
+    react-dnd "^11.1.3"
+    react-dnd-html5-backend "^11.1.3"
+    unstated-next "^1.1.0"
+    use-json-comparison "^1.0.5"
+    use-media-antd-query "1.0.2"
+
 "@ant-design/pro-utils@1.3.0":
   version "1.3.0"
   resolved "https://registry.npmjs.org/@ant-design/pro-utils/-/pro-utils-1.3.0.tgz#39f7ddc9b670050032ca2c66598495552cfafe4d"
@@ -77,6 +160,18 @@
   dependencies:
     "@ant-design/pro-provider" "1.2.1"
     fast-deep-equal "^3.1.3"
+    rc-util "^5.0.6"
+
+"@ant-design/pro-utils@1.5.1":
+  version "1.5.1"
+  resolved "https://registry.npmjs.org/@ant-design/pro-utils/-/pro-utils-1.5.1.tgz#e3cc1ef352cd804d562fcf1049e8d490602b48f4"
+  integrity sha512-dM2Q9ex8d28+RuaoFczkCY50KHG5666RqryzxA1IeMNVNTsU8iqflPl3v94+yiYonDTyHECIm4ZKqUlz2H4c/g==
+  dependencies:
+    "@ant-design/icons" "^4.3.0"
+    "@ant-design/pro-provider" "1.2.4"
+    classnames "^2.2.6"
+    fast-deep-equal "^3.1.3"
+    moment "^2.27.0"
     rc-util "^5.0.6"
 
 "@ant-design/react-slick@~0.27.0":
@@ -5402,13 +5497,12 @@ ansicolors@~0.3.2:
   resolved "https://registry.npmjs.org/ansicolors/-/ansicolors-0.3.2.tgz#665597de86a9ffe3aa9bfbe6cae5c6ea426b4979"
   integrity sha1-ZlWX3oap/+Oqm/vmyuXG6kJrSXk=
 
-antd@^4.9.1:
-  version "4.9.1"
-  resolved "https://registry.npmjs.org/antd/-/antd-4.9.1.tgz#486c6e143e04fbd6e110a9ed9f9333bcba54b0f3"
-  integrity sha512-q+Uf8xWeUB+O+xELq3tvprj2cEot/JnCAjS24scIadHSFzCkUr1nVcHU7dTtZommx7zQgC2ajWBOCVMmJD/lrw==
+antd@^4.9.2:
+  version "4.9.4"
+  resolved "https://registry.npmjs.org/antd/-/antd-4.9.4.tgz#129092bc4a67c774145cb2450e4046d27a1acbb1"
+  integrity sha512-kieGi1Isb/ddnn9E/AJVFCUgSZIqDv6HtFg7r5WWI0s6zf+nfCOtpes0oX8TdHO6mE/dL39pJG52aHNe8MwkJg==
   dependencies:
     "@ant-design/colors" "^5.0.0"
-    "@ant-design/css-animation" "^1.7.2"
     "@ant-design/icons" "^4.3.0"
     "@ant-design/react-slick" "~0.27.0"
     "@babel/runtime" "^7.11.2"
@@ -8303,6 +8397,11 @@ deprecation@^2.0.0, deprecation@^2.3.1:
   resolved "https://registry.npmjs.org/deprecation/-/deprecation-2.3.1.tgz#6368cbdb40abf3373b525ac87e4a260c3a700919"
   integrity sha512-xmHIy4F3scKVwMsQ4WnVaS8bHOx0DmVwRywosKhaILI0ywMDWPtBSku2HNxRvF7jtwDRsoEwYQSfbxj8b7RlJQ==
 
+dequal@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/dequal/-/dequal-2.0.2.tgz#85ca22025e3a87e65ef75a7a437b35284a7e319d"
+  integrity sha512-q9K8BlJVxK7hQYqa6XISGmBZbtQQWVXSrRrWreHC94rMt1QL/Impruc+7p2CYSYuVIUr+YCt6hjrs1kkdJRTug==
+
 des.js@^1.0.0:
   version "1.0.1"
   resolved "https://registry.npmjs.org/des.js/-/des.js-1.0.1.tgz#5382142e1bdc53f85d86d53e5f4aa7deb91e0843"
@@ -8404,6 +8503,15 @@ discontinuous-range@1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/discontinuous-range/-/discontinuous-range-1.0.0.tgz#e38331f0844bba49b9a9cb71c771585aab1bc65a"
   integrity sha1-44Mx8IRLukm5qctxx3FYWqsbxlo=
+
+dnd-core@^10.0.2:
+  version "10.0.2"
+  resolved "https://registry.npmjs.org/dnd-core/-/dnd-core-10.0.2.tgz#051dc119682ea1185622f954667670d3d5f6a574"
+  integrity sha512-PrxEjxF0+6Y1n1n1Z9hSWZ1tvnDXv9syL+BccV1r1RC08uWNsyetf8AnWmUF3NgYPwy0HKQJwTqGkZK+1NlaFA==
+  dependencies:
+    "@react-dnd/asap" "^4.0.0"
+    "@react-dnd/invariant" "^2.0.0"
+    redux "^4.0.4"
 
 dnd-core@^11.1.3:
   version "11.1.3"
@@ -14409,6 +14517,11 @@ lodash.toarray@^4.4.0:
   version "4.4.0"
   resolved "https://registry.npmjs.org/lodash.toarray/-/lodash.toarray-4.4.0.tgz#24c4bfcd6b2fba38bfd0594db1179d8e9b656561"
   integrity sha1-JMS/zWsvuji/0FlNsRedjptlZWE=
+
+lodash.tonumber@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.npmjs.org/lodash.tonumber/-/lodash.tonumber-4.0.3.tgz#0b96b31b35672793eb7f5a63ee791f1b9e9025d9"
+  integrity sha1-C5azGzVnJ5Prf1pj7nkfG56QJdk=
 
 lodash.uniq@^4.3.0, lodash.uniq@^4.5.0:
   version "4.5.0"
@@ -20985,6 +21098,13 @@ svgo@^1.0.0, svgo@^1.2.2:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+swr@^0.3.6:
+  version "0.3.9"
+  resolved "https://registry.npmjs.org/swr/-/swr-0.3.9.tgz#a179a795244c7b68684af6a632f1ad579e6a69e0"
+  integrity sha512-lyN4SjBzpoW4+v3ebT7JUtpzf9XyzrFwXIFv+E8ZblvMa5enSNaUBs4EPkL8gGA/GDMLngEmB53o5LaNboAPfg==
+  dependencies:
+    dequal "2.0.2"
+
 symbol-observable@^1.1.0, symbol-observable@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
@@ -22189,10 +22309,17 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
-use-json-comparison@^1.0.3:
+use-json-comparison@^1.0.3, use-json-comparison@^1.0.5:
   version "1.0.5"
   resolved "https://registry.npmjs.org/use-json-comparison/-/use-json-comparison-1.0.5.tgz#d41a72d65fcf4cf72acc85c8f3980e2173809d63"
   integrity sha512-P/AgEKXphcN0L/8G5wLfbEz88mZQ9ayHS1OVESZaS2nxkN/msDWTGE8E1e9HXOWCZ9yoAfDrbVKAmTYpsYupFA==
+
+use-media-antd-query@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/use-media-antd-query/-/use-media-antd-query-1.0.2.tgz#cbda1bdfb99cd20b0121a361c3d1331ca499ba58"
+  integrity sha512-9exG6pzEtkwtJIM2loE5/lBdNeJHoX0/CYA8NVwC0UPaiCcpHKAEyj9sEa+dju7ERPaU0//gG8+Q6I7Jr265Eg==
+  dependencies:
+    react-responsive "^8.0.1"
 
 use-media-antd-query@^1.0.3:
   version "1.0.3"

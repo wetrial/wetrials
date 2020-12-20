@@ -25,22 +25,6 @@ pro-table 在 antd 的 table 上进行了一层封装，支持了一些预设，
 
 <code src="../demos/pro-table/base.tsx" />
 
-### 显示提示块
-
-<code src="../demos/pro-table/custom-container.tsx" />
-
-### 伸缩列
-
-<code src="../demos/pro-table/resize-columns.tsx" />
-
-### 有记忆功能的列表
-
-<code src="../demos/pro-table/with-record.tsx" />
-
-### 自定义显示列
-
-<code src="../demos/pro-table/columns-state.tsx" />
-
 ## API
 
 ### Table

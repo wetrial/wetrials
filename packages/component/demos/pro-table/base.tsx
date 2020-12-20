@@ -1,11 +1,10 @@
 import React from 'react';
-import { Row, Col, Input, Button, Form, Space, Tooltip } from 'antd';
-import { MoreOutlined } from '@ant-design/icons';
+import { Button, Form } from 'antd';
+import { IProTableColumnsType } from '@wetrial/component/lib/ProTable/interface';
 import { ProTable } from '@wetrial/component';
-import { LAYOUT_FORM_TWO, LAYOUT_COL_SEARCH_SIX } from '@wetrial/core/es/constants';
-import { ProColumns, TableDropdown } from '@wetrial/component/es/ProTable';
 import { useFormTable, formatFormTableParams } from '@wetrial/hooks';
 import { PageContainer } from '@ant-design/pro-layout';
+import { QueryFilter, ProFormText, ProFormDatePicker } from '@ant-design/pro-form';
 
 const valueEnum = {
   0: 'close',
@@ -18,10 +17,12 @@ export interface TableListItem {
   key: number;
   name: string;
   status: string;
-  updatedAt: number;
-  createdAt: number;
+  updatedTime: number;
+  createdTime: number;
   progress: number;
   money: number;
+  province: string;
+  city: string;
 }
 
 // 模拟数据请求
@@ -35,10 +36,12 @@ const getList = async (data) => {
         key: i,
         name: `TradeCode ${i}`,
         status: valueEnum[Math.floor(Math.random() * 10) % 4],
-        updatedAt: Date.now() - Math.floor(Math.random() * 1000),
-        createdAt: Date.now() - Math.floor(Math.random() * 2000),
+        updatedTime: Date.now() - Math.floor(Math.random() * 1000),
+        createdTime: Date.now() - Math.floor(Math.random() * 2000),
         money: Math.floor(Math.random() * 2000) * i,
         progress: Math.ceil(Math.random() * 100) + 1,
+        province: '湖南省',
+        city: '长沙市',
       });
     }
     return resolve({
@@ -54,15 +57,20 @@ export default () => {
     (paginatedParams, formData) => getList(formatFormTableParams(paginatedParams, formData)),
     {
       form,
+      // defaultParams: [
+      //   { current: 2, pageSize: 5 },
+      //   { name: 'hello', email: 'abc@gmail.com', gender: 'female' },
+      // ],
+      // defaultType: 'advance',
     },
   );
+  const { type, changeType, submit, reset } = search;
 
-  const columns: ProColumns<TableListItem>[] = [
+  const columns: IProTableColumnsType = [
     {
       title: '序号',
       dataIndex: 'index',
-      valueType: 'indexBorder',
-      width: 70,
+      width: 60,
     },
     {
       title: '标题',
@@ -72,113 +80,90 @@ export default () => {
       render: (_) => <a>{_}</a>,
     },
     {
+      title: '地址',
+      dataIndex: 'address',
+      children: [
+        {
+          title: '省份',
+          dataIndex: 'province',
+          width: 120,
+          sorter: true,
+          sortOrder: sorter.field === 'province' && sorter.order,
+        },
+        {
+          title: '城市',
+          dataIndex: 'city',
+          width: 100,
+          sorter: true,
+          sortOrder: sorter.field === 'city' && sorter.order,
+        },
+      ],
+    },
+    {
       title: '状态',
       dataIndex: 'status',
+      sorter: true,
+      sortOrder: sorter.field === 'status' && sorter.order,
       width: 100,
     },
     {
       title: '创建时间',
-      dataIndex: 'createdAt',
+      dataIndex: 'createdTime',
       width: 200,
-      valueType: 'dateTime',
+      sorter: true,
+      sortOrder: sorter.field === 'createdTime' && sorter.order,
     },
     {
       title: '更新时间',
       width: 120,
-      dataIndex: 'updatedAt',
-      valueType: 'date',
+      dataIndex: 'updatedTime',
+      sorter: true,
+      sortOrder: sorter.field === 'updatedTime' && sorter.order,
     },
     {
       title: '操作',
       dataIndex: 'option',
       width: 120,
-      valueType: 'option',
       render: () => [
         <a key="view" target="_blank" rel="noopener noreferrer">
           查看
         </a>,
-        <TableDropdown
-          key="other"
-          // eslint-disable-next-line no-alert
-          onSelect={(key) => window.alert(key)}
-          menus={[
-            { key: 'copy', name: '复制' },
-            { key: 'delete', name: '删除' },
-          ]}
-        />,
+        // <TableDropdown
+        //   key="other"
+        //   // eslint-disable-next-line no-alert
+        //   onSelect={(key) => window.alert(key)}
+        //   menus={[
+        //     { key: 'copy', name: '复制' },
+        //     { key: 'delete', name: '删除' },
+        //   ]}
+        // />,
       ],
     },
   ];
 
-  const { type, changeType, submit, reset } = search || {};
-
-  const simpleSearchForm = () => (
-    <Form className="wt-simple-search-form" layout="inline" form={form}>
-      <Form.Item name="search">
-        <Input.Search
-          allowClear
-          placeholder="请输入姓名或者邮箱"
-          enterButton
-          suffix={
-            <Tooltip title="更多搜索条件">
-              <Button onClick={changeType} size="small" type="link" icon={<MoreOutlined />} />
-            </Tooltip>
-          }
-          onSearch={submit}
-        />
-      </Form.Item>
-    </Form>
-  );
-
-  const advanceSearchForm = () => (
-    <Form {...LAYOUT_FORM_TWO} form={form}>
-      <Row>
-        <Col {...LAYOUT_COL_SEARCH_SIX}>
-          <Form.Item label="姓名" name="name">
-            <Input autoComplete="off" placeholder="姓名" />
-          </Form.Item>
-        </Col>
-        <Col {...LAYOUT_COL_SEARCH_SIX}>
-          <Form.Item label="邮箱" name="title">
-            <Input autoComplete="off" placeholder="邮箱" />
-          </Form.Item>
-        </Col>
-        <Col {...LAYOUT_COL_SEARCH_SIX}>
-          <Form.Item label="描述" name="desc">
-            <Input autoComplete="off" placeholder="描述" />
-          </Form.Item>
-        </Col>
-        <Form.Item className="wt-advance-search-form-operator">
-          <Space>
-            <Button type="primary" onClick={submit}>
-              查询
-            </Button>
-            <Button onClick={reset}>重置</Button>
-            <Button type="link" onClick={changeType}>
-              折叠
-            </Button>
-          </Space>
-        </Form.Item>
-      </Row>
-    </Form>
-  );
-
   return (
     <PageContainer
       title="基础使用"
-      extra={[
-        type === 'simple' ? simpleSearchForm() : undefined,
-        <Button key="1">新增</Button>,
-        <Button key="2">导出</Button>,
-      ]}
+      extra={[<Button key="1">新增</Button>, <Button key="2">导出</Button>]}
+      content={
+        <QueryFilter
+          submitter={{
+            onSubmit: submit,
+            onReset: reset,
+          }}
+          form={form}
+          onCollapse={changeType}
+          collapsed={type === 'simple'}
+        >
+          <ProFormText name="name" label="标题" />
+          <ProFormDatePicker name="createdTime" label="创建时间" />
+          <ProFormText name="status" label="状态" />
+          <ProFormDatePicker name="updatedTime" label="更新日期" />
+          <ProFormDatePicker name="enddate" label="结束时间" />
+        </QueryFilter>
+      }
     >
-      <ProTable<TableListItem>
-        columns={columns}
-        rowKey="key"
-        searchType={type}
-        renderSearch={advanceSearchForm}
-        {...tableProps}
-      />
+      <ProTable resizeable sticky rowKey="key" {...tableProps} columns={columns} />
     </PageContainer>
   );
 };

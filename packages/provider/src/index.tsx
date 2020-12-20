@@ -95,6 +95,18 @@ export {
 
 const ConfigContext = React.createContext<{
   intl: IntlType;
+  /**
+   * 配置wetrial component中的iconFontUrl
+   */
+  iconFontUrl?: string | string[];
+  /**
+   * 全局修改wetrial hooks中useFormTable响应数据结构以符合前端特定要求
+   */
+  formTableResultFormat?: (...args) => any;
+  /**
+   * 全局修改wetrial hooks中useFormTable请求参数以符合后端定制结构
+   */
+  formTableRequestFormat?: (...args) => any;
 }>({
   intl: {
     ...zhCNIntl,

@@ -1,10 +1,7 @@
 import React from 'react';
-import { Row, Col, Input, Button, Form, Space, Tooltip } from 'antd';
-import { MoreOutlined } from '@ant-design/icons';
-import { LAYOUT_FORM_TWO, LAYOUT_COL_SEARCH_SIX } from '@wetrial/core/es/constants';
+import { Button, Form } from 'antd';
 import { ProTable } from '@wetrial/component';
-import { ProColumns, TableDropdown } from '@wetrial/component/es/ProTable';
-import { ColumnsState } from '@wetrial/component/es/Table';
+import { ColumnsState, ProColumns, TableDropdown } from '@ant-design/pro-table';
 import { useLocalStorageState } from 'ahooks';
 import { useFormTable, formatFormTableParams } from '@wetrial/hooks';
 import { PageContainer } from '@ant-design/pro-layout';
@@ -26,43 +23,10 @@ export interface TableListItem {
   money: number;
 }
 
-// 模拟数据请求
-const getList = async (data) => {
-  // eslint-disable-next-line no-console
-  console.log(data);
-  return new Promise((resolve) => {
-    const tableListDataSource: TableListItem[] = [];
-    for (let i = 0; i < 100; i++) {
-      tableListDataSource.push({
-        key: i,
-        name: `TradeCode ${i}`,
-        status: valueEnum[Math.floor(Math.random() * 10) % 4],
-        updatedAt: Date.now() - Math.floor(Math.random() * 1000),
-        createdAt: Date.now() - Math.floor(Math.random() * 2000),
-        money: Math.floor(Math.random() * 2000) * i,
-        progress: Math.ceil(Math.random() * 100) + 1,
-      });
-    }
-    return resolve({
-      total: 100,
-      list: tableListDataSource,
-    });
-  });
-};
-
 export default () => {
-  const [form] = Form.useForm();
-
   const [columnStateMaps, setColumnStateMaps] = useLocalStorageState<{
     [key: string]: ColumnsState;
   }>('wetrial-testxxx', { name: { show: false } });
-
-  const { tableProps, search, sorter } = useFormTable(
-    (paginatedParams, formData) => getList(formatFormTableParams(paginatedParams, formData)),
-    {
-      form,
-    },
-  );
 
   const columns: ProColumns<TableListItem>[] = [
     {
@@ -117,72 +81,37 @@ export default () => {
     },
   ];
 
-  const { type, changeType, submit, reset } = search || {};
-
-  const simpleSearchForm = () => (
-    <Form className="wt-simple-search-form" layout="inline" form={form}>
-      <Form.Item name="search">
-        <Input.Search
-          allowClear
-          placeholder="请输入姓名或者邮箱"
-          enterButton
-          suffix={
-            <Tooltip title="更多搜索条件">
-              <Button onClick={changeType} size="small" type="link" icon={<MoreOutlined />} />
-            </Tooltip>
-          }
-          onSearch={submit}
-        />
-      </Form.Item>
-    </Form>
-  );
-
-  const advanceSearchForm = () => (
-    <Form {...LAYOUT_FORM_TWO} form={form}>
-      <Row>
-        <Col {...LAYOUT_COL_SEARCH_SIX}>
-          <Form.Item label="姓名" name="name">
-            <Input autoComplete="off" placeholder="姓名" />
-          </Form.Item>
-        </Col>
-        <Col {...LAYOUT_COL_SEARCH_SIX}>
-          <Form.Item label="邮箱" name="title">
-            <Input autoComplete="off" placeholder="邮箱" />
-          </Form.Item>
-        </Col>
-        <Col {...LAYOUT_COL_SEARCH_SIX}>
-          <Form.Item label="描述" name="desc">
-            <Input autoComplete="off" placeholder="描述" />
-          </Form.Item>
-        </Col>
-        <Form.Item className="wt-advance-search-form-operator">
-          <Space>
-            <Button type="primary" onClick={submit}>
-              查询
-            </Button>
-            <Button onClick={reset}>重置</Button>
-            <Button type="link" onClick={changeType}>
-              折叠
-            </Button>
-          </Space>
-        </Form.Item>
-      </Row>
-    </Form>
-  );
-
   return (
     <PageContainer
       title="自定义显示列(设置显示的列后，刷新看看效果)"
-      extra={[type === 'simple' ? simpleSearchForm() : undefined, <Button key="1">新增</Button>]}
+      extra={[<Button key="1">新增</Button>]}
     >
       <ProTable<TableListItem>
+        request={() => {
+          return new Promise((resolve) => {
+            const tableListDataSource: TableListItem[] = [];
+            for (let i = 0; i < 100; i++) {
+              tableListDataSource.push({
+                key: i,
+                name: `TradeCode ${i}`,
+                status: valueEnum[Math.floor(Math.random() * 10) % 4],
+                updatedAt: Date.now() - Math.floor(Math.random() * 1000),
+                createdAt: Date.now() - Math.floor(Math.random() * 2000),
+                money: Math.floor(Math.random() * 2000) * i,
+                progress: Math.ceil(Math.random() * 100) + 1,
+              });
+            }
+            return resolve({
+              total: 100,
+              success: true,
+              data: tableListDataSource,
+            });
+          });
+        }}
         columns={columns}
         columnsStateMap={columnStateMaps}
         onColumnsStateChange={setColumnStateMaps}
         rowKey="key"
-        searchType={type}
-        renderSearch={advanceSearchForm}
-        {...tableProps}
       />
     </PageContainer>
   );
