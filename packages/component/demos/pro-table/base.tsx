@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Form } from 'antd';
 import { IProTableColumnsType } from '@wetrial/component/lib/ProTable/interface';
 import { ProTable } from '@wetrial/component';
-import { useFormTable, formatFormTableParams } from '@wetrial/hooks';
+import { useFormTable } from '@wetrial/hooks';
 import { PageContainer } from '@ant-design/pro-layout';
 import { QueryFilter, ProFormText, ProFormDatePicker } from '@ant-design/pro-form';
 
@@ -29,7 +29,7 @@ export interface TableListItem {
 const getList = async (data) => {
   // eslint-disable-next-line no-console
   console.log(data);
-  return new Promise((resolve) => {
+  return new Promise<any>((resolve) => {
     const tableListDataSource: TableListItem[] = [];
     for (let i = 0; i < 100; i++) {
       tableListDataSource.push({
@@ -53,17 +53,14 @@ const getList = async (data) => {
 
 export default () => {
   const [form] = Form.useForm();
-  const { tableProps, search, sorter } = useFormTable(
-    (paginatedParams, formData) => getList(formatFormTableParams(paginatedParams, formData)),
-    {
-      form,
-      // defaultParams: [
-      //   { current: 2, pageSize: 5 },
-      //   { name: 'hello', email: 'abc@gmail.com', gender: 'female' },
-      // ],
-      // defaultType: 'advance',
-    },
-  );
+  const { tableProps, search, sorter } = useFormTable(getList, {
+    form,
+    // defaultParams: [
+    //   { current: 2, pageSize: 5 },
+    //   { name: 'hello', email: 'abc@gmail.com', gender: 'female' },
+    // ],
+    // defaultType: 'advance',
+  });
   const { type, changeType, submit, reset } = search;
 
   const columns: IProTableColumnsType = [

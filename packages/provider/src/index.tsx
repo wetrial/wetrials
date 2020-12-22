@@ -94,7 +94,7 @@ export {
 };
 
 const ConfigContext = React.createContext<{
-  intl: IntlType;
+  intl?: IntlType;
   /**
    * 配置wetrial component中的iconFontUrl
    */
@@ -102,15 +102,37 @@ const ConfigContext = React.createContext<{
   /**
    * 全局修改wetrial hooks中useFormTable响应数据结构以符合前端特定要求
    */
-  formTableResultFormat?: (...args) => any;
+  formatResultData?: (res: any) => any;
   /**
    * 全局修改wetrial hooks中useFormTable请求参数以符合后端定制结构
    */
-  formTableRequestFormat?: (...args) => any;
+  formatRequestParams?: (...data) => any;
 }>({
   intl: {
     ...zhCNIntl,
     locale: 'default',
+  },
+  formatRequestParams: ({ current, pageSize, sorter }, formData: any): any => {
+    let sortParam: any = {};
+    if (sorter && sorter.order) {
+      let sortName: string;
+      // 对象的情况下 列为数组
+      if (Array.isArray(sorter.field)) {
+        sortName = sorter.field[sorter.field.length - 1];
+      } else {
+        sortName = sorter.field;
+      }
+      sortParam = {
+        sorting: `${sortName} ${sorter.order === 'ascend' ? 'asc' : 'desc'}`,
+      };
+    }
+
+    return {
+      ...sortParam,
+      skipCount: (current - 1) * pageSize,
+      maxResultCount: pageSize,
+      ...formData,
+    };
   },
 });
 
@@ -146,7 +168,7 @@ const ConfigProviderWarp: React.FC<{}> = ({ children }) => {
         const key = findIntlKeyByAntdLocaleKey(localeName);
         // antd 的 key 存在的时候以 antd 的为主
         const intl =
-          localeName && value.intl.locale === 'default' ? intlMap[key] : value || intlMap[key];
+          localeName && value.intl?.locale === 'default' ? intlMap[key] : value || intlMap[key];
         return <ConfigProvider value={intl || zhCNIntl}>{children}</ConfigProvider>;
       }}
     </ConfigConsumer>

@@ -1,9 +1,9 @@
-/* eslint-disable no-use-before-define */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable no-underscore-dangle */
 import useRequest from '@ahooksjs/use-request';
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useContext, useCallback, useEffect, useRef } from 'react';
 import {
+  Service,
   CombineService,
   PaginatedParams,
   BasePaginatedOptions,
@@ -12,11 +12,9 @@ import {
   PaginatedResult,
 } from '@ahooksjs/use-request/lib/types';
 import { useUpdateEffect, usePersistFn } from 'ahooks';
+import WetrialConfigContext from '@wetrial/provider';
 import useSessionStorageDestroyState from './extensions';
 
-type TFormatResult = (response: any) => any | undefined;
-// eslint-disable-next-line @typescript-eslint/naming-convention
-let _formatResult: TFormatResult;
 // 缓存前缀
 const TABLECACHEPREFIX = '__WETRIAL_USEFORMTABLE__';
 
@@ -62,23 +60,27 @@ export interface OptionsWithFormat<R, Item, U>
 }
 
 function useFormTable<R = any, Item = any, U extends Item = any>(
-  service: CombineService<R, PaginatedParams>,
+  service: Service<R, PaginatedParams>,
   options: OptionsWithFormat<R, Item, U>,
 ): Result<Item>;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function useFormTable<R = any, Item = any, U extends Item = any>(
-  service: CombineService<PaginatedFormatReturn<Item>, PaginatedParams>,
+  service: Service<PaginatedFormatReturn<Item>, PaginatedParams>,
   options: BaseOptions<U>,
 ): Result<Item>;
 function useFormTable<R = any, Item = any, U extends Item = any>(
-  service: CombineService<any, any>,
+  service: Service<any, any>,
   options: BaseOptions<U> | OptionsWithFormat<R, Item, U>,
 ): any {
+  const { formatRequestParams, formatResultData } = useContext(WetrialConfigContext);
+
   const [recordCache] = useSessionStorageDestroyState(
     `${TABLECACHEPREFIX}${options.cacheKey}`,
     (): any => {
       return getSearchQuery();
     },
   );
+
   const {
     active,
     defaultType: recordDefaultType = 'simple',
@@ -95,12 +97,18 @@ function useFormTable<R = any, Item = any, U extends Item = any>(
     ...restOptions
   } = options;
 
-  const result = useRequest(service, {
-    formatResult: _formatResult,
-    ...restOptions,
-    paginated: true as true,
-    manual: true,
-  });
+  const result = useRequest(
+    (paginatedParams, formData, filters) =>
+      formatRequestParams
+        ? service(formatRequestParams(paginatedParams, formData, filters))
+        : service,
+    {
+      formatResult: (formatResultData as any) || undefined,
+      ...restOptions,
+      paginated: true as true,
+      manual: true,
+    },
+  );
 
   const { params, run } = result;
 
@@ -119,7 +127,6 @@ function useFormTable<R = any, Item = any, U extends Item = any>(
     if (!form) {
       return {};
     }
-    // antd 4
     return form.getFieldsValue(null, () => true);
   }, [form]);
 
@@ -130,20 +137,7 @@ function useFormTable<R = any, Item = any, U extends Item = any>(
     if (!formRef.current) {
       return;
     }
-    // antd 3
-    if (formRef.current.getFieldInstance) {
-      // antd 3 需要判断字段是否存在，否则会抛警告
-      const filterFiledsValue: Store = {};
-      Object.keys(allFormData).forEach((key: string) => {
-        if (formRef.current!.getFieldInstance ? formRef.current!.getFieldInstance(key) : true) {
-          filterFiledsValue[key] = allFormData[key];
-        }
-      });
-      formRef.current.setFieldsValue(filterFiledsValue);
-    } else {
-      // antd 4
-      formRef.current.setFieldsValue(allFormData);
-    }
+    formRef.current.setFieldsValue(allFormData);
   }, [type]);
 
   // 首次加载，手动提交。为了拿到 form 的 initial values
@@ -156,7 +150,7 @@ function useFormTable<R = any, Item = any, U extends Item = any>(
 
     // 如果没有缓存，触发 submit
     if (!manual) {
-      submit(defaultParams);
+      _submit(defaultParams);
     }
   }, []);
 
@@ -168,37 +162,61 @@ function useFormTable<R = any, Item = any, U extends Item = any>(
     setType(targetType);
   }, [type, allFormData, getActivetFieldValues]);
 
-  const submit = useCallback(
+  const validateFields: () => Promise<any> = useCallback(() => {
+    const fieldValues = getActivetFieldValues();
+    if (!form) {
+      return Promise.resolve();
+    }
+
+    const fields = Object.keys(fieldValues);
+    if (!form.getInternalHooks) {
+      return new Promise((resolve, reject) => {
+        form.validateFields(fields, (errors, values) => {
+          if (errors) {
+            reject(errors);
+          } else {
+            resolve(values);
+          }
+        });
+      });
+    }
+
+    return form.validateFields(fields);
+  }, [form]);
+
+  const _submit = useCallback(
     (initParams?: any) => {
       setTimeout(() => {
-        const activeFormData = getActivetFieldValues();
-        // 记录全量数据
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        const _allFormData = { ...allFormData, ...activeFormData };
-        setAllFormData(_allFormData);
+        validateFields()
+          .then(() => {
+            const activeFormData = getActivetFieldValues();
+            // 记录全量数据
+            const _allFormData = { ...allFormData, ...activeFormData };
+            setAllFormData(_allFormData);
 
-        // has defaultParams
-        if (initParams) {
-          run(initParams[0], activeFormData, {
-            allFormData: _allFormData,
-            type,
-          });
-          return;
-        }
+            // has defaultParams
+            if (initParams) {
+              run(initParams[0], activeFormData, {
+                allFormData: _allFormData,
+                type,
+              });
+              return;
+            }
 
-        run(
-          {
-            // @ts-ignore
-            pageSize: options.defaultPageSize || 10,
-            ...(params[0] || {}), // 防止 manual 情况下，第一次触发 submit，此时没有 params[0]
-            current: 1,
-          },
-          activeFormData,
-          {
-            allFormData: _allFormData,
-            type,
-          },
-        );
+            run(
+              {
+                pageSize: options.defaultPageSize || 10,
+                ...((params[0] as PaginatedParams[0] | undefined) || {}), // 防止 manual 情况下，第一次触发 submit，此时没有 params[0]
+                current: 1,
+              },
+              activeFormData,
+              {
+                allFormData: _allFormData,
+                type,
+              },
+            );
+          })
+          .catch((err) => err);
       });
     },
     [getActivetFieldValues, run, params, allFormData, type],
@@ -208,8 +226,8 @@ function useFormTable<R = any, Item = any, U extends Item = any>(
     if (form) {
       form.resetFields();
     }
-    submit();
-  }, [form, submit]);
+    _submit();
+  }, [form, _submit]);
 
   const resetPersistFn = usePersistFn(reset);
 
@@ -245,12 +263,17 @@ function useFormTable<R = any, Item = any, U extends Item = any>(
     }
   }, [...refreshDeps]);
 
+  const submit = usePersistFn((e) => {
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
+    _submit();
+  });
+
   return {
     ...result,
     search: {
-      submit: () => {
-        submit();
-      },
+      submit,
       type,
       changeType,
       reset,
@@ -290,50 +313,50 @@ export const activeCache = (key: string) => {
   }
 };
 
-export const configUseFormTableFormatResult = (formatResult: (data: any) => any) => {
-  _formatResult = formatResult;
-};
+// export const configUseFormTableFormatResult = (formatResult: (data: any) => any) => {
+//   _formatResult = formatResult;
+// };
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-let _defaultFormatFormTablePrams = (
-  { current, pageSize, sorter }: PaginatedParams[0],
-  formData: any,
-): any => {
-  let sortParam: any = {};
-  if (sorter && sorter.order) {
-    let sortName: string;
-    // 对象的情况下 列为数组
-    if (Array.isArray(sorter.field)) {
-      sortName = sorter.field[sorter.field.length - 1];
-    } else {
-      sortName = sorter.field;
-    }
-    sortParam = {
-      sorting: `${sortName} ${sorter.order === 'ascend' ? 'asc' : 'desc'}`,
-    };
-  }
+// // eslint-disable-next-line @typescript-eslint/naming-convention
+// let _defaultFormatFormTablePrams = (
+//   { current, pageSize, sorter }: PaginatedParams[0],
+//   formData: any,
+// ): any => {
+//   let sortParam: any = {};
+//   if (sorter && sorter.order) {
+//     let sortName: string;
+//     // 对象的情况下 列为数组
+//     if (Array.isArray(sorter.field)) {
+//       sortName = sorter.field[sorter.field.length - 1];
+//     } else {
+//       sortName = sorter.field;
+//     }
+//     sortParam = {
+//       sorting: `${sortName} ${sorter.order === 'ascend' ? 'asc' : 'desc'}`,
+//     };
+//   }
 
-  return {
-    ...sortParam,
-    skipCount: (current - 1) * pageSize,
-    maxResultCount: pageSize,
-    ...formData,
-  };
-};
+//   return {
+//     ...sortParam,
+//     skipCount: (current - 1) * pageSize,
+//     maxResultCount: pageSize,
+//     ...formData,
+//   };
+// };
 
-/**
- * 格式化请求参数 来符合abp后端
- * @param param0 分页页码信息
- * @param formData 搜索表单信息
- */
-export const formatFormTableParams = _defaultFormatFormTablePrams;
+// /**
+//  * 格式化请求参数 来符合abp后端
+//  * @param param0 分页页码信息
+//  * @param formData 搜索表单信息
+//  */
+// export const formatFormTableParams = _defaultFormatFormTablePrams;
 
-/**
- * 格式化请求参数
- * @param formatParams 默认格式化参数的方法
- */
-export const configFormTableParamsFormat = (
-  formatParams: ({ current, pageSize, sorter }: PaginatedParams[0], formData: any) => any,
-) => {
-  _defaultFormatFormTablePrams = formatParams;
-};
+// /**
+//  * 格式化请求参数
+//  * @param formatParams 默认格式化参数的方法
+//  */
+// export const configFormTableParamsFormat = (
+//   formatParams: ({ current, pageSize, sorter }: PaginatedParams[0], formData: any) => any,
+// ) => {
+//   _defaultFormatFormTablePrams = formatParams;
+// };

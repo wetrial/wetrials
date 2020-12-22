@@ -46,7 +46,8 @@
     "path-to-regexp": "^6.x",
     "react": "^16.x",
     "redux": "^4.x",
-    "umi": "^3.x"
+    "umi": "^3.x",
+    "@wetrial/provider": "^x"
   },
   "publishConfig": {
     "access": "public"
@@ -57,6 +58,7 @@
     "@ant-design/pro-table": "^2.12.1",
     "@wetrial/core": "^3.4.5",
     "@wetrial/hooks": "^3.1.5",
+    "@wetrial/provider": "^0.0.2-beta.0",
     "ahooks": "^2.9.1",
     "react-custom-scrollbars": "^4.2.1",
     "react-dnd": "^11.1.3",
