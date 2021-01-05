@@ -1,8 +1,11 @@
 import type { ReactNode } from 'react';
 import type { TableProps, ColumnType } from 'antd/lib/table';
+import type { AlertRenderType } from './components/Alert';
 import type { ProFieldValueType, ProFieldValueObjectType } from '@ant-design/pro-utils';
 
 type ProSchemaValueType = ProFieldValueType | ProFieldValueObjectType;
+
+export type TableRowSelection = TableProps<any>['rowSelection'];
 
 export type ProSchemaValueEnumType = {
   /**
@@ -66,6 +69,20 @@ export type ProTableProps<RecordType> = TableProps<RecordType> & {
    */
   resizeable?: boolean;
   columns: ProColumns<RecordType>;
+  /**
+   * @name 选择想配置
+   */
+  rowSelection?: TableProps<RecordType>['rowSelection'] | false;
+  /**
+   * @name 自定义 table 的 alert
+   * @description 设置或者返回false 即可关闭
+   */
+  tableAlertRender?: AlertRenderType<RecordType>;
+  /**
+   * @name  自定义 table 的 alert 的操作
+   * @description 设置或者返回false 即可关闭
+   */
+  tableAlertOptionRender?: AlertRenderType<RecordType>;
 };
 
 /**

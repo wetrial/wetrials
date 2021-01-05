@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form } from 'antd';
+import { Button, Form, Table, Space } from 'antd';
 import type { ProColumns } from '@wetrial/component/lib/ProTable/interface';
 import { ProTable, ProTableDropdown } from '@wetrial/component';
 import { useFormTable } from '@wetrial/hooks';
@@ -27,8 +27,6 @@ export interface TableListItem {
 
 // 模拟数据请求
 const getList = async (data) => {
-  // eslint-disable-next-line no-console
-  console.log(data);
   return new Promise<any>((resolve) => {
     const tableListDataSource: TableListItem[] = [];
     for (let i = 0; i < 100; i++) {
@@ -165,7 +163,41 @@ export default () => {
         </QueryFilter>
       }
     >
-      <ProTable resizeable sticky rowKey="key" {...tableProps} columns={columns} />
+      <ProTable
+        resizeable
+        sticky={{
+          offsetHeader: 64,
+        }}
+        rowKey="key"
+        rowSelection={{
+          // 自定义选择项参考: https://ant.design/components/table-cn/#components-table-demo-row-selection-custom
+          // 注释该行则默认不显示下拉选项
+          selections: [Table.SELECTION_ALL, Table.SELECTION_INVERT],
+          columnWidth: 60,
+        }}
+        tableAlertRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => (
+          <Space size={24}>
+            <span>
+              已选 {selectedRowKeys.length} 项
+              <a style={{ marginLeft: 8 }} onClick={onCleanSelected}>
+                取消选择
+              </a>
+            </span>
+            <span>{`容器数量: ${selectedRows.reduce((pre) => pre + 1, 0)} 个`}</span>
+            <span>{`调用量: ${selectedRows.reduce((pre) => pre + 2, 0)} 次`}</span>
+          </Space>
+        )}
+        tableAlertOptionRender={() => {
+          return (
+            <Space size={16}>
+              <a>批量删除</a>
+              <a>导出数据</a>
+            </Space>
+          );
+        }}
+        {...tableProps}
+        columns={columns}
+      />
     </PageContainer>
   );
 };

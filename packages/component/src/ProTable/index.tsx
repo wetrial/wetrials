@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, Fragment } from 'react';
 import { Table } from 'antd';
 import type { TableProps } from 'antd/lib/table';
 import type { ConfigConsumerProps } from 'antd/es/config-provider';
 import { ConfigConsumer } from 'antd/es/config-provider';
 import { Resizable } from 'react-resizable';
-import type { ProTableProps } from './interface';
+import { useMountMergeState } from '@ant-design/pro-utils';
+import ProTableAlert from './components/Alert';
+import type { ProTableProps, TableRowSelection } from './interface';
 import { genColumnList } from './utils';
 import './index.less';
 
@@ -97,7 +99,54 @@ const flatDeepGetColumns = (
 };
 
 function ProTable<RecordType extends object = any>(props: ProTableProps<RecordType>) {
-  const { resizeable, columns = [], tableLayout = 'fixed', scroll, ...restProps } = props;
+  const {
+    resizeable,
+    columns = [],
+    tableLayout = 'fixed',
+    scroll,
+    rowSelection: propsRowSelection = false,
+    tableAlertRender,
+    tableAlertOptionRender,
+    ...restProps
+  } = props;
+
+  const [selectedRowKeys, setSelectedRowKeys] = useMountMergeState<React.ReactText[]>([], {
+    value: propsRowSelection ? propsRowSelection.selectedRowKeys : undefined,
+  });
+
+  const [selectedRows, setSelectedRows] = useMountMergeState<RecordType[]>([]);
+
+  const setSelectedRowsAndKey = useCallback(
+    (keys: React.ReactText[], rows: RecordType[]) => {
+      setSelectedRowKeys(keys);
+      setSelectedRows(rows);
+    },
+    [setSelectedRowKeys, setSelectedRows],
+  );
+
+  /**
+   * 清空所有的选中项
+   */
+  const onCleanSelected = useCallback(() => {
+    if (propsRowSelection && propsRowSelection.onChange) {
+      propsRowSelection.onChange([], []);
+    }
+    setSelectedRowsAndKey([], []);
+  }, [propsRowSelection, setSelectedRowsAndKey]);
+
+  /**
+   * 行选择相关的问题
+   */
+  const rowSelection: TableRowSelection = {
+    selectedRowKeys,
+    ...propsRowSelection,
+    onChange: (keys, rows) => {
+      if (propsRowSelection && propsRowSelection.onChange) {
+        propsRowSelection.onChange(keys, rows);
+      }
+      setSelectedRowsAndKey(keys, rows);
+    },
+  };
 
   const [tableProps, setTableProps] = useState<Partial<TableProps<RecordType>>>({
     columns,
@@ -130,31 +179,43 @@ function ProTable<RecordType extends object = any>(props: ProTableProps<RecordTy
   );
 
   useEffect(() => {
+    let resizeProps = {};
     if (resizeable) {
-      setTableProps({
+      resizeProps = {
         bordered: true,
         components: {
           header: {
             cell: ResizeableTitle,
           },
         },
-        columns: flatDeepGetColumns(tableColumns, columnSize, handleResize),
-      });
-    } else {
-      setTableProps({
-        columns: tableColumns,
-      });
+      };
     }
+    setTableProps({
+      ...resizeProps,
+      columns: flatDeepGetColumns(tableColumns, columnSize, handleResize),
+    });
   }, [resizeable, columnSize, tableColumns]);
 
   return (
     <ConfigConsumer>
       {({ getPrefixCls }: ConfigConsumerProps) => (
-        <Table<RecordType>
-          {...restProps}
-          {...tableProps}
-          className={`${restProps.className} ${getPrefixCls('wt-pro-table')}`}
-        />
+        <Fragment>
+          {propsRowSelection !== false && (
+            <ProTableAlert<RecordType>
+              selectedRowKeys={selectedRowKeys}
+              selectedRows={selectedRows}
+              onCleanSelected={onCleanSelected}
+              alertOptionRender={tableAlertOptionRender}
+              alertInfoRender={tableAlertRender}
+            />
+          )}
+          <Table<RecordType>
+            {...restProps}
+            {...tableProps}
+            rowSelection={propsRowSelection === false ? undefined : rowSelection}
+            className={`${restProps.className} ${getPrefixCls('wt-pro-table')}`}
+          />
+        </Fragment>
       )}
     </ConfigConsumer>
   );
