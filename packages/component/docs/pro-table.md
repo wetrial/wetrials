@@ -44,7 +44,9 @@ pro-table 在 antd 的 table 上进行了一层封装，支持了一些预设，
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| valueType | 值的类型,相当于简化版的 render | `'money'、'option'、'date'、'dateRange'、'dateTime'、'dateTimeRange'、'time'、'index'、'indexBorder'、'progress'、'digit'` | 'text' |
+| valueType | 值的类型,相当于简化版的 render | `money` \| `option` \| `date` \| `dateTime` \| `time` \| `text`\| `index`\|`indexBorder` | `text` |
+| copyable | 是否支持 copy | `boolean` | 'false' |
+| valueEnum | 值的枚举，会自动转化把值当成 key 来取出要显示的内容 | [valueEnum](#valueenum) | - |
 | [更多 属性 ](https://ant.design/components/table-cn/#Column) |  |
 
 #### valueType
@@ -60,7 +62,29 @@ pro-table 在 antd 的 table 上进行了一层封装，支持了一些预设，
 | dateTimeRange | 日期和时间区间 | 2019-11-16 12:50:00 2019-11-18 12:50:00 |
 | time | 时间 | 12:50:00 |
 | option | 操作项，会自动增加 marginRight，只支持一个数组,表单中会自动忽略 | `[<a>操作a</a>,<a>操作b</a>]` |
+| text | 默认值，不做任何处理 | - |
+| select | 选择 | - |
+| textarea | 与 text 相同， form 转化时会转为 textarea 组件 | - |
 | index | 序号列 | - |
 | indexBorder | 带 border 的序号列 | - |
 | progress | 进度条 | - |
-| digit | 单纯的数字 | - |
+| digit | [格式化](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat)数字展示，form 转化时会转为 inputNumber | - |
+| percent | 百分比 | +1.12 |
+| code | 代码块 | `const a = b` |
+| avatar | 头像 | 展示一个头像 |
+| password | 密码框 | 密码相关的展示 |
+
+### valueEnum
+
+当前列值的枚举
+
+```typescript | pure
+interface IValueEnum {
+  [key: string]:
+    | ReactNode
+    | {
+        text: ReactNode;
+        status: 'Success' | 'Error' | 'Processing' | 'Warning' | 'Default';
+      };
+}
+```

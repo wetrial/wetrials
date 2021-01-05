@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Form } from 'antd';
-import { IProTableColumnsType } from '@wetrial/component/lib/ProTable/interface';
-import { ProTable } from '@wetrial/component';
+import type { ProColumns } from '@wetrial/component/lib/ProTable/interface';
+import { ProTable, ProTableDropdown } from '@wetrial/component';
 import { useFormTable } from '@wetrial/hooks';
 import { PageContainer } from '@ant-design/pro-layout';
 import { QueryFilter, ProFormText, ProFormDatePicker } from '@ant-design/pro-form';
@@ -63,17 +63,20 @@ export default () => {
   });
   const { type, changeType, submit, reset } = search;
 
-  const columns: IProTableColumnsType = [
+  const columns: ProColumns = [
     {
       title: '序号',
       dataIndex: 'index',
-      width: 60,
+      width: 65,
+      valueType: 'indexBorder',
     },
     {
       title: '标题',
       dataIndex: 'name',
       sorter: true,
       sortOrder: sorter.field === 'name' && sorter.order,
+      copyable: true,
+      ellipsis: true,
       render: (_) => <a>{_}</a>,
     },
     {
@@ -106,34 +109,36 @@ export default () => {
     {
       title: '创建时间',
       dataIndex: 'createdTime',
-      width: 200,
+      width: 180,
       sorter: true,
       sortOrder: sorter.field === 'createdTime' && sorter.order,
+      valueType: 'dateTime',
     },
     {
       title: '更新时间',
-      width: 120,
+      width: 180,
       dataIndex: 'updatedTime',
       sorter: true,
       sortOrder: sorter.field === 'updatedTime' && sorter.order,
+      valueType: 'dateTime',
     },
     {
       title: '操作',
       dataIndex: 'option',
       width: 120,
+      valueType: 'option',
       render: () => [
         <a key="view" target="_blank" rel="noopener noreferrer">
           查看
         </a>,
-        // <TableDropdown
-        //   key="other"
-        //   // eslint-disable-next-line no-alert
-        //   onSelect={(key) => window.alert(key)}
-        //   menus={[
-        //     { key: 'copy', name: '复制' },
-        //     { key: 'delete', name: '删除' },
-        //   ]}
-        // />,
+        <ProTableDropdown
+          key="other"
+          onSelect={(key) => window.alert(key)}
+          menus={[
+            { key: 'copy', name: '复制' },
+            { key: 'delete', name: '删除' },
+          ]}
+        />,
       ],
     },
   ];

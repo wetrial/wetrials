@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Table } from 'antd';
-import { TableProps } from 'antd/lib/table';
-import { ConfigConsumer, ConfigConsumerProps } from 'antd/es/config-provider';
+import type { TableProps } from 'antd/lib/table';
+import type { ConfigConsumerProps } from 'antd/es/config-provider';
+import { ConfigConsumer } from 'antd/es/config-provider';
 import { Resizable } from 'react-resizable';
-import { IProTableProps } from './interface';
+import type { ProTableProps } from './interface';
+import { genColumnList } from './utils';
 import './index.less';
 
 const ResizeableTitle = (props) => {
@@ -71,7 +73,7 @@ const flattenDeepGetColumnKey = (columns: any[], parentKey?: string) => {
 
 const flatDeepGetColumns = (
   columns: any[],
-  columnSize: Object,
+  columnSize: any,
   handleResize: Function,
   parentKey?: string,
 ) => {
@@ -94,7 +96,7 @@ const flatDeepGetColumns = (
   });
 };
 
-function ProTable<RecordType extends object = any>(props: IProTableProps<RecordType>) {
+function ProTable<RecordType extends object = any>(props: ProTableProps<RecordType>) {
   const { resizeable, columns = [], tableLayout = 'fixed', scroll, ...restProps } = props;
 
   const [tableProps, setTableProps] = useState<Partial<TableProps<RecordType>>>({
@@ -107,7 +109,13 @@ function ProTable<RecordType extends object = any>(props: IProTableProps<RecordT
     },
   });
 
-  const [columnSize, setColumnSize] = useState<{ [key: string]: number }>(() =>
+  const tableColumns = useMemo(() => {
+    return genColumnList<RecordType>({
+      columns,
+    });
+  }, [columns]);
+
+  const [columnSize, setColumnSize] = useState<Record<string, number>>(() =>
     flattenDeepGetColumnKey(columns),
   );
 
@@ -124,17 +132,20 @@ function ProTable<RecordType extends object = any>(props: IProTableProps<RecordT
   useEffect(() => {
     if (resizeable) {
       setTableProps({
-        ...tableProps,
         bordered: true,
         components: {
           header: {
             cell: ResizeableTitle,
           },
         },
-        columns: flatDeepGetColumns(columns, columnSize, handleResize),
+        columns: flatDeepGetColumns(tableColumns, columnSize, handleResize),
+      });
+    } else {
+      setTableProps({
+        columns: tableColumns,
       });
     }
-  }, [resizeable, columnSize, columns]);
+  }, [resizeable, columnSize, tableColumns]);
 
   return (
     <ConfigConsumer>

@@ -1,11 +1,79 @@
-import { TableProps, ColumnsType } from 'antd/lib/table';
+import type { ReactNode } from 'react';
+import type { TableProps, ColumnType } from 'antd/lib/table';
+import type { ProFieldValueType, ProFieldValueObjectType } from '@ant-design/pro-utils';
 
-export declare interface IProTableColumnsType extends ColumnsType<any> {}
+type ProSchemaValueType = ProFieldValueType | ProFieldValueObjectType;
 
-export declare interface IProTableProps<T> extends TableProps<T> {
+export type ProSchemaValueEnumType = {
+  /**
+   * @name 演示的文案
+   */
+  text: ReactNode;
+
+  /**
+   * @name 预定的颜色
+   */
+  status: string;
+  /**
+   * @name 自定义的颜色
+   */
+  color?: string;
+  /**
+   * @name 是否禁用
+   */
+  disabled?: boolean;
+};
+
+export type ProSchemaValueEnumObj = Record<string, ProSchemaValueEnumType | ReactNode>;
+
+/**
+ * @name ValueEnum 的类型
+ * @description 支持 Map 和 Object
+ */
+export type ProSchemaValueEnumMap = Map<React.ReactText, ProSchemaValueEnumType | ReactNode>;
+
+export type ProColumnType<T = any> = ColumnType<T> & {
+  /**
+   * 是否缩略
+   */
+  ellipsis?: boolean;
+  /**
+   * 是否拷贝
+   */
+  copyable?: boolean;
+  /**
+   * 选择如何渲染相应的模式
+   */
+  valueType?: ((entity: T) => ProSchemaValueType) | ProSchemaValueType;
+  /**
+   * @name 映射值的类型
+   */
+  valueEnum?: ProSchemaValueEnumObj | ProSchemaValueEnumMap;
+};
+
+export type ProColumnGroupType<RecordType = any> = ProColumnType<RecordType> & {
+  children: ProColumns<RecordType>;
+};
+
+export type ProColumns<RecordType = any> = (
+  | ProColumnGroupType<RecordType>
+  | ProColumnType<RecordType>
+)[];
+
+export type ProTableProps<RecordType> = TableProps<RecordType> & {
   /**
    * 是否允许伸缩列
    */
   resizeable?: boolean;
-  columns: IProTableColumnsType;
-}
+  columns: ProColumns<RecordType>;
+};
+
+/**
+ * 转化列的定义
+ */
+export type ColumnRenderInterface<T> = {
+  columnProps: ProColumnType<T>;
+  text: any;
+  rowData: T;
+  index: number;
+};
