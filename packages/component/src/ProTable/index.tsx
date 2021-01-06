@@ -213,7 +213,7 @@ function ProTable<RecordType extends object = any>(props: ProTableProps<RecordTy
             {...restProps}
             {...tableProps}
             rowSelection={propsRowSelection === false ? undefined : rowSelection}
-            className={`${restProps.className} ${getPrefixCls('wt-pro-table')}`}
+            className={`${restProps.className || ''} ${getPrefixCls('wt-pro-table')}`}
           />
         </Fragment>
       )}
