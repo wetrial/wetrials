@@ -1,12 +1,12 @@
 import React from 'react';
-import { Button, Form, Table, Space, Tag } from 'antd';
+import { Button, Form, Space, Tag } from 'antd';
 import type { ProColumns } from '@wetrial/component/lib/ProTable/interface';
 import { ProTable, ProTableDropdown } from '@wetrial/component';
 import { useFormTable } from '@wetrial/hooks';
 import { PageContainer } from '@ant-design/pro-layout';
 import { QueryFilter, ProFormText, ProFormDatePicker } from '@ant-design/pro-form';
-import { getList } from './services';
-import type { IGitHubIssue } from './services';
+import { getList } from './_services';
+import type { IGitHubIssue } from './_services';
 
 export default () => {
   const [form] = Form.useForm();
@@ -75,25 +75,20 @@ export default () => {
       },
     },
     {
-      title: '时间区间',
-      children: [
-        {
-          title: '创建时间',
-          dataIndex: 'createdTime',
-          width: 180,
-          sorter: true,
-          sortOrder: sorter.field === 'createdTime' && sorter.order,
-          valueType: 'dateTime',
-        },
-        {
-          title: '关闭时间',
-          dataIndex: 'closeTime',
-          width: 180,
-          sorter: true,
-          sortOrder: sorter.field === 'closeTime' && sorter.order,
-          valueType: 'dateTime',
-        },
-      ],
+      title: '创建时间',
+      dataIndex: 'createdTime',
+      width: 180,
+      sorter: true,
+      sortOrder: sorter.field === 'createdTime' && sorter.order,
+      valueType: 'dateTime',
+    },
+    {
+      title: '关闭时间',
+      dataIndex: 'closeTime',
+      width: 180,
+      sorter: true,
+      sortOrder: sorter.field === 'closeTime' && sorter.order,
+      valueType: 'dateTime',
     },
     {
       title: '评论数',
@@ -138,7 +133,6 @@ export default () => {
       title: '操作',
       dataIndex: 'option',
       width: 140,
-      fixed: 'right',
       valueType: 'option',
       render: () => [
         <a key="view" target="_blank" rel="noopener noreferrer">
@@ -149,6 +143,7 @@ export default () => {
         </a>,
         <ProTableDropdown
           key="other"
+          // eslint-disable-next-line no-alert
           onSelect={(key) => window.alert(key)}
           menus={[
             { key: 'copy', name: '复制' },
@@ -158,6 +153,7 @@ export default () => {
       ],
     },
   ];
+
   return (
     <PageContainer
       title="基础使用"
@@ -180,41 +176,7 @@ export default () => {
         </QueryFilter>
       }
     >
-      <ProTable
-        resizeable
-        sticky={{
-          offsetHeader: 64,
-        }}
-        rowKey="id"
-        rowSelection={{
-          // 自定义选择项参考: https://ant.design/components/table-cn/#components-table-demo-row-selection-custom
-          // 注释该行则默认不显示下拉选项
-          selections: [Table.SELECTION_ALL, Table.SELECTION_INVERT],
-          columnWidth: 60,
-        }}
-        tableAlertRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => (
-          <Space size={24}>
-            <span>
-              已选 {selectedRowKeys.length} 项
-              <a style={{ marginLeft: 8 }} onClick={onCleanSelected}>
-                取消选择
-              </a>
-            </span>
-            <span>{`容器数量: ${selectedRows.reduce((pre) => pre + 1, 0)} 个`}</span>
-            <span>{`调用量: ${selectedRows.reduce((pre) => pre + 2, 0)} 次`}</span>
-          </Space>
-        )}
-        tableAlertOptionRender={() => {
-          return (
-            <Space size={16}>
-              <a>批量删除</a>
-              <a>导出数据</a>
-            </Space>
-          );
-        }}
-        {...tableProps}
-        columns={columns}
-      />
+      <ProTable rowKey="id" {...tableProps} columns={columns} />
     </PageContainer>
   );
 };

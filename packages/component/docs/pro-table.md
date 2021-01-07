@@ -15,15 +15,31 @@ group:
 
 pro-table 在 antd 的 table 上进行了一层封装，支持了一些预设，并且封装了一些行为。这里只列出与 antd table 不同的 api。
 
-## 使用场景
-
-一般用于主列表页面，需要复杂搜索、记录搜索条件等的；(请根据情况使用，勿滥用.)
-
 ## 案例
 
 ### 基础使用
 
 <code src="../demos/pro-table/base.tsx" />
+
+### 列宽调节
+
+<code src="../demos/pro-table/resize-columns.tsx" />
+
+### 行选择操作
+
+<code src="../demos/pro-table/row-selector.tsx" />
+
+### 表头分组
+
+<code src="../demos/pro-table/header-group.tsx" />
+
+### 表头吸附
+
+<code src="../demos/pro-table/with-sticky.tsx" />
+
+### 带记录功能
+
+<code src="../demos/pro-table/with-record.tsx" />
 
 ## API
 
@@ -34,10 +50,10 @@ pro-table 在 antd 的 table 上进行了一层封装，支持了一些预设，
 | resizeable | 是否允许自定义列宽 | `boolean` | - |
 | tableAlertRender | 自定义批量操作工具栏左侧信息区域, false 时不显示 | `({ selectedRowKeys: Key[], selectedRows: T[], onCleanSelected: ()=>void }) => ReactNode)`\|`false` | - |
 | tableAlertOptionRender | 自定义批量操作工具栏右侧选项区域, false 时不显示 | `({ selectedRowKeys: Key[], selectedRows: T[], onCleanSelected: ()=>void }) => ReactNode)`\|`false` | - |
+| columns | 表格的列 | [Column](#column)[] | [] |
+| [更多属性 ](https://ant.design/components/table-cn/#API) |  |  |  |
 
-| [更多属性 ](https://ant.design/components/table-cn/#API) | | | |
-
-### Columns
+### Column
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo, Fragment } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Table } from 'antd';
 import type { TableProps } from 'antd/lib/table';
 import type { ConfigConsumerProps } from 'antd/es/config-provider';
@@ -7,6 +7,7 @@ import { Resizable } from 'react-resizable';
 import { useMountMergeState } from '@ant-design/pro-utils';
 import ProTableAlert from './components/Alert';
 import type { ProTableProps, TableRowSelection } from './interface';
+import classNames from 'classnames';
 import { genColumnList } from './utils';
 import './index.less';
 
@@ -199,7 +200,7 @@ function ProTable<RecordType extends object = any>(props: ProTableProps<RecordTy
   return (
     <ConfigConsumer>
       {({ getPrefixCls }: ConfigConsumerProps) => (
-        <Fragment>
+        <>
           {propsRowSelection !== false && (
             <ProTableAlert<RecordType>
               selectedRowKeys={selectedRowKeys}
@@ -213,9 +214,9 @@ function ProTable<RecordType extends object = any>(props: ProTableProps<RecordTy
             {...restProps}
             {...tableProps}
             rowSelection={propsRowSelection === false ? undefined : rowSelection}
-            className={`${restProps.className || ''} ${getPrefixCls('wt-pro-table')}`}
+            className={classNames(restProps.className, getPrefixCls('wt-pro-table'))}
           />
-        </Fragment>
+        </>
       )}
     </ConfigConsumer>
   );
