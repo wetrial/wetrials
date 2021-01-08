@@ -5,6 +5,7 @@ import type { ConfigConsumerProps } from 'antd/es/config-provider';
 import { ConfigConsumer } from 'antd/es/config-provider';
 import { Resizable } from 'react-resizable';
 import { useMountMergeState } from '@ant-design/pro-utils';
+import throttle from 'lodash/throttle';
 import ProTableAlert from './components/Alert';
 import type { ProTableProps, TableRowSelection } from './interface';
 import classNames from 'classnames';
@@ -30,7 +31,7 @@ const ResizeableTitle = (props) => {
           }}
         />
       }
-      onResize={onResize}
+      onResize={throttle(onResize, 300)}
       draggableOpts={{ enableUserSelectHack: false }}
     >
       <th {...restProps} />

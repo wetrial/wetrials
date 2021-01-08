@@ -1,5 +1,3 @@
-import { configIconUrl } from './IconFont';
-
 export { default as UserSelect } from './UserSelect';
 
 export { default as ProDatePicker } from './ProDatePicker';
@@ -20,14 +18,3 @@ export { default as ProTableDropdown } from './ProTable/components/Dropdown';
 export { default as ScrollBar } from './ScrollBar';
 
 export { default as SlideCaptcha } from './SlideCaptcha';
-
-interface IWetrialComponentProps {
-  /**
-   * 字体图标文件地址
-   */
-  iconFontUrl: string | string[];
-}
-
-export const initComponent = (props: IWetrialComponentProps) => {
-  configIconUrl(props.iconFontUrl);
-};

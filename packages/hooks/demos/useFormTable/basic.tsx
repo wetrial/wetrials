@@ -1,15 +1,7 @@
-/**
- * title:  Form 与 Table 联动
- * desc: useFormTable 接收 form 实例后，会返回 search 对象。
- *
- * title.en-US: Form and Table data binding
- * desc.en-US: useFormTable returns a search object after receiving a form instance.
- */
-
 import React from 'react';
 import { Button, Col, Form, Input, Row, Table, Select } from 'antd';
 import { useFormTable } from '@wetrial/hooks';
-import { PaginatedParams } from '@wetrial/hooks/es/useFormTable';
+import type { PaginatedParams } from '@wetrial/hooks/es/useFormTable';
 
 const { Option } = Select;
 

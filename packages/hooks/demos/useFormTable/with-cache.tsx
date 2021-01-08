@@ -1,13 +1,5 @@
-/**
- * title: 数据缓存
- * desc: 通过 cacheKey 可以实现 Form 和 Table 搜索状态缓存(切换到其他页面，其他页面通过`activeCache`来激活指定key的缓存，这样当切换回改页面的时候，搜索状态任然保留)。
- *
- * title.en-US: Data caching
- * desc.en-US: Form and Table data cache through cacheKey
- */
-
 import { useFormTable } from '@wetrial/hooks';
-import { PaginatedParams } from '@wetrial/hooks/es/useFormTable';
+import type { PaginatedParams } from '@wetrial/hooks/es/useFormTable';
 import { Button, Form, Input, Table } from 'antd';
 import React from 'react';
 import { history } from 'umi';

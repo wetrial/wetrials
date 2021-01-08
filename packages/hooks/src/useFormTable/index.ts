@@ -2,7 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 import useRequest from '@ahooksjs/use-request';
 import { useState, useContext, useCallback, useEffect, useRef } from 'react';
-import {
+import type {
   Service,
   CombineService,
   PaginatedParams,
@@ -27,9 +27,7 @@ export type {
   PaginatedResult,
 };
 
-export interface Store {
-  [name: string]: any;
-}
+export type Store = Record<string, any>;
 
 export interface UseAntdTableFormUtils {
   getFieldInstance?: (name: string) => {}; // antd 3

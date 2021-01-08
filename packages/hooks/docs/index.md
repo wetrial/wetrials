@@ -19,11 +19,15 @@ group:
 
 ### 基础使用
 
-<code src="../demos/useFormTableDemo1.tsx" />
+<code src="../demos/useFormTable/basic.tsx" />
 
 ### 带数据缓存
 
-<code src="../demos/useFormTableDemo2.tsx" />
+<code src="../demos/useFormTable/with-cache.tsx" />
+
+### 全局修改 formatResultData&&formatRequestParams
+
+<code src="../demos/useFormTable/with-config-provider.tsx" />
 
 ## API
 

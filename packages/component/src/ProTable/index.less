@@ -17,4 +17,10 @@
     height: 100%;
     cursor: col-resize;
   }
+
+  // TODO 需要移除，暂时解决antd的bug
+  div.ant-table-content,
+  div.ant-table-body {
+    overflow: auto hidden;
+  }
 }
