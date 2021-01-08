@@ -1,6 +1,6 @@
 {
   "name": "@wetrial/component",
-  "version": "0.6.1",
+  "version": "4.0.0-beta.0",
   "description": "@wetrial/component",
   "module": "es/index.js",
   "main": "lib/index.js",
@@ -37,16 +37,15 @@
     "@ant-design/icons": "^4.x",
     "@ant-design/pro-form": "^1.x",
     "@ant-design/pro-layout": "6.x",
-    "@wetrial/core": "^3.x",
-    "@wetrial/hooks": "3.x",
+    "@wetrial/core": "^4.x",
+    "@wetrial/hooks": "^4.x",
     "ahooks": "^2.x",
     "antd": "^4.x",
     "lodash": "^4.x",
     "path-to-regexp": "^6.x",
     "react": "^16.x",
     "redux": "^4.x",
-    "umi": "^3.x",
-    "@wetrial/provider": "^x"
+    "umi": "^3.x"
   },
   "publishConfig": {
     "access": "public"
@@ -54,9 +53,9 @@
   "dependencies": {
     "@ant-design/pro-form": "^1.10.4",
     "@ant-design/pro-layout": "^6.8.0",
-    "@wetrial/core": "^3.4.6",
-    "@wetrial/hooks": "^3.1.6",
-    "@wetrial/provider": "^0.0.2-beta.0",
+    "@wetrial/core": "^4.0.0-beta.0",
+    "@wetrial/hooks": "^4.0.0-beta.0",
+    "@wetrial/provider": "^4.0.0-beta.0",
     "ahooks": "^2.9.2",
     "react-custom-scrollbars": "^4.2.1",
     "react-dnd": "^11.1.3",

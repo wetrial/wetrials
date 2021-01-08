@@ -1,6 +1,6 @@
 {
   "name": "@wetrial/hooks",
-  "version": "3.1.6",
+  "version": "4.0.0-beta.0",
   "description": "@wetrial/hooks",
   "module": "es/index.js",
   "main": "lib/index.js",
@@ -35,22 +35,22 @@
   "homepage": "https://github.com/wetrial/wetrials/tree/master/packages/hooks#readme",
   "peerDependencies": {
     "@ant-design/icons": "^4.x",
-    "@wetrial/core": "^3.x",
+    "@wetrial/core": "^4.x",
+    "@wetrial/provider": "^4.x",
     "ahooks": "^2.x",
     "antd": "^4.x",
     "lodash": "^4.x",
     "path-to-regexp": "^6.x",
     "react": "^16.x",
     "redux": "^4.x",
-    "umi": "^3.x",
-    "@wetrial/provider": "^x"
+    "umi": "^3.x"
   },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@wetrial/core": "^3.4.6",
-    "@wetrial/provider": "^0.0.2-beta.0",
+    "@wetrial/core": "4.0.0-beta.0",
+    "@wetrial/provider": "4.0.0-beta.0",
     "ahooks": "^2.9.1",
     "pubsub-js": "^1.9.1"
   },
