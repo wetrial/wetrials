@@ -49,7 +49,10 @@ $ yarn test --coverage
 
 ```bash
 # 以core包为例
+git tag @wetrial/provider@1.0.0-beta1
 git tag @wetrial/core@1.0.0-beta1
+git tag @wetrial/hooks@1.0.0-beta1
+git tag @wetrial/component@1.0.0-beta1
 ```
 
 3. 按 git commit 规范提交(会自动发布)
