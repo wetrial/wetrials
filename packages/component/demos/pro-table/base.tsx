@@ -1,103 +1,147 @@
 import React from 'react';
-import { Row, Col, Input, Button, Form, Space, Tooltip } from 'antd';
-import { MoreOutlined } from '@ant-design/icons';
-import { ProTable } from '@wetrial/component';
-import { LAYOUT_FORM_TWO, LAYOUT_COL_SEARCH_SIX } from '@wetrial/core/es/constants';
-import { ProColumns, TableDropdown } from '@wetrial/component/es/ProTable';
-import { useFormTable, formatFormTableParams } from '@wetrial/hooks';
+import { Button, Form, Space, Tag } from 'antd';
+import type { ProColumns } from '@wetrial/component/lib/ProTable/interface';
+import { ProTable, ProTableDropdown } from '@wetrial/component';
+import { useFormTable } from '@wetrial/hooks';
 import { PageContainer } from '@ant-design/pro-layout';
-
-const valueEnum = {
-  0: 'close',
-  1: 'running',
-  2: 'online',
-  3: 'error',
-};
-
-export interface TableListItem {
-  key: number;
-  name: string;
-  status: string;
-  updatedAt: number;
-  createdAt: number;
-  progress: number;
-  money: number;
-}
-
-// 模拟数据请求
-const getList = async (data) => {
-  // eslint-disable-next-line no-console
-  console.log(data);
-  return new Promise((resolve) => {
-    const tableListDataSource: TableListItem[] = [];
-    for (let i = 0; i < 100; i++) {
-      tableListDataSource.push({
-        key: i,
-        name: `TradeCode ${i}`,
-        status: valueEnum[Math.floor(Math.random() * 10) % 4],
-        updatedAt: Date.now() - Math.floor(Math.random() * 1000),
-        createdAt: Date.now() - Math.floor(Math.random() * 2000),
-        money: Math.floor(Math.random() * 2000) * i,
-        progress: Math.ceil(Math.random() * 100) + 1,
-      });
-    }
-    return resolve({
-      total: 100,
-      list: tableListDataSource,
-    });
-  });
-};
+import { QueryFilter, ProFormText, ProFormDatePicker } from '@ant-design/pro-form';
+import { getList } from './_services';
+import type { IGitHubIssue } from './_services';
 
 export default () => {
   const [form] = Form.useForm();
-  const { tableProps, search, sorter } = useFormTable(
-    (paginatedParams, formData) => getList(formatFormTableParams(paginatedParams, formData)),
-    {
-      form,
-    },
-  );
+  const { tableProps, search, sorter } = useFormTable(getList, {
+    form,
+    // defaultParams: [
+    //   { current: 2, pageSize: 5 },
+    //   { name: 'hello', email: 'abc@gmail.com', gender: 'female' },
+    // ],
+    // defaultType: 'advance',
+  });
+  const { type, changeType, submit, reset } = search;
 
-  const columns: ProColumns<TableListItem>[] = [
+  const columns: ProColumns<IGitHubIssue> = [
     {
       title: '序号',
       dataIndex: 'index',
+      width: 65,
       valueType: 'indexBorder',
-      width: 70,
     },
     {
       title: '标题',
-      dataIndex: 'name',
+      dataIndex: 'title',
       sorter: true,
-      sortOrder: sorter.field === 'name' && sorter.order,
-      render: (_) => <a>{_}</a>,
+      sortOrder: sorter.field === 'title' && sorter.order,
+      copyable: true,
+      width: 180,
+      render: (value, record) => (
+        <a target="_blank" href={`${record.url}`}>
+          {value}
+        </a>
+      ),
+    },
+    {
+      title: '标签',
+      dataIndex: 'labels',
+      width: 200,
+      render: (_, record) => (
+        <Space>
+          {record.labels.map(({ label, color }) => (
+            <Tag color={color} key={label}>
+              {label}
+            </Tag>
+          ))}
+        </Space>
+      ),
     },
     {
       title: '状态',
       dataIndex: 'status',
       width: 100,
+      valueType: 'select',
+      valueEnum: {
+        open: {
+          text: '未解决',
+          status: 'Error',
+        },
+        closed: {
+          text: '已解决',
+          status: 'Success',
+        },
+        processing: {
+          text: '解决中',
+          status: 'Processing',
+        },
+      },
     },
     {
       title: '创建时间',
-      dataIndex: 'createdAt',
-      width: 200,
+      dataIndex: 'createdTime',
+      width: 180,
+      sorter: true,
+      sortOrder: sorter.field === 'createdTime' && sorter.order,
       valueType: 'dateTime',
     },
     {
-      title: '更新时间',
+      title: '关闭时间',
+      dataIndex: 'closeTime',
+      width: 180,
+      sorter: true,
+      sortOrder: sorter.field === 'closeTime' && sorter.order,
+      valueType: 'dateTime',
+    },
+    {
+      title: '评论数',
+      width: 100,
+      dataIndex: 'comments',
+      sorter: true,
+      sortOrder: sorter.field === 'comments' && sorter.order,
+      valueType: 'digit',
+    },
+    {
+      title: '内容',
+      dataIndex: 'content',
+      sorter: true,
+      sortOrder: sorter.field === 'content' && sorter.order,
+      ellipsis: true,
+      valueType: 'text',
+    },
+    {
+      title: '责任人',
+      dataIndex: 'assigner',
       width: 120,
-      dataIndex: 'updatedAt',
-      valueType: 'date',
+      sorter: true,
+      sortOrder: sorter.field === 'assigner' && sorter.order,
+    },
+    {
+      title: '当前进度',
+      dataIndex: 'progress',
+      sorter: true,
+      width: 180,
+      sortOrder: sorter.field === 'progress' && sorter.order,
+      valueType: 'progress',
+    },
+    {
+      title: '打赏额度',
+      dataIndex: 'money',
+      sorter: true,
+      width: 160,
+      sortOrder: sorter.field === 'money' && sorter.order,
+      valueType: 'money',
     },
     {
       title: '操作',
       dataIndex: 'option',
-      width: 120,
+      width: 140,
       valueType: 'option',
       render: () => [
         <a key="view" target="_blank" rel="noopener noreferrer">
           查看
         </a>,
-        <TableDropdown
+        <a key="close" target="_blank" rel="noopener noreferrer">
+          关闭
+        </a>,
+        <ProTableDropdown
           key="other"
           // eslint-disable-next-line no-alert
           onSelect={(key) => window.alert(key)}
@@ -110,75 +154,29 @@ export default () => {
     },
   ];
 
-  const { type, changeType, submit, reset } = search || {};
-
-  const simpleSearchForm = () => (
-    <Form className="wt-simple-search-form" layout="inline" form={form}>
-      <Form.Item name="search">
-        <Input.Search
-          allowClear
-          placeholder="请输入姓名或者邮箱"
-          enterButton
-          suffix={
-            <Tooltip title="更多搜索条件">
-              <Button onClick={changeType} size="small" type="link" icon={<MoreOutlined />} />
-            </Tooltip>
-          }
-          onSearch={submit}
-        />
-      </Form.Item>
-    </Form>
-  );
-
-  const advanceSearchForm = () => (
-    <Form {...LAYOUT_FORM_TWO} form={form}>
-      <Row>
-        <Col {...LAYOUT_COL_SEARCH_SIX}>
-          <Form.Item label="姓名" name="name">
-            <Input autoComplete="off" placeholder="姓名" />
-          </Form.Item>
-        </Col>
-        <Col {...LAYOUT_COL_SEARCH_SIX}>
-          <Form.Item label="邮箱" name="title">
-            <Input autoComplete="off" placeholder="邮箱" />
-          </Form.Item>
-        </Col>
-        <Col {...LAYOUT_COL_SEARCH_SIX}>
-          <Form.Item label="描述" name="desc">
-            <Input autoComplete="off" placeholder="描述" />
-          </Form.Item>
-        </Col>
-        <Form.Item className="wt-advance-search-form-operator">
-          <Space>
-            <Button type="primary" onClick={submit}>
-              查询
-            </Button>
-            <Button onClick={reset}>重置</Button>
-            <Button type="link" onClick={changeType}>
-              折叠
-            </Button>
-          </Space>
-        </Form.Item>
-      </Row>
-    </Form>
-  );
-
   return (
     <PageContainer
       title="基础使用"
-      extra={[
-        type === 'simple' ? simpleSearchForm() : undefined,
-        <Button key="1">新增</Button>,
-        <Button key="2">导出</Button>,
-      ]}
+      extra={[<Button key="1">新增</Button>, <Button key="2">导出</Button>]}
+      content={
+        <QueryFilter
+          submitter={{
+            onSubmit: submit,
+            onReset: reset,
+          }}
+          form={form}
+          onCollapse={changeType}
+          collapsed={type === 'simple'}
+        >
+          <ProFormText name="name" label="标题" />
+          <ProFormDatePicker name="createdTime" label="创建时间" />
+          <ProFormText name="status" label="状态" />
+          <ProFormDatePicker name="updatedTime" label="更新日期" />
+          <ProFormDatePicker name="enddate" label="结束时间" />
+        </QueryFilter>
+      }
     >
-      <ProTable<TableListItem>
-        columns={columns}
-        rowKey="key"
-        searchType={type}
-        renderSearch={advanceSearchForm}
-        {...tableProps}
-      />
+      <ProTable rowKey="id" {...tableProps} columns={columns} />
     </PageContainer>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Space, Tag } from 'antd';
+import { Button, Form, Table, Space, Tag } from 'antd';
 import type { ProColumns } from '@wetrial/component/lib/ProTable/interface';
 import { ProTable, ProTableDropdown } from '@wetrial/component';
 import { useFormTable } from '@wetrial/hooks';
@@ -12,6 +12,11 @@ export default () => {
   const [form] = Form.useForm();
   const { tableProps, search, sorter } = useFormTable(getList, {
     form,
+    // defaultParams: [
+    //   { current: 2, pageSize: 5 },
+    //   { name: 'hello', email: 'abc@gmail.com', gender: 'female' },
+    // ],
+    // defaultType: 'advance',
   });
   const { type, changeType, submit, reset } = search;
 
@@ -70,20 +75,25 @@ export default () => {
       },
     },
     {
-      title: '创建时间',
-      dataIndex: 'createdTime',
-      width: 180,
-      sorter: true,
-      sortOrder: sorter.field === 'createdTime' && sorter.order,
-      valueType: 'dateTime',
-    },
-    {
-      title: '关闭时间',
-      dataIndex: 'closeTime',
-      width: 180,
-      sorter: true,
-      sortOrder: sorter.field === 'closeTime' && sorter.order,
-      valueType: 'dateTime',
+      title: '时间区间',
+      children: [
+        {
+          title: '创建时间',
+          dataIndex: 'createdTime',
+          width: 180,
+          sorter: true,
+          sortOrder: sorter.field === 'createdTime' && sorter.order,
+          valueType: 'dateTime',
+        },
+        {
+          title: '关闭时间',
+          dataIndex: 'closeTime',
+          width: 180,
+          sorter: true,
+          sortOrder: sorter.field === 'closeTime' && sorter.order,
+          valueType: 'dateTime',
+        },
+      ],
     },
     {
       title: '评论数',
@@ -152,7 +162,7 @@ export default () => {
 
   return (
     <PageContainer
-      title="允许列宽调节"
+      title="表头分组"
       extra={[<Button key="1">新增</Button>, <Button key="2">导出</Button>]}
       content={
         <QueryFilter
@@ -172,7 +182,38 @@ export default () => {
         </QueryFilter>
       }
     >
-      <ProTable resizeable rowKey="id" {...tableProps} columns={columns} />
+      <ProTable
+        resizeable
+        rowKey="id"
+        rowSelection={{
+          // 自定义选择项参考: https://ant.design/components/table-cn/#components-table-demo-row-selection-custom
+          // 注释该行则默认不显示下拉选项
+          selections: [Table.SELECTION_ALL, Table.SELECTION_INVERT],
+          columnWidth: 60,
+        }}
+        tableAlertRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => (
+          <Space size={24}>
+            <span>
+              已选 {selectedRowKeys.length} 项
+              <a style={{ marginLeft: 8 }} onClick={onCleanSelected}>
+                取消选择
+              </a>
+            </span>
+            <span>{`容器数量: ${selectedRows.reduce((pre) => pre + 1, 0)} 个`}</span>
+            <span>{`调用量: ${selectedRows.reduce((pre) => pre + 2, 0)} 次`}</span>
+          </Space>
+        )}
+        tableAlertOptionRender={() => {
+          return (
+            <Space size={16}>
+              <a>批量删除</a>
+              <a>导出数据</a>
+            </Space>
+          );
+        }}
+        {...tableProps}
+        columns={columns}
+      />
     </PageContainer>
   );
 };

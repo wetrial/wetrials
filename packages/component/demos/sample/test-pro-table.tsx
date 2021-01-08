@@ -6,9 +6,9 @@ import { useHistory } from 'umi';
 export default () => {
   const history = useHistory();
   const handleBack = () => {
-    const listPath = '/list/data-display/pro-table#有记忆功能的列表';
+    const listPath = '/component/data-display/pro-table';
     activeCache(listPath);
-    history.push(listPath);
+    history.push(`${listPath}#带记录功能`);
   };
   return (
     <Button onClick={handleBack} type="link">

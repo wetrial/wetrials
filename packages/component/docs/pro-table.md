@@ -15,31 +15,31 @@ group:
 
 pro-table 在 antd 的 table 上进行了一层封装，支持了一些预设，并且封装了一些行为。这里只列出与 antd table 不同的 api。
 
-## 使用场景
-
-一般用于主列表页面，需要复杂搜索、记录搜索条件等的；(请根据情况使用，勿滥用.)
-
 ## 案例
 
 ### 基础使用
 
 <code src="../demos/pro-table/base.tsx" />
 
-### 显示提示块
-
-<code src="../demos/pro-table/custom-container.tsx" />
-
-### 伸缩列
+### 列宽调节
 
 <code src="../demos/pro-table/resize-columns.tsx" />
 
-### 有记忆功能的列表
+### 行选择操作
+
+<code src="../demos/pro-table/row-selector.tsx" />
+
+### 表头分组
+
+<code src="../demos/pro-table/header-group.tsx" />
+
+### 表头吸附
+
+<code src="../demos/pro-table/with-sticky.tsx" />
+
+### 带记录功能
 
 <code src="../demos/pro-table/with-record.tsx" />
-
-### 自定义显示列
-
-<code src="../demos/pro-table/columns-state.tsx" />
 
 ## API
 
@@ -48,19 +48,18 @@ pro-table 在 antd 的 table 上进行了一层封装，支持了一些预设，
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | resizeable | 是否允许自定义列宽 | `boolean` | - |
-| containerClassName | 设置容器元素的 class | string | - |
-| containerStyle | 设置容器元素的 style | CSSProperties | - |
-| options | table 的工具栏，设置为 false 可以关闭它 | { density: true, fullScreen:true, setting: true} |
-| onSizeChange | table 尺寸发生改变 | function(size: 'default' \|'middle' \|'small' \|undefined) => void | - |
-| columnsStateMap | columns 的状态枚举 | {[key: string]: { show:boolean, fixed: "right"\|"left"} } | - |
-| onColumnsStateChange | columns 状态发生改变 | function(props: {[key: string]: { show:boolean, fixed: "right"\|"left"} }) => void | - |
+| tableAlertRender | 自定义批量操作工具栏左侧信息区域, false 时不显示 | `({ selectedRowKeys: Key[], selectedRows: T[], onCleanSelected: ()=>void }) => ReactNode)`\|`false` | - |
+| tableAlertOptionRender | 自定义批量操作工具栏右侧选项区域, false 时不显示 | `({ selectedRowKeys: Key[], selectedRows: T[], onCleanSelected: ()=>void }) => ReactNode)`\|`false` | - |
+| columns | 表格的列 | [Column](#column)[] | [] |
 | [更多属性 ](https://ant.design/components/table-cn/#API) |  |  |  |
 
-### Columns
+### Column
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| valueType | 值的类型,相当于简化版的 render | `'money'、'option'、'date'、'dateRange'、'dateTime'、'dateTimeRange'、'time'、'index'、'indexBorder'、'progress'、'digit'` | 'text' |
+| valueType | 值的类型,相当于简化版的 render | `money` \| `option` \| `date` \| `dateTime` \| `time` \| `text`\| `index`\|`indexBorder` | `text` |
+| copyable | 是否支持 copy | `boolean` | 'false' |
+| valueEnum | 值的枚举，会自动转化把值当成 key 来取出要显示的内容 | [valueEnum](#valueenum) | - |
 | [更多 属性 ](https://ant.design/components/table-cn/#Column) |  |
 
 #### valueType
@@ -76,7 +75,29 @@ pro-table 在 antd 的 table 上进行了一层封装，支持了一些预设，
 | dateTimeRange | 日期和时间区间 | 2019-11-16 12:50:00 2019-11-18 12:50:00 |
 | time | 时间 | 12:50:00 |
 | option | 操作项，会自动增加 marginRight，只支持一个数组,表单中会自动忽略 | `[<a>操作a</a>,<a>操作b</a>]` |
+| text | 默认值，不做任何处理 | - |
+| select | 选择 | - |
+| textarea | 与 text 相同， form 转化时会转为 textarea 组件 | - |
 | index | 序号列 | - |
 | indexBorder | 带 border 的序号列 | - |
 | progress | 进度条 | - |
-| digit | 单纯的数字 | - |
+| digit | [格式化](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat)数字展示，form 转化时会转为 inputNumber | - |
+| percent | 百分比 | +1.12 |
+| code | 代码块 | `const a = b` |
+| avatar | 头像 | 展示一个头像 |
+| password | 密码框 | 密码相关的展示 |
+
+### valueEnum
+
+当前列值的枚举
+
+```typescript | pure
+interface IValueEnum {
+  [key: string]:
+    | ReactNode
+    | {
+        text: ReactNode;
+        status: 'Success' | 'Error' | 'Processing' | 'Warning' | 'Default';
+      };
+}
+```

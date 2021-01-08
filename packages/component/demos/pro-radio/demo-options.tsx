@@ -11,7 +11,7 @@ export default () => {
 
   const handleChange = (e: RadioChangeEvent) => {
     // eslint-disable-next-line no-console
-    console.log(e.target.value);
+    console.log(e?.target?.value);
   };
 
   return <ProRadio.Group onChange={handleChange} options={list} />;

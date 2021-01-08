@@ -1,13 +1,13 @@
 import * as React from 'react';
 import RcCheckbox from 'rc-checkbox';
 import classNames from 'classnames';
-import { RadioProps, RadioChangeEvent } from 'antd/es/radio';
-import { ConfigContext } from 'antd/es/config-provider';
-import RadioGroupContext from 'antd/es/radio/context';
-import { composeRef } from 'antd/es/_util/ref';
-import devWarning from 'antd/es/_util/devWarning';
+import { composeRef } from 'rc-util/lib/ref';
+import { RadioProps, RadioChangeEvent } from 'antd/lib/radio/interface';
+import { ConfigContext } from 'antd/lib/config-provider';
+import RadioGroupContext from 'antd/lib/radio/context';
+import devWarning from 'antd/lib/_util/devWarning';
 
-const InternalRadio: React.ForwardRefRenderFunction<unknown, RadioProps> = (props, ref) => {
+const InternalRadio: React.ForwardRefRenderFunction<HTMLElement, RadioProps> = (props, ref) => {
   const context = React.useContext(RadioGroupContext);
   const { getPrefixCls, direction } = React.useContext(ConfigContext);
   const innerRef = React.useRef<HTMLElement>();
@@ -36,56 +36,30 @@ const InternalRadio: React.ForwardRefRenderFunction<unknown, RadioProps> = (prop
     radioProps.checked = props.value === context.value;
     radioProps.disabled = props.disabled || context.disabled;
   }
-  const wrapperClassString = classNames(className, {
-    [`${prefixCls}-wrapper`]: true,
-    [`${prefixCls}-wrapper-checked`]: radioProps.checked,
-    [`${prefixCls}-wrapper-disabled`]: radioProps.disabled,
-    [`${prefixCls}-wrapper-rtl`]: direction === 'rtl',
-  });
+  const wrapperClassString = classNames(
+    `${prefixCls}-wrapper`,
+    {
+      [`${prefixCls}-wrapper-checked`]: radioProps.checked,
+      [`${prefixCls}-wrapper-disabled`]: radioProps.disabled,
+      [`${prefixCls}-wrapper-rtl`]: direction === 'rtl',
+    },
+    className,
+  );
 
-  const toggleClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const toggleClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     const oldValue = context?.value;
     // eslint-disable-next-line @typescript-eslint/dot-notation
     if (`${e.target['value']}` === `${oldValue}`) {
       const v: any = undefined;
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       context && context.onChange && context.onChange(v);
-      // context &&
-      //   context.onChange &&
-      //   context.onChange({
-      //     nativeEvent: e.nativeEvent,
-      //     preventDefault: e.preventDefault,
-      //     stopPropagation: e.stopPropagation,
-      //     target: {
-      //       ...e.target,
-      //       checked: true,
-      //     },
-      //   });
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     radioProps.onClick && radioProps.onClick(e);
-    // if (context?.onChange) {
-    //   context.onChange({
-    //     target: {
-    //       ...e.target,
-    //       chedked: false,
-    //     },
-    //   } as RadioChangeEvent);
-    // }
-    // if (e.target.value === value) {
-    //   if (context?.onChange) {
-    //     context.onChange({
-    //       target: {
-    //         ...e.target,
-    //         chedked: false,
-    //       },
-    //     } as RadioChangeEvent);
-    //   }
-    // }
   };
 
   return (
-    // eslint-disable-next-line
+    // eslint-disable-next-line jsx-a11y/label-has-associated-control
     <label
       className={wrapperClassString}
       style={style}
@@ -104,7 +78,8 @@ const InternalRadio: React.ForwardRefRenderFunction<unknown, RadioProps> = (prop
   );
 };
 
-const Radio = React.forwardRef<unknown, RadioProps>(InternalRadio);
+const Radio = React.forwardRef<unknown, RadioProps>(InternalRadio as any);
+
 Radio.displayName = 'Radio';
 
 Radio.defaultProps = {
