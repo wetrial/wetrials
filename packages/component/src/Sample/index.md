@@ -17,4 +17,4 @@ group:
 
 ## ProTable 组件专用块
 
-<code src="../demos/sample/test-pro-table.tsx" />
+<code src="./demos/test-pro-table.tsx" />

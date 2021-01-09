@@ -19,27 +19,27 @@ pro-table 在 antd 的 table 上进行了一层封装，支持了一些预设，
 
 ### 基础使用
 
-<code src="../demos/pro-table/base.tsx" />
+<code src="./demos/base.tsx" />
 
 ### 列宽调节
 
-<code src="../demos/pro-table/resize-columns.tsx" />
+<code src="./demos/resize-columns.tsx" />
 
 ### 行选择操作
 
-<code src="../demos/pro-table/row-selector.tsx" />
+<code src="./demos/row-selector.tsx" />
 
 ### 表头分组
 
-<code src="../demos/pro-table/header-group.tsx" />
+<code src="./demos/header-group.tsx" />
 
 ### 表头吸附
 
-<code src="../demos/pro-table/with-sticky.tsx" />
+<code src="./demos/with-sticky.tsx" />
 
 ### 带记录功能
 
-<code src="../demos/pro-table/with-record.tsx" />
+<code src="./demos/with-record.tsx" />
 
 ## API
 

@@ -19,19 +19,19 @@ group:
 
 ### 基础使用
 
-<code src="../demos/pro-select/demo1.tsx" />
+<code src="./demos/demo1.tsx" />
 
 ### 字符串数组
 
-<code src="../demos/pro-select/demo-string-array.tsx" />
+<code src="./demos/demo-string-array.tsx" />
 
 ### 指定 keyProp、labelProp
 
-<code src="../demos/pro-select/demo2.tsx" />
+<code src="./demos/demo2.tsx" />
 
 ### 使用默认 options
 
-<code src="../demos/pro-select/demo-options.tsx" />
+<code src="./demos/demo-options.tsx" />
 
 ### 案例
 

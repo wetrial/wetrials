@@ -14,11 +14,9 @@ import './index.less';
 
 const ResizeableTitle = (props) => {
   const { onResize, width, ...restProps } = props;
-
   if (!width) {
     return <th {...restProps} />;
   }
-
   return (
     <Resizable
       width={width}
@@ -115,9 +113,7 @@ function ProTable<RecordType extends object = any>(props: ProTableProps<RecordTy
   const [selectedRowKeys, setSelectedRowKeys] = useMountMergeState<React.ReactText[]>([], {
     value: propsRowSelection ? propsRowSelection.selectedRowKeys : undefined,
   });
-
   const [selectedRows, setSelectedRows] = useMountMergeState<RecordType[]>([]);
-
   const setSelectedRowsAndKey = useCallback(
     (keys: React.ReactText[], rows: RecordType[]) => {
       setSelectedRowKeys(keys);
@@ -181,7 +177,7 @@ function ProTable<RecordType extends object = any>(props: ProTableProps<RecordTy
   );
 
   useEffect(() => {
-    let resizeProps = {};
+    let resizeProps;
     if (resizeable) {
       resizeProps = {
         bordered: true,

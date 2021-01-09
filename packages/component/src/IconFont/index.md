@@ -23,7 +23,7 @@ antd 图标库中没有的情况，由前端人员添加http://www.iconfont.cn/�
 
 ### 基本使用
 
-<code src="../demos/icon-font/base.tsx" />
+<code src="./demos/base.tsx" />
 
 ## API
 

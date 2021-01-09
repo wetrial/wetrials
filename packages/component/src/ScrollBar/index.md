@@ -19,27 +19,27 @@ group:
 
 ### 基础使用
 
-<code src="../demos/scroll-bar/basic.tsx" />
+<code src="./demos/basic.tsx" />
 
 ### 自定隐藏滚动条
 
-<code src="../demos/scroll-bar/autoHide.tsx" />
+<code src="./demos/autoHide.tsx" />
 
 ### 自动高度
 
-<code src="../demos/scroll-bar/autoHeight.tsx" />
+<code src="./demos/autoHeight.tsx" />
 
 ### universal
 
-<code src="../demos/scroll-bar/universal.tsx" />
+<code src="./demos/universal.tsx" />
 
 ### 滚动条事件
 
-<code src="../demos/scroll-bar/event.tsx" />
+<code src="./demos/event.tsx" />
 
 ### 自定义滚动条
 
-<code src="../demos/scroll-bar/customization.tsx" />
+<code src="./demos/customization.tsx" />
 
 [更多案例](https://github.com/malte-wessel/react-custom-scrollbars/blob/master/docs/customization.md)
 

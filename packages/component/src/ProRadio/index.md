@@ -19,15 +19,15 @@ group:
 
 ### Radio - 使用
 
-<code src="../demos/pro-radio/demo-radio.tsx" />
+<code src="./demos/demo-radio.tsx" />
 
 ### Radio.Group 基础使用
 
-<code src="../demos/pro-radio/demo1.tsx" />
+<code src="./demos/demo1.tsx" />
 
 ### Radio.Group 使用 options 数据源
 
-<code src="../demos/pro-radio/demo-options.tsx" />
+<code src="./demos/demo-options.tsx" />
 
 ## API
 

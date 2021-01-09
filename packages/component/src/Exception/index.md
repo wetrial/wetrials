@@ -19,15 +19,15 @@ group:
 
 ### 403
 
-<code src="../demos/exception/403.tsx" />
+<code src="./demos/403.tsx" />
 
 ### 404
 
-<code src="../demos/exception/404.tsx" />
+<code src="./demos/404.tsx" />
 
 ### 500
 
-<code src="../demos/exception/500.tsx" />
+<code src="./demos/500.tsx" />
 
 ## API
 

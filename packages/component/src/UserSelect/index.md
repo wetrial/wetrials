@@ -21,19 +21,19 @@ WT 人员选择插件（单一层级）
 
 > 数据源需要带有用户 id、用户名、头像（可选），可在`fields`中自定义，有初始值的情况下先传入`value`。
 
-<code src="../demos/user-select/demo1.tsx" />
+<code src="./demos/demo1.tsx" />
 
 ### 单选
 
 > 由于插件默认是多选，单选要配置属性`multiple={false}`，并且`value`由数组变成字符串。
 
-<code src="../demos/user-select/demo2.tsx" />
+<code src="./demos/demo2.tsx" />
 
 ### 自定义用户信息卡内容
 
 > 用户头像悬停的信息卡可通过`cardRender`属性自定义渲染内容。
 
-<code src="../demos/user-select/demo3.tsx" />
+<code src="./demos/demo3.tsx" />
 
 ### 在表单中使用以及自定义 fields
 
@@ -41,7 +41,7 @@ WT 人员选择插件（单一层级）
 
 > 可以通过配置 fields 属性自定义数据源对应的字段名称
 
-<code src="../demos/user-select/demo4.tsx" />
+<code src="./demos/demo4.tsx" />
 
 ## API
 

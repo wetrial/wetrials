@@ -19,4 +19,4 @@ group:
 
 ### 基础使用(没有对应后端，请参照案例使用)
 
-<code src="../demos/slide-captcha/basic.tsx" />
+<code src="./demos/basic.tsx" />

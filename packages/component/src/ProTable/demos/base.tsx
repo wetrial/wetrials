@@ -1,5 +1,4 @@
 import React from 'react';
-import { useLocation, Link } from 'umi';
 import { Button, Form, Space, Tag } from 'antd';
 import type { ProColumns } from '@wetrial/component/lib/ProTable/interface';
 import { ProTable, ProTableDropdown } from '@wetrial/component';
@@ -11,10 +10,13 @@ import type { IGitHubIssue } from './_services';
 
 export default () => {
   const [form] = Form.useForm();
-  const { pathname } = useLocation();
   const { tableProps, search, sorter } = useFormTable(getList, {
     form,
-    cacheKey: pathname,
+    // defaultParams: [
+    //   { current: 2, pageSize: 5 },
+    //   { name: 'hello', email: 'abc@gmail.com', gender: 'female' },
+    // ],
+    // defaultType: 'advance',
   });
   const { type, changeType, submit, reset } = search;
 
@@ -131,7 +133,6 @@ export default () => {
       title: '操作',
       dataIndex: 'option',
       width: 140,
-      fixed: 'right',
       valueType: 'option',
       render: () => [
         <a key="view" target="_blank" rel="noopener noreferrer">
@@ -152,17 +153,10 @@ export default () => {
       ],
     },
   ];
-
   return (
     <PageContainer
-      title={`搜索、分页后点击右上角"进入测试页面"，再切换回来，当前页面会保留最后的搜索状态`}
-      extra={[
-        <Button key="1">新增</Button>,
-        <Button key="2">导出</Button>,
-        <Button type="link" key="3">
-          <Link to="/component/other/test">进入测试页面</Link>
-        </Button>,
-      ]}
+      title="基础使用"
+      extra={[<Button key="1">新增</Button>, <Button key="2">导出</Button>]}
       content={
         <QueryFilter
           submitter={{

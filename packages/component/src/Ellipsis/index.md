@@ -19,15 +19,15 @@ group:
 
 ### 指定行数
 
-<code src="../demos/ellipsis/demo1.tsx" />
+<code src="./demos/demo1.tsx" />
 
 ### 指定字数
 
-<code src="../demos/ellipsis/demo2.tsx" />
+<code src="./demos/demo2.tsx" />
 
 ### 悬浮提示
 
-<code src="../demos/ellipsis/demo3.tsx" />
+<code src="./demos/demo3.tsx" />
 
 ## API
 
