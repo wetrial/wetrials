@@ -2,7 +2,7 @@ import * as React from 'react';
 import RcCheckbox from 'rc-checkbox';
 import classNames from 'classnames';
 import { composeRef } from 'rc-util/lib/ref';
-import { RadioProps, RadioChangeEvent } from 'antd/lib/radio/interface';
+import type { RadioProps, RadioChangeEvent } from 'antd/lib/radio/interface';
 import { ConfigContext } from 'antd/lib/config-provider';
 import RadioGroupContext from 'antd/lib/radio/context';
 import devWarning from 'antd/lib/_util/devWarning';
@@ -59,7 +59,6 @@ const InternalRadio: React.ForwardRefRenderFunction<HTMLElement, RadioProps> = (
   };
 
   return (
-    // eslint-disable-next-line jsx-a11y/label-has-associated-control
     <label
       className={wrapperClassString}
       style={style}

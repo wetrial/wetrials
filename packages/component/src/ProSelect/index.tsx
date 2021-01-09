@@ -1,7 +1,7 @@
 import React from 'react';
 import { omit } from 'lodash';
 import { Select } from 'antd';
-import { SelectProps } from 'antd/es/select';
+import type { SelectProps } from 'antd/es/select';
 
 const getDataSource = (enums: any) => {
   if (enums !== undefined) {
@@ -28,11 +28,11 @@ export interface IEnumSelectProps<T, VT = string> extends SelectProps<VT> {
   /**
    * key&值对应的 属性名
    */
-  keyProp?: keyof { [key: string]: T }; // string, // keyof T,
+  keyProp?: keyof Record<string, T>; // string, // keyof T,
   /**
    * label对应的属性名
    */
-  labelProp?: keyof { [key: string]: T }; // keyof T
+  labelProp?: keyof Record<string, T>; // keyof T
 }
 
 // eslint-disable-next-line func-names

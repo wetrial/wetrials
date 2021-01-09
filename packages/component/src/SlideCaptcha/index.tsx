@@ -1,8 +1,9 @@
 import React, { useEffect, useReducer } from 'react';
 import { Spin } from 'antd';
-import { ConfigConsumer, ConfigConsumerProps } from 'antd/es/config-provider';
+import type { ConfigConsumerProps } from 'antd/es/config-provider';
+import { ConfigConsumer } from 'antd/es/config-provider';
 import { initState, reducer } from './reducer';
-import { ISlideCaptcha, ISlideCaptchaRefProp } from './props';
+import type { ISlideCaptcha, ISlideCaptchaRefProp } from './props';
 import './index.less';
 
 const SlideCaptcha: React.ForwardRefRenderFunction<ISlideCaptchaRefProp, ISlideCaptcha> = (

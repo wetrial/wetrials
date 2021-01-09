@@ -1,4 +1,4 @@
-import { ISlideCaptchaState, ISlideCaptchaAction } from './props';
+import type { ISlideCaptchaState, ISlideCaptchaAction } from './props';
 
 /**
  * 初始化默认状态

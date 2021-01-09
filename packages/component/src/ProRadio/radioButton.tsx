@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { RadioChangeEvent } from 'antd/es/radio';
-import { AbstractCheckboxProps } from 'antd/es/checkbox/Checkbox';
+import type { RadioChangeEvent } from 'antd/es/radio';
+import type { AbstractCheckboxProps } from 'antd/es/checkbox/Checkbox';
 import { ConfigContext } from 'antd/es/config-provider';
 import RadioGroupContext from 'antd/es/radio/context';
 import Radio from './radio';

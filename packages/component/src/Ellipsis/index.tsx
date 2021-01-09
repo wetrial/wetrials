@@ -1,6 +1,6 @@
 import React, { Component, createRef } from 'react';
 import { Tooltip } from 'antd';
-import { TooltipProps } from 'antd/lib/tooltip';
+import type { TooltipProps } from 'antd/lib/tooltip';
 import classNames from 'classnames';
 import './index.less';
 

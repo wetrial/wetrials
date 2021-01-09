@@ -11,7 +11,7 @@ interface UserSelectFields {
 
 interface UserSelectProps {
   defaultValue?: string[];
-  dataSource: { [key: string]: any }[];
+  dataSource: Record<string, any>[];
   onChange?: (value) => void;
   value?: string[] | string | undefined;
   fields?: UserSelectFields | undefined;

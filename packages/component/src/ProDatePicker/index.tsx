@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DatePicker, Button, Input, Menu, Dropdown } from 'antd';
-import { DatePickerProps } from 'antd/es/date-picker';
+import type { DatePickerProps } from 'antd/es/date-picker';
 import { DownOutlined } from '@ant-design/icons';
 
 interface MyDatePickerProps {

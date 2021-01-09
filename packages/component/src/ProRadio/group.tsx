@@ -1,7 +1,11 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import useMergedState from 'rc-util/lib/hooks/useMergedState';
-import { RadioGroupProps, RadioChangeEvent, RadioGroupButtonStyle } from 'antd/lib/radio/interface';
+import type {
+  RadioGroupProps,
+  RadioChangeEvent,
+  RadioGroupButtonStyle,
+} from 'antd/lib/radio/interface';
 import { ConfigContext } from 'antd/lib/config-provider';
 import SizeContext from 'antd/lib/config-provider/SizeContext';
 import { RadioGroupContextProvider } from 'antd/lib/radio/context';

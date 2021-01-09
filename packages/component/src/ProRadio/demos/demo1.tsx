@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProRadio } from '@wetrial/component';
-import { RadioChangeEvent } from 'antd/es/radio';
+import type { RadioChangeEvent } from 'antd/es/radio';
 
 export default () => {
   const handleChange = (e: RadioChangeEvent) => {
