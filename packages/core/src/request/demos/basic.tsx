@@ -5,7 +5,7 @@ import {
   addResponseInterceptor,
   commonRequestInterceptor,
   commonResponseInterceptor,
-} from '@wetrial/core/es/request';
+} from '@wetrial/core';
 
 addRequestInterceptor(...commonRequestInterceptor);
 addResponseInterceptor(...commonResponseInterceptor);

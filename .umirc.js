@@ -50,7 +50,6 @@ export default {
   ],
   alias: {
     // 增加其他不是index导出的模块alias
-    '@wetrial/core/es': join(__dirname, 'packages', 'core/src'),
     '@wetrial/component/es': join(__dirname, 'packages', 'component/src'),
     ...alias,
   },
