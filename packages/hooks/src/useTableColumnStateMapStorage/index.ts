@@ -18,12 +18,6 @@ export interface Result {
 const TABLE_COLUMN_STATE_CACHE_PREFIX = '__table_columns_';
 
 function useTableColumnStateMapStorage(key: string): Result;
-
-function useTableColumnStateMapStorage(
-  key: string,
-  defaultValue: IColumnStateMap | (() => IColumnStateMap),
-): Result;
-
 function useTableColumnStateMapStorage(
   key: string,
   defaultValue?: IColumnStateMap | (() => IColumnStateMap),
