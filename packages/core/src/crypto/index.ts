@@ -108,7 +108,7 @@ export function decrypt(cryptoBody: string, key: string): string {
 // }
 
 /**
- * 对密钥进行RAS加密
+ * 对密钥进行RAS加密(有长度限制，建议只用于前后端密钥的加密)
  * @param key 密钥
  */
 export function encryptKey(key: string): string {

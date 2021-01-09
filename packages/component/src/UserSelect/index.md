@@ -8,7 +8,7 @@ nav:
 group:
   title: 数据录入
   order: 2
-  path: /data-collect
+  path: /data-collection
 ---
 
 ## UserSelect - 人员选择器

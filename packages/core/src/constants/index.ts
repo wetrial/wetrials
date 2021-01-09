@@ -1,17 +1,22 @@
 import type { TablePaginationConfig } from 'antd/lib/table';
 
 /**
+ * 通用布局，固定label宽度为98px，其他自适应
+ */
+export const LAYOUT_FIXED_LABEL = {
+  labelCol: {
+    flex: '98px',
+  },
+  // wrapperCol: {
+  //   flex: 'auto',
+  // },
+};
+
+/**
  * 表单项单列布局 响应式配置(建议赋到Form上)
  */
 export const LAYOUT_FORM_SINGLE = {
-  labelCol: {
-    xs: { span: 8 },
-    sm: { span: 6 },
-    md: { span: 5 },
-    lg: { span: 4 },
-    xl: { span: 4 },
-    xxl: { span: 2 },
-  },
+  labelCol: { flex: '98px' },
   wrapperCol: {
     xs: { span: 16 },
     sm: { span: 18 },
@@ -134,22 +139,22 @@ export const LAYOUT_CHECK_EIGHT = {
 export const TABLE_SCROLL_WIDTH = 'max-content';
 
 /**
- * 默认日期时间格式
+ * 预定义日期时间格式
  */
 export const DEFAULT_DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm:ss';
 
 /**
- * 默认日期时间
+ * 预定义日期格式
  */
 export const DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';
 
 /**
- * 默认页码
+ * 预定义页码
  */
 export const PAGE_SIZE = 10;
 
 /**
- * 通用分页属性配置
+ * 预定义分页属性配置
  */
 export const PAGE_PROPS: TablePaginationConfig = {
   defaultCurrent: 1,
@@ -159,11 +164,12 @@ export const PAGE_PROPS: TablePaginationConfig = {
   // showSizeChanger: true,
   hideOnSinglePage: true,
   // showQuickJumper:true,
+  // pageSizeOptions:["10","15","20","25","30","50","100"],
   showTotal: (total, [start, end]) => `第${start}-${end}条，共${total}条`,
 };
 
 /**
- * 默认表单验证消息
+ * 预定义表单验证消息
  */
 export const VALIDATE_MESSAGES = {
   default: '验证失败',

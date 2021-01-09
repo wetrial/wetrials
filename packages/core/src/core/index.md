@@ -1,8 +1,8 @@
 ---
-title: initWetrialCore- 全局配置
+title: type- 预定义类型
 order: 10
 nav:
-  title: 核心库
+  title: 预定义类型
   order: 3
   path: /core
 group:
@@ -10,31 +10,20 @@ group:
   path: /
 ---
 
-# initWetrialCore - 全局配置
+# type- 预定义类型
 
-提供 wetrial/core 包的全局配置
+提供了一些预定义类型可以直接使用
 
 ## 使用方式
 
 ```ts | pure
-import { initWetrialCore } from '@wetrial/core';
-
-// 在入口页面
-initWetrialCore({
-  RSAKey: '',
-  Base64MAP: '',
-  routeProfix: '',
-  getGlobalHeader: () => {
-    return {};
-  },
-});
+import type { TWithFalse } from '@wetrial/core';
 ```
 
 ### Props
 
-| 参数            | 说明                        | 类型         | 默认值 |
-| --------------- | --------------------------- | ------------ | ------ |
-| RSAKey          | 加解密密钥                  | `string`     | -      |
-| Base64MAP       | crypto 中 base64 使用的 map | `string`     | -      |
-| routeProfix     | 动态追加的路由前缀          | `string`     | -      |
-| getGlobalHeader | 自定义全局的 ajax 请求头    | `()=>Object` | -      |
+| 参数 | 说明 | 案例 |
+| --- | --- | --- |
+| TKeyValue | 可为 false 的泛型类型 | `let value1:TKeyValue<string>; let value2:TKeyValue<string,number>;` |
+| TWithFalse | 可为 false 的泛型类型 | `let value1:TWithFalse<string>; ` |
+| CryptoType | 加密方向 | - |

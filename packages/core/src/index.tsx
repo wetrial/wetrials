@@ -4,16 +4,35 @@
 import { configBase64Map, configRSAKey } from './crypto';
 import { configRoutePrefix } from './route-helper';
 import { configGlobalHeader, configRefreshToken } from './request';
+import * as crypto from './crypto';
+import * as utils from './utils';
+import * as exception from './exception';
+import * as authority from './authority';
+import * as constants from './constants';
 import type { TKeyValue } from './core';
 
-export { request, get, post, put, del, patch, head, options } from './request';
+export {
+  request,
+  get,
+  post,
+  put,
+  del,
+  patch,
+  head,
+  options,
+  configRefreshToken,
+  addRequestInterceptor,
+  addResponseInterceptor,
+  ejectRequestInterceptor,
+  ejectResponseInterceptor,
+  configGlobalHeader,
+} from './request';
 
 export { default as store } from './store';
 
-export { base64, debase64, encrypt, decrypt, encryptKey, encryptBtoa, decryptAtob } from './crypto';
+export { crypto, utils, exception as Exception, authority as tokener, constants };
 
 export type { TWithFalse, TKeyValue } from './core';
-
 export { CryptoType } from './core';
 
 interface IWetrialCoreProps {

@@ -17,7 +17,9 @@ group:
 ## 使用方式
 
 ```tsx |pure
-import { UnAuthorizedException, UserFriendlyException } from '@wetrial/core/es/exception';
+import { Exception } from '@wetrial/core';
+
+const { ErrorShowType } = Exception;
 
 throw new UnAuthorizedException();
 ```
@@ -26,5 +28,6 @@ throw new UnAuthorizedException();
 
 | 名称                  | 描述                                           | 类型 |
 | --------------------- | ---------------------------------------------- | ---- |
+| ErrorShowType         | 错误展示类型，枚举                             | -    |
 | UnAuthorizedException | 未登录抛出的异常基类，会对此异常类进行全局拦截 | -    |
 | UserFriendlyException | 友好提示异常基类，会对此异常类进行全局拦截     | -    |

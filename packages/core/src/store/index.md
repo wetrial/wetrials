@@ -17,7 +17,7 @@ group:
 ## 使用方式
 
 ```tsx |pure
-import store from '@wetrial/core/es/store';
+import { store } from '@wetrial/core';
 
 store.set('', '');
 ```
