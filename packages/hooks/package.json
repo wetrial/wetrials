@@ -1,6 +1,6 @@
 {
   "name": "@wetrial/hooks",
-  "version": "4.0.0-beta.0",
+  "version": "4.0.0-beta.2",
   "description": "@wetrial/hooks",
   "module": "es/index.js",
   "main": "lib/index.js",
@@ -49,8 +49,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@wetrial/core": "4.0.0-beta.0",
-    "@wetrial/provider": "4.0.0-beta.0",
+    "@wetrial/core": "4.0.0-beta.2",
+    "@wetrial/provider": "4.0.0-beta.2",
     "ahooks": "^2.9.1",
     "pubsub-js": "^1.9.1"
   },
