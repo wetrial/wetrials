@@ -1,4 +1,4 @@
-import storeWithExp from './store';
+import storeWithExp from '../store';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 let token_name = `WETRIAL.TOKEN`;

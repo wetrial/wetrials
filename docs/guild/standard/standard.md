@@ -266,7 +266,7 @@ import memoizeOne from 'memoize-one';
  * @param key key
  * @example mergeCells([{name:'xxg',title:'code'},{name:'刘德华',title:'code'},{name:'古天乐',title:'other'}],'title')==>{0:2,1:0,2:1}
  */
-export function mergeCells<T>(list: T[], key: string | ((item: T) => string)): IKeyValue {
+export function mergeCells<T>(list: T[], key: string | ((item: T) => string)): TKeyValue<number,number> {
   const mergeObj = {};
   let startIndex = 0;
   list &&

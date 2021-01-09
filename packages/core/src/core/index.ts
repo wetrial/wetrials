@@ -1,11 +1,12 @@
-export type IWithFalse<T> = T | false;
+export type TWithFalse<T> = T | false;
 
 /**
  * Key value简写
  */
-export interface IKeyValue<T = any> {
-  [key: string]: T;
-}
+export type TKeyValue<ValueType = any, KeyType extends string | number | symbol = string> = Record<
+  KeyType,
+  ValueType
+>;
 
 /**
  * 加密类型

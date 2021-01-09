@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/dot-notation */
-import axios, { AxiosRequestConfig, Method, AxiosResponse } from 'axios';
+import type { AxiosRequestConfig, Method, AxiosResponse } from 'axios';
+import axios from 'axios';
 import { omit } from 'lodash';
 import { message } from 'antd';
-import { getToken, setToken } from './authority';
+import { getToken, setToken } from '../authority';
 // import { UnAuthorizedException, UserFriendlyException, ErrorShowType } from './exception';
-import { newGuid } from './utils';
-import { encrypt, decrypt, encryptKey } from './crypto';
-import { CryptoType, IKeyValue } from './core';
+import { newGuid } from '../utils';
+import { encrypt, decrypt, encryptKey } from '../crypto';
+import type { TKeyValue } from '../core';
+import { CryptoType } from '../core';
 
 export interface IRequestOption extends AxiosRequestConfig {
   /**
@@ -44,9 +46,9 @@ export const configInstance = (config: AxiosRequestConfig) => {
  * 全局设置的header
  */
 // eslint-disable-next-line import/no-mutable-exports
-let globalHeaders: () => IKeyValue<string>;
+let globalHeaders: () => TKeyValue<string>;
 
-export const configGlobalHeader = (func: () => IKeyValue<string>) => {
+export const configGlobalHeader = (func: () => TKeyValue<string>) => {
   globalHeaders = func;
 };
 

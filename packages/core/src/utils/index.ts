@@ -1,8 +1,9 @@
 /* eslint-disable no-bitwise */
 import { reduce } from 'lodash';
 import { parse } from 'querystring';
-import moment, { Moment } from 'moment';
-import { IKeyValue } from './core';
+import type { Moment } from 'moment';
+import moment from 'moment';
+import type { TKeyValue } from '../core';
 
 /* eslint no-useless-escape:0 import/prefer-default-export:0 */
 const reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/;
@@ -47,13 +48,13 @@ export const isUrl = (path: string): boolean => reg.test(path);
  * @param key 作为key的属性名 默认为 'label'
  * @param value  作为值的属性名 默认为'value'
  * @example  listToFlat([{label:'label1',value:'001'},{label:'label2',value:'002'}],'value','label')==>{'001':'label1','002':'label2'}])
- * @returns IKeyValue
+ * @returns TKeyValue
  * @summary 建议配合memoize方法使用避免不必要的转换，提高性能
  */
 export function listToFlat<T>(items: T[], key: string | number = 'value', text: string = 'label') {
   return reduce(
     items,
-    (redu: IKeyValue<keyof T>, item) => {
+    (redu: TKeyValue<string, string>, item) => {
       const reduKey = item[key];
       // @ts-ignore
       // eslint-disable-next-line no-param-reassign
@@ -190,7 +191,10 @@ export function formatSecuredInfo(
  * @param key key
  * @example mergeCells([{name:'xxg',title:'code'},{name:'刘德华',title:'code'},{name:'古天乐',title:'other'}],'title')==>{0:2,1:0,2:1}
  */
-export function mergeCells<T>(list: T[], key: string | ((item: T) => string)): IKeyValue {
+export function mergeCells<T>(
+  list: T[],
+  key: string | ((item: T) => string),
+): TKeyValue<number, number> {
   const mergeObj = {};
   let startIndex = 0;
 

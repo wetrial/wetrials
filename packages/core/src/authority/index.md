@@ -25,7 +25,7 @@ const token = getToken();
 ## Methods
 
 | 名称 | 描述 | 类型 |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | setToken | 将 token 保存到客户端，token: 要存储的 `token` 值,`exp`:过期时长(秒) | `(token:string,exp?number)=>void` |
 | getToken | 获取当前 token 值 | `()=>string` |
 | clearToken | 删除当前保存的 token，用于退出登录的场景 | `()=>void` |

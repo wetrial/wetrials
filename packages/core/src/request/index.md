@@ -40,10 +40,14 @@ import { get, post, request } from '@/utils/request';
 const result = await get('');
 ```
 
+### 基础使用
+
+<code src="./demos/basic.tsx" />
+
 ## Methods
 
 | 名称 | 描述 | 类型 |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | get | 发送 get 请求，返回 Promise 类型的泛型 T，[IRequestOption](#irequestoption) | `(opt:IRequestOption | string):Promise<T>` |
 | post | 发送 post 请求，返回 Promise 类型的泛型 T，[IRequestOption](#irequestoption) | `(opt:IRequestOption):Promise<T>` |
 | put | 发送 put 请求，返回 Promise 类型的泛型 T，[IRequestOption](#irequestoption) | `(opt:IRequestOption):Promise<T>` |

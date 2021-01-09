@@ -4,7 +4,7 @@
 import { configBase64Map, configRSAKey } from './crypto';
 import { configRoutePrefix } from './route-helper';
 import { configGlobalHeader, configRefreshToken } from './request';
-import { IKeyValue } from './core';
+import type { TKeyValue } from './core';
 
 export { request, get, post, put, del, patch, head, options } from './request';
 
@@ -12,7 +12,7 @@ export { default as store } from './store';
 
 export { base64, debase64, encrypt, decrypt, encryptKey, encryptBtoa, decryptAtob } from './crypto';
 
-export type { IWithFalse, IKeyValue } from './core';
+export type { TWithFalse, TKeyValue } from './core';
 
 export { CryptoType } from './core';
 
@@ -32,7 +32,7 @@ interface IWetrialCoreProps {
   /**
    * 自定义全局的ajax请求头
    */
-  getGlobalHeader?: () => IKeyValue<string>;
+  getGlobalHeader?: () => TKeyValue<string>;
   /**
    * 配置置换token的请求
    */
