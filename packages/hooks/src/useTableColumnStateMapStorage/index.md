@@ -19,7 +19,7 @@ group:
 
 ### 简单实用
 
-<code src="../demos/useTableColumnStateMapStorage.tsx">
+<code src="./demos/basic.tsx">
 
 ## API
 

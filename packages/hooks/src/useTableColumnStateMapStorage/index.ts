@@ -5,9 +5,7 @@ interface IColumnState {
   fixed?: 'right' | 'left' | undefined;
 }
 
-interface IColumnStateMap {
-  [key: string]: IColumnState;
-}
+type IColumnStateMap = Record<string, IColumnState>;
 
 export interface Result {
   getColumns: (columns: any[]) => string[];

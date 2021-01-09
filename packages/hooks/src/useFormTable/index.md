@@ -8,7 +8,7 @@ nav:
 group:
   title: hooks
   order: 1
-  path: /ajax
+  path: /table
 ---
 
 # useFormTable - 分页列表
@@ -19,15 +19,15 @@ group:
 
 ### 基础使用
 
-<code src="../demos/useFormTable/basic.tsx" />
+<code src="./demos/basic.tsx" />
 
 ### 带数据缓存
 
-<code src="../demos/useFormTable/with-cache.tsx" />
+<code src="./demos/with-cache.tsx" />
 
 ### 全局修改 formatResultData&&formatRequestParams
 
-<code src="../demos/useFormTable/with-config-provider.tsx" />
+<code src="./demos/with-config-provider.tsx" />
 
 ## API
 

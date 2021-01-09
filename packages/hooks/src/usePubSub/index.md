@@ -37,7 +37,7 @@ PubSub.publish((event: string), (data: any));
 
 ### 子组件发布父组件订阅
 
-<code src="../demos/usePubSub.tsx">
+<code src="./demos/basic.tsx">
 
 ## API
 

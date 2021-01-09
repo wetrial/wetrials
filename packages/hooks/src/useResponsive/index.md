@@ -19,7 +19,7 @@ group:
 
 ### 在组件中获取响应式信息
 
-<code src="../demos/useResponsive.tsx">
+<code src="./demos/basic.tsx">
 
 ## API
 

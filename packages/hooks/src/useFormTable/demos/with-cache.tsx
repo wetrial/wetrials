@@ -105,7 +105,7 @@ export default () => {
         danger
         onClick={() => {
           history.push({
-            pathname: '/hooks/other/other',
+            pathname: '/component/other/sample',
             hash: '#useformtable-数据缓存',
           });
         }}
