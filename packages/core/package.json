@@ -6,10 +6,11 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "lib",
-    "src",
     "dist",
-    "es"
+    "lib",
+    "es",
+    "package.json",
+    "README.md"
   ],
   "repository": {
     "type": "git",
