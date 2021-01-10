@@ -25,7 +25,7 @@ group:
 
 <code src="./demos/with-cache.tsx" />
 
-### 全局修改 formatResultData&&formatRequestParams
+### 全局修改 formatFormTableResult&&formatFormTableRequest
 
 <code src="./demos/with-config-provider.tsx" />
 

@@ -19,7 +19,7 @@ pro-table 在 antd 的 table 上进行了一层封装，支持了一些预设，
 
 ### 基础使用
 
-<code src="./demos/base.tsx" />
+<code src="./demos/basic.tsx" />
 
 ### 列宽调节
 

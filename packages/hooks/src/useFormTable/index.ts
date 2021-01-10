@@ -70,7 +70,7 @@ function useFormTable<R = any, Item = any, U extends Item = any>(
   service: Service<any, any>,
   options: BaseOptions<U> | OptionsWithFormat<R, Item, U>,
 ): any {
-  const { formatRequestParams, formatResultData } = useContext(WetrialConfigContext);
+  const { formatFormTableRequest, formatFormTableResult } = useContext(WetrialConfigContext);
 
   const [recordCache] = useSessionStorageDestroyState(
     `${TABLECACHEPREFIX}${options.cacheKey}`,
@@ -97,11 +97,11 @@ function useFormTable<R = any, Item = any, U extends Item = any>(
 
   const result = useRequest(
     (paginatedParams, formData, filters) =>
-      formatRequestParams
-        ? service(formatRequestParams(paginatedParams, formData, filters))
+      formatFormTableRequest
+        ? service(formatFormTableRequest(paginatedParams, formData, filters))
         : service,
     {
-      formatResult: (formatResultData as any) || undefined,
+      formatResult: (formatFormTableResult as any) || undefined,
       ...restOptions,
       paginated: true as true,
       manual: true,

@@ -1,9 +1,9 @@
 /**
  * title:  通过@wetrial/provider 修改全局配置
- * desc: 通过ConfigProvider来配置formatResultData、formatResultData 已达到不同后端接口的定制化,更多内容参考/wetrials/core/config-provider
+ * desc: 通过ConfigProvider来配置formatFormTableResult、formatFormTableResult 已达到不同后端接口的定制化,更多内容参考/wetrials/core/config-provider
  *
  * title.en-US:  use @wetrial/provider change global method
- * desc.en-US: use ConfigProvider to config formatResultData、formatResultData
+ * desc.en-US: use ConfigProvider to config formatFormTableResult、formatFormTableResult
  */
 import React from 'react';
 import { Button, Col, Form, Input, Row, Table, Select } from 'antd';
@@ -142,11 +142,11 @@ export default () => {
   return (
     <ConfigProvider
       value={{
-        formatResultData: (result) => {
+        formatFormTableResult: (result) => {
           // TODO 修改为符合要求的结构
           return result;
         },
-        formatRequestParams: (req) => {
+        formatFormTableRequest: (req) => {
           // TODO 修改为符合要求的结构
           return req;
         },

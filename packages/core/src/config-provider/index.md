@@ -25,11 +25,11 @@ import { ConfigProvider } from '@wetrial/provider';
 <ConfigProvider
   value={{
     iconFontUrl: '', // 修改为项目中使用的icon地址
-    formatResultData: (result) => {
+    formatFormTableResult: (result) => {
       // TODO 修改为符合要求的结构
       return result;
     },
-    formatRequestParams: (req) => {
+    formatFormTableRequest: (req) => {
       // TODO 修改为符合要求的结构
       return req;
     },
@@ -60,8 +60,8 @@ export function rootContainer(container) {
       {
         value: {
           // iconFontUrl:'', // 修改为项目中使用的icon地址
-          // formatResultData:()=>{return null;}, // 修改为符合api的结构
-          // formatRequestParams:()=>{return null;} // 修改为符合api的结构
+          // formatFormTableResult:()=>{return null;}, // 修改为符合api的结构
+          // formatFormTableRequest:()=>{return null;} // 修改为符合api的结构
         },
       },
       React.createElement(

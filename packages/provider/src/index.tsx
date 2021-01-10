@@ -100,17 +100,17 @@ const ConfigContext = React.createContext<{
   /**
    * 全局修改wetrial hooks中useFormTable响应数据结构以符合前端特定要求
    */
-  formatResultData?: (res: any) => any;
+  formatFormTableResult?: (res: any) => any;
   /**
    * 全局修改wetrial hooks中useFormTable请求参数以符合后端定制结构
    */
-  formatRequestParams?: (...data) => any;
+  formatFormTableRequest?: (...data) => any;
 }>({
   intl: {
     ...zhCNIntl,
     locale: 'default',
   },
-  formatRequestParams: ({ current, pageSize, sorter }, formData: any): any => {
+  formatFormTableRequest: ({ current, pageSize, sorter }, formData: any): any => {
     let sortParam: any = {};
     if (sorter && sorter.order) {
       let sortName: string;
