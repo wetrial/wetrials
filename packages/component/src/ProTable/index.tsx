@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useContext } from 'react';
 import { Table } from 'antd';
 import type { TableProps } from 'antd/lib/table';
 import type { ConfigConsumerProps } from 'antd/es/config-provider';
 import { ConfigConsumer } from 'antd/es/config-provider';
 import { Resizable } from 'react-resizable';
 import { useMountMergeState } from '@ant-design/pro-utils';
+import { RouteContext } from '@ant-design/pro-layout';
 import throttle from 'lodash/throttle';
 import ProTableAlert from './components/Alert';
 import type { ProTableProps, TableRowSelection } from './interface';
@@ -110,6 +111,7 @@ function ProTable<RecordType extends object = any>(props: ProTableProps<RecordTy
     ...restProps
   } = props;
 
+  const { fixedHeader, headerHeight } = useContext(RouteContext);
   const [selectedRowKeys, setSelectedRowKeys] = useMountMergeState<React.ReactText[]>([], {
     value: propsRowSelection ? propsRowSelection.selectedRowKeys : undefined,
   });
@@ -208,6 +210,10 @@ function ProTable<RecordType extends object = any>(props: ProTableProps<RecordTy
             />
           )}
           <Table<RecordType>
+            sticky={{
+              offsetHeader: (fixedHeader && headerHeight) || undefined,
+              offsetScroll: 6,
+            }}
             {...restProps}
             {...tableProps}
             rowSelection={propsRowSelection === false ? undefined : rowSelection}
