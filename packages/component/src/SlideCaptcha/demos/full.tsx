@@ -14,9 +14,15 @@ export default () => {
     return validateRequest.run(reqData);
   };
 
-  const onValidationSuccess = (validateKey) => {
+  const onValidationSuccess = () => {
     // eslint-disable-next-line no-alert
-    alert(`验证成功!,token:${validateKey}`);
+    alert('验证成功!');
+  };
+
+  const onValidationError = () => {
+    // eslint-disable-next-line no-alert
+    alert('验证失败，请重试!');
+    run();
   };
 
   return (
@@ -30,7 +36,10 @@ export default () => {
       top={data?.y}
       onRefresh={run}
       validate={onValidate}
+      onFinishFailed={onValidationError}
       onFinish={onValidationSuccess}
+      tip="向右滑动完成滑块"
+      refreshTitle="点击更换一张"
     />
   );
 };

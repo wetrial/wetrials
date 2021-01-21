@@ -102,9 +102,8 @@ const SlideCaptcha: React.ForwardRefRenderFunction<ISlideCaptchaRefProp, ISlideC
         .catch((err) => {
           if (props.onFinishFailed) {
             props.onFinishFailed(err);
-          } else {
-            refresh();
           }
+          refresh();
         });
     });
   };
@@ -212,7 +211,7 @@ const SlideCaptcha: React.ForwardRefRenderFunction<ISlideCaptchaRefProp, ISlideC
 const SlideCaptchaComponent = React.forwardRef(SlideCaptcha);
 
 SlideCaptchaComponent.defaultProps = {
-  tip: '向右滑动滑块填充拼图',
+  tip: '向右滑动完成拼图',
   refreshTitle: '换一张',
   loading: true,
   height: 100,
