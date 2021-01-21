@@ -48,10 +48,10 @@ $ yarn test --coverage
 2. 打 tag，tag 规则为包+版本
 
 ```bash
-git tag @wetrial/provider@4.0.0-beta.3  && git push origin @wetrial/provider@4.0.0-beta.3
-git tag @wetrial/core@4.0.0-beta.3 && git push origin @wetrial/core@4.0.0-beta.3
-git tag @wetrial/hooks@4.0.0-beta.3 && git push origin @wetrial/hooks@4.0.0-beta.3
-git tag @wetrial/component@4.0.0-beta.3 && git push origin @wetrial/component@4.0.0-beta.3
+git tag @wetrial/provider@4.0.0-beta.4  && git push origin @wetrial/provider@4.0.0-beta.4
+git tag @wetrial/core@4.0.0-beta.4 && git push origin @wetrial/core@4.0.0-beta.4
+git tag @wetrial/hooks@4.0.0-beta.4 && git push origin @wetrial/hooks@4.0.0-beta.4
+git tag @wetrial/component@4.0.0-beta.4 && git push origin @wetrial/component@4.0.0-beta.4
 ```
 
 3. 按 git commit 规范提交(会自动发布)
