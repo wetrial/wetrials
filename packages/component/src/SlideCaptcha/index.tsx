@@ -138,8 +138,8 @@ const SlideCaptcha: React.ForwardRefRenderFunction<ISlideCaptchaRefProp, ISlideC
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
-      window.removeEventListener('touchmove', handleMouseUp);
-      window.removeEventListener('touchend', handleMouseUp);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchend);
     };
   }, [handleMouseMove, handleMouseUp, handleTouchMove, handleTouchend]);
 
