@@ -18,13 +18,14 @@ async function generate() {
 }
 
 async function check({ token, point }) {
+  // eslint-disable-next-line no-console
   console.log(token, point);
   return new Promise((resolve, reject) => {
     if (Math.abs(tokenValue[token] - point) <= 2) {
       resolve('成功');
       return;
     }
-    reject('验证失败');
+    reject(new Error('验证失败'));
   });
 }
 
