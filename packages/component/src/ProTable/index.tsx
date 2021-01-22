@@ -210,10 +210,12 @@ function ProTable<RecordType extends object = any>(props: ProTableProps<RecordTy
             />
           )}
           <Table<RecordType>
-            sticky={{
-              offsetHeader: (fixedHeader && headerHeight) || undefined,
-              offsetScroll: 6,
-            }}
+            sticky={
+              fixedHeader && {
+                offsetHeader: (fixedHeader && headerHeight) || undefined,
+                offsetScroll: 6,
+              }
+            }
             {...restProps}
             {...tableProps}
             rowSelection={propsRowSelection === false ? undefined : rowSelection}
