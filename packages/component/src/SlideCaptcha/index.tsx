@@ -12,7 +12,7 @@ const SlideCaptcha: React.ForwardRefRenderFunction<ISlideCaptchaRefProp, ISlideC
 ) => {
   const { width = 200, height = 100, onRefresh, validate, tracks } = props;
   // 最大滑动距离
-  const maxSlideWidth = width - 36;
+  const maxSlideWidth = width - 40;
 
   const [state, dispatch] = useReducer(
     reducer,
@@ -59,17 +59,17 @@ const SlideCaptcha: React.ForwardRefRenderFunction<ISlideCaptchaRefProp, ISlideC
    */
   const dragMoving = (currentPageX) => {
     const distance = currentPageX - state.poorX;
-    if (state.isMove && distance !== state.distance) {
+    if (state.isMove && distance !== state.distance && distance >= 0 && distance <= maxSlideWidth) {
       dispatch({ type: 'setDistance', payload: distance });
       if (distance >= 0 && distance <= maxSlideWidth) {
         if (tracks) {
           dispatch({ type: 'appendTracks', payload: `${distance},${new Date().getTime()}` });
         }
       }
-      // 鼠标指针移动距离超过最大时清空事件
-      else {
-        dispatch({ type: 'reset' });
-      }
+      // // 鼠标指针移动距离超过最大时清空事件
+      // else {
+      //   dispatch({ type: 'reset' });
+      // }
     }
   };
 
@@ -80,6 +80,7 @@ const SlideCaptcha: React.ForwardRefRenderFunction<ISlideCaptchaRefProp, ISlideC
   const dragEnd = () => {
     // 距离不能少于5 否则算没拖动
     if (!state.isMove || state.distance < 5) {
+      dispatch({ type: 'reset' });
       return;
     }
     dispatch({ type: 'setMove', payload: false });
