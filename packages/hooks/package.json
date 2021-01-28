@@ -1,15 +1,16 @@
 {
   "name": "@wetrial/hooks",
-  "version": "3.1.4",
+  "version": "4.0.0-beta.4",
   "description": "@wetrial/hooks",
   "module": "es/index.js",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "lib",
-    "src",
     "dist",
-    "es"
+    "lib",
+    "es",
+    "package.json",
+    "README.md"
   ],
   "repository": {
     "type": "git",
@@ -35,7 +36,8 @@
   "homepage": "https://github.com/wetrial/wetrials/tree/master/packages/hooks#readme",
   "peerDependencies": {
     "@ant-design/icons": "^4.x",
-    "@wetrial/core": "^3.x",
+    "@wetrial/core": "^4.x",
+    "@wetrial/provider": "^4.x",
     "ahooks": "^2.x",
     "antd": "^4.x",
     "lodash": "^4.x",
@@ -48,11 +50,12 @@
     "access": "public"
   },
   "dependencies": {
-    "@wetrial/core": "^3.4.4",
-    "ahooks": "^2.5.0",
-    "pubsub-js": "^1.9.0"
+    "@wetrial/core": "4.0.0-beta.4",
+    "@wetrial/provider": "4.0.0-beta.4",
+    "ahooks": "^2.9.1",
+    "pubsub-js": "^1.9.1"
   },
   "devDependencies": {
-    "@types/pubsub-js": "^1.8.0"
+    "@types/pubsub-js": "^1.8.1"
   }
 }

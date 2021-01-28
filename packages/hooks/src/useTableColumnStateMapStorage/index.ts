@@ -5,9 +5,7 @@ interface IColumnState {
   fixed?: 'right' | 'left' | undefined;
 }
 
-interface IColumnStateMap {
-  [key: string]: IColumnState;
-}
+type IColumnStateMap = Record<string, IColumnState>;
 
 export interface Result {
   getColumns: (columns: any[]) => string[];
@@ -20,12 +18,6 @@ export interface Result {
 const TABLE_COLUMN_STATE_CACHE_PREFIX = '__table_columns_';
 
 function useTableColumnStateMapStorage(key: string): Result;
-
-function useTableColumnStateMapStorage(
-  key: string,
-  defaultValue: IColumnStateMap | (() => IColumnStateMap),
-): Result;
-
 function useTableColumnStateMapStorage(
   key: string,
   defaultValue?: IColumnStateMap | (() => IColumnStateMap),

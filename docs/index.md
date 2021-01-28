@@ -49,8 +49,6 @@ footer: Open-source MIT Licensed | Copyright © 2020-present
 | core | [![](https://img.shields.io/npm/dw/@wetrial/core.svg)](https://www.npmjs.com/package/@wetrial/core) | [![npm package](https://img.shields.io/npm/v/@wetrial/core.svg?style=flat-square?style=flat-square)](https://www.npmjs.com/package/@wetrial/core) |
 | component | [![](https://img.shields.io/npm/dw/@wetrial/component.svg)](https://www.npmjs.com/package/@wetrial/component) | [![npm package](https://img.shields.io/npm/v/@wetrial/component.svg?style=flat-square?style=flat-square)](https://www.npmjs.com/package/@wetrial/component) |
 | hooks | [![](https://img.shields.io/npm/dw/@wetrial/hooks.svg)](https://www.npmjs.com/package/@wetrial/hooks) | [![npm package](https://img.shields.io/npm/v/@wetrial/hooks.svg?style=flat-square?style=flat-square)](https://www.npmjs.com/package/@wetrial/hooks) |
-| form-designer | [![](https://img.shields.io/npm/dw/@wetrial/form-designer.svg)](https://www.npmjs.com/package/@wetrial/form-designer) | [![npm package](https://img.shields.io/npm/v/@wetrial/form-designer.svg?style=flat-square?style=flat-square)](https://www.npmjs.com/package/@wetrial/form-designer) |
-| editor | [![](https://img.shields.io/npm/dw/@wetrial/editor.svg)](https://www.npmjs.com/package/@wetrial/editor) | [![npm package](https://img.shields.io/npm/v/@wetrial/editor.svg?style=flat-square?style=flat-square)](https://www.npmjs.com/package/@wetrial/editor) |
 
 ## 🖥 浏览器兼容性
 

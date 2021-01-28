@@ -1,15 +1,16 @@
 {
   "name": "@wetrial/core",
-  "version": "3.4.4",
+  "version": "4.0.0-beta.4",
   "description": "@wetrial/core",
   "module": "es/index.js",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "lib",
-    "src",
     "dist",
-    "es"
+    "lib",
+    "es",
+    "package.json",
+    "README.md"
   ],
   "repository": {
     "type": "git",

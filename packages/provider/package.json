@@ -1,6 +1,6 @@
 {
   "name": "@wetrial/provider",
-  "version": "0.0.2-beta.0",
+  "version": "4.0.0-beta.4",
   "description": "@wetrial/provider",
   "keywords": [
     "antd",
@@ -20,9 +20,11 @@
   "module": "es/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "lib",
     "dist",
-    "es"
+    "lib",
+    "es",
+    "package.json",
+    "README.md"
   ],
   "browserslist": [
     "last 2 versions",

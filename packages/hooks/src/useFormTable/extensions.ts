@@ -1,8 +1,6 @@
 import { useSessionStorageState, useUnmount } from 'ahooks';
 
-export interface Store {
-  [name: string]: any;
-}
+export type Store = Record<string, any>;
 
 export interface IRecord {
   active?: boolean;

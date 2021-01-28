@@ -1,13 +1,18 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import { RadioGroupProps, RadioChangeEvent, RadioGroupButtonStyle } from 'antd/es/radio';
-import { ConfigContext } from 'antd/es/config-provider';
-import SizeContext from 'antd/es/config-provider/SizeContext';
-import { RadioGroupContextProvider } from 'antd/es/radio/context';
-import Radio from './radio';
-import { usePrevious } from './_utils'; // 需要替换为 'antd/es/_util/ref';
+import useMergedState from 'rc-util/lib/hooks/useMergedState';
+import type {
+  RadioGroupProps,
+  RadioChangeEvent,
+  RadioGroupButtonStyle,
+} from 'antd/lib/radio/interface';
+import { ConfigContext } from 'antd/lib/config-provider';
+import SizeContext from 'antd/lib/config-provider/SizeContext';
+import { RadioGroupContextProvider } from 'antd/lib/radio/context';
 
-const RadioGroup = React.forwardRef<unknown, RadioGroupProps>((props, ref) => {
+import Radio from './radio';
+
+const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>((props, ref) => {
   const { getPrefixCls, direction } = React.useContext(ConfigContext);
   const size = React.useContext(SizeContext);
 
@@ -17,14 +22,9 @@ const RadioGroup = React.forwardRef<unknown, RadioGroupProps>((props, ref) => {
   } else if (props.defaultValue !== undefined) {
     initValue = props.defaultValue;
   }
-  const [value, setValue] = React.useState(initValue);
-  const prevPropValue = usePrevious(props.value);
-
-  React.useEffect(() => {
-    if (props.value !== undefined || prevPropValue !== props.value) {
-      setValue(props.value);
-    }
-  }, [props.value]);
+  const [value, setValue] = useMergedState(props.defaultValue, {
+    value: initValue,
+  });
 
   const onRadioChange = (ev: RadioChangeEvent) => {
     const lastValue = value;
@@ -34,14 +34,13 @@ const RadioGroup = React.forwardRef<unknown, RadioGroupProps>((props, ref) => {
       const v: any = undefined;
       setValue(v);
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      onChange && onChange(v);
+      onChange && onChange(ev);
       return;
     }
     const val = ev.target.value;
     if (!('value' in props)) {
       setValue(val);
     }
-
     if (onChange && val !== lastValue) {
       onChange(ev);
     }
@@ -53,7 +52,7 @@ const RadioGroup = React.forwardRef<unknown, RadioGroupProps>((props, ref) => {
       className = '',
       options,
       optionType,
-      buttonStyle,
+      buttonStyle = 'outline' as RadioGroupButtonStyle,
       disabled,
       children,
       size: customizeSize,
@@ -73,7 +72,6 @@ const RadioGroup = React.forwardRef<unknown, RadioGroupProps>((props, ref) => {
           // 此处类型自动推导为 string
           return (
             <Radio
-              ref={ref}
               key={option}
               prefixCls={optionsPrefixCls}
               disabled={disabled}
@@ -87,7 +85,6 @@ const RadioGroup = React.forwardRef<unknown, RadioGroupProps>((props, ref) => {
         // 此处类型自动推导为 { label: string value: string }
         return (
           <Radio
-            ref={ref}
             key={`radio-group-value-options-${option.value}`}
             prefixCls={optionsPrefixCls}
             disabled={option.disabled || disabled}
@@ -118,6 +115,7 @@ const RadioGroup = React.forwardRef<unknown, RadioGroupProps>((props, ref) => {
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         id={id}
+        ref={ref}
       >
         {childrenToRender}
       </div>
@@ -137,9 +135,5 @@ const RadioGroup = React.forwardRef<unknown, RadioGroupProps>((props, ref) => {
     </RadioGroupContextProvider>
   );
 });
-
-RadioGroup.defaultProps = {
-  buttonStyle: 'outline' as RadioGroupButtonStyle,
-};
 
 export default React.memo(RadioGroup);

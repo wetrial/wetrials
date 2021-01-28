@@ -4,8 +4,9 @@ type Subscriber = () => void;
 
 const subscribers = new Set<Subscriber>();
 
-interface ResponsiveConfig {
-  [key: string]: {
+type ResponsiveConfig = Record<
+  string,
+  {
     /**
      * >=
      */
@@ -14,8 +15,8 @@ interface ResponsiveConfig {
      * <
      */
     max: number;
-  };
-}
+  }
+>;
 interface ResponsiveInfo {
   screen: string;
   size: {
