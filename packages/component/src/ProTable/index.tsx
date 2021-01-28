@@ -77,6 +77,7 @@ const flattenDeepGetColumnKey = (columns: any[], parentKey?: string) => {
 const flatDeepGetColumns = (
   columns: any[],
   columnSize: any,
+  resizeable: boolean,
   handleResize: Function,
   parentKey?: string,
 ) => {
@@ -87,14 +88,17 @@ const flatDeepGetColumns = (
       ...col,
       width,
       onHeaderCell: () => {
-        return {
+        const cellProps: any = {
           width,
-          onResize: handleResize(columnKey),
         };
+        if (resizeable) {
+          cellProps.onResize = handleResize(columnKey);
+        }
+        return cellProps;
       },
-      children: col.children
-        ? flatDeepGetColumns(col.children, columnSize, handleResize, columnKey)
-        : undefined,
+      // children: col.children
+      //   ? flatDeepGetColumns(col.children, columnSize, handleResize, columnKey)
+      //   : undefined,
     };
   });
 };
@@ -192,9 +196,9 @@ function ProTable<RecordType extends object = any>(props: ProTableProps<RecordTy
     }
     setTableProps({
       ...resizeProps,
-      columns: flatDeepGetColumns(tableColumns, columnSize, handleResize),
+      columns: flatDeepGetColumns(tableColumns, columnSize, resizeable, handleResize),
     });
-  }, [resizeable, columnSize, tableColumns]);
+  }, [resizeable, columnSize, tableColumns, handleResize]);
 
   return (
     <ConfigConsumer>
