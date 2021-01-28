@@ -62,3 +62,5 @@ group:
 <Alert type="info">
 可以自行进行扩展，比如 图片尺寸大小
 </Alert>
+
+> 图片可以从 https://picsum.photos/获取
