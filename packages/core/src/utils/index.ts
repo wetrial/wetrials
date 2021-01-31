@@ -132,7 +132,7 @@ export function newGuid(withSplit?: boolean): string {
  * @param text 加密前的内容
  * @param type 类型 mobile:手机   phone:电话号码    fax:传真号码    mail:邮箱   card:银行卡   identity:身份证   name:姓名
  */
-export function formatSecuredInfo(
+export function formatMaskInfo(
   text: string,
   type: 'mobile' | 'phone' | 'fax' | 'mail' | 'card' | 'identity' | 'name',
   filterNA?: boolean,
@@ -149,7 +149,7 @@ export function formatSecuredInfo(
       result = text.replace(/(\d{1,3})(\d{5})(\d+)/g, '$1*****$3');
       break;
     case 'phone':
-      result = text.replace(/(\d+)(\d{4})/g, '$1*****');
+      result = text.replace(/(\d+)(\d{4})/g, '$1****');
       break;
     case 'fax':
       result = text.replace(/(\d+)(\d{4})/g, '$1*****');

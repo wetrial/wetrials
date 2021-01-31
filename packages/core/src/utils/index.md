@@ -41,5 +41,5 @@ const isPromiseFunction = isPromise(()=>{
 | getDateString | 日期格式化，采用 moment 的格式 | `({date,format})=>string` |  |
 | fixedZero | 不足两位补 0 | `(val:number)=>string` |  |
 | newGuid | 生成一个 guid | `(withSplit?:boolean)=>string` |  |
-| formatSecuredInfo | 打码显示 | `(text,type,filterNA?)=>string` |  |
+| formatMaskInfo | 打码显示 | `(text,type,filterNA?)=>string` |  |
 | mergeCells | 对数据源按 key 进行相邻行合并，返回生成的跨行对象,建议使用 memoizeOne 进行缓存调用 | `(list:T[],key:string\|((item:T)=>string))=>TKeyValue<number,number>` | `mergeCells([{name:'xxg',title:'code'},{name:'刘德华',title:'code'},{name:'古天乐',title:'other'}],'title')==>{0:2,1:0,2:1}` |

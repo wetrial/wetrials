@@ -1,6 +1,7 @@
 import React from 'react';
 import glob from 'glob';
-import { render, mount } from 'enzyme';
+import type { render } from 'enzyme';
+import { mount } from 'enzyme';
 import MockDate from 'mockdate';
 import moment from 'moment';
 import { waitForComponentToPaint } from './util';
@@ -12,17 +13,16 @@ const USE_REPLACEMENT = false;
 const testDist = process.env.LIB_DIR === 'dist';
 
 /**
- * rc component will generate id for aria usage.
- * It's created as `test-uuid` when env === 'test'.
- * Or `f7fa7a3c-a675-47bc-912e-0c45fb6a74d9`(randomly) when not test env.
- * So we need hack of this to modify the `aria-controls`.
+ * Rc component will generate id for aria usage. It's created as `test-uuid` when env === 'test'. Or
+ * `f7fa7a3c-a675-47bc-912e-0c45fb6a74d9`(randomly) when not test env. So we need hack of this to
+ * modify the `aria-controls`.
  */
 function ariaConvert(wrapper: CheerIO) {
   if (!testDist || !USE_REPLACEMENT) return wrapper;
 
   const matches = new Map();
 
-  function process(entry: CheerIOElement) {
+  function process(entry: any) {
     const { attribs, children } = entry;
     if (matches.has(entry)) return;
     matches.set(entry, true);
@@ -37,7 +37,7 @@ function ariaConvert(wrapper: CheerIO) {
     (Array.isArray(children) ? children : [children]).forEach(process);
   }
 
-  wrapper.each((_, entry) => process(entry));
+  wrapper.each((_: any, entry: CheerIOElement) => process(entry));
 
   return wrapper;
 }
@@ -85,7 +85,8 @@ function demoTest(component: string, options: Options = {}) {
     });
     window.getComputedStyle = originGetComputedStyle;
   });
-  const files = glob.sync(`./packages/${component}/demos/**/*.tsx`);
+  // 支持 demos 下的所有非_开头的tsx文件
+  const files = glob.sync(`./packages/${component}/**/demos/**/[!_]*.tsx`);
 
   describe(`${component} demos`, () => {
     files.forEach((file) => {
@@ -93,7 +94,7 @@ function demoTest(component: string, options: Options = {}) {
       if (Array.isArray(options.skip) && options.skip.some((c) => file.includes(c))) {
         testMethod = test.skip;
       }
-      testMethod(`renders ${file} correctly`, async () => {
+      testMethod(`📸 renders ${file} correctly`, async () => {
         MockDate.set(moment('2016-11-22').valueOf());
         const Demo = require(`.${file}`).default; // eslint-disable-line global-require, import/no-dynamic-require
         const wrapper = mount(<Demo />);

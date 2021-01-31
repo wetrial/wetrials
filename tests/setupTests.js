@@ -1,6 +1,15 @@
 import MockDate from 'mockdate';
+import Enzyme from 'enzyme';
+
 import moment from 'moment-timezone';
 import { enableFetchMocks } from 'jest-fetch-mock';
+
+import tableData from './component/pro-table/mock.data.json';
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useLayoutEffect: jest.requireActual('react').useEffect,
+}));
 
 /* eslint-disable global-require */
 if (typeof window !== 'undefined') {
@@ -13,6 +22,8 @@ if (typeof window !== 'undefined') {
   // ref: https://github.com/ant-design/ant-design/issues/18774
   if (!window.matchMedia) {
     Object.defineProperty(global.window, 'matchMedia', {
+      writable: true,
+      configurable: true,
       value: jest.fn(() => ({
         matches: false,
         addListener: jest.fn(),
@@ -21,8 +32,6 @@ if (typeof window !== 'undefined') {
     });
   }
 }
-
-const Enzyme = require('enzyme');
 
 Object.assign(Enzyme.ReactWrapper.prototype, {
   findObserver() {
@@ -68,21 +77,51 @@ Object.defineProperty(window, 'localStorage', {
   value: localStorageMock,
 });
 
+const sessionStorageMock = (() => {
+  let store = {};
+
+  return {
+    getItem(key) {
+      return store[key] || null;
+    },
+    setItem(key, value) {
+      store[key] = value.toString();
+    },
+    clear() {
+      store = {};
+    },
+  };
+})();
+
+Object.defineProperty(window, 'sessionStorage', {
+  value: sessionStorageMock,
+});
 Object.defineProperty(window, 'cancelAnimationFrame', {
   value: () => null,
 });
 
-MockDate.set(moment('2016-11-22 15:22:44').valueOf());
+moment.tz.setDefault('UTC');
+
+// 2016-11-22 15:22:44
+MockDate.set(1479799364000);
 
 const mockFormatExpression = {
   format: (value) => `￥ ${value.toString()}`,
 };
 Intl.NumberFormat = jest.fn().mockImplementation(() => mockFormatExpression);
 
-moment.tz.setDefault('UTC');
-
 Math.random = () => 0.8404419276253765;
 
-// fetch.mockResponse(async () => {
-//   return { body: JSON.stringify(tableData) };
-// });
+fetch.mockResponse(async () => {
+  return { body: JSON.stringify(tableData) };
+});
+
+Object.assign(Enzyme.ReactWrapper.prototype, {
+  findObserver() {
+    return this.find('ResizeObserver');
+  },
+  triggerResize() {
+    const ob = this.findObserver();
+    ob.instance().onResize([{ target: ob.getDOMNode() }]);
+  },
+});

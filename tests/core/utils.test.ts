@@ -1,5 +1,19 @@
 import { isEqual } from 'lodash';
-import { urlToList, isPromise, isUrl, isBrowser, listToFlat } from '../../packages/core/src/utils';
+import moment from 'moment';
+import { utils } from '@wetrial/core';
+
+const {
+  urlToList,
+  isPromise,
+  isUrl,
+  isBrowser,
+  listToFlat,
+  getDateString,
+  fixedZero,
+  newGuid,
+  formatMaskInfo,
+  mergeCells,
+} = utils;
 
 describe('util', () => {
   describe('urlToList', () => {
@@ -52,12 +66,6 @@ describe('util', () => {
     });
   });
 
-  describe('isBrowser', () => {
-    it('empty', () => {
-      expect(isBrowser()).toBe(true);
-    });
-  });
-
   describe('listToFlat', () => {
     it('default convert', () => {
       const dict = [
@@ -77,6 +85,76 @@ describe('util', () => {
       const result = listToFlat(dict, 'Code', 'Text');
       const isTrue = isEqual(result, { guanghzou: '广州', shanghai: '上海' });
       expect(isTrue).toBe(true);
+    });
+  });
+
+  describe('isBrowser', () => {
+    it('empty', () => {
+      expect(isBrowser()).toBe(true);
+    });
+  });
+
+  describe('getDateString', () => {
+    it('default format is Y-MM-DD', () => {
+      expect(getDateString({ date: moment('2020-12-09') })).toEqual('2020-12-09');
+    });
+  });
+
+  describe('fixedZero', () => {
+    it('should add zero before', () => {
+      expect(fixedZero(0)).toEqual('00');
+    });
+
+    it('can not add zero', () => {
+      expect(fixedZero(10)).toEqual('10');
+    });
+  });
+
+  describe('newGuid', () => {
+    it('contains split', () => {
+      const guid = newGuid(true);
+      const reg = /^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$/gi;
+      expect(reg.test(guid)).toBe(true);
+    });
+
+    it('not contains split', () => {
+      const guid = newGuid();
+      const reg = /^[0-9a-f]{32}$/gi;
+      expect(reg.test(guid)).toBe(true);
+    });
+  });
+
+  describe('formatMaskInfo', () => {
+    it('mobile', () => {
+      const formatResult = formatMaskInfo('17508442930', 'mobile');
+      expect(formatResult).toEqual('175*****930');
+    });
+
+    it('other mobile', () => {
+      const formatResult = formatMaskInfo('175084842930', 'mobile');
+      expect(formatResult).toEqual('175*****2930');
+    });
+
+    it('phone', () => {
+      const formatResult = formatMaskInfo('7090641', 'phone');
+      expect(formatResult).toEqual('709****');
+    });
+  });
+
+  describe('mergeCells', () => {
+    it('merge', () => {
+      const dataSource = [
+        { name: 'xxg', title: 'code' },
+        { name: '刘德华', title: 'code' },
+        { name: '古天乐', title: 'other' },
+      ];
+
+      const testResult = mergeCells(dataSource, 'title');
+      expect(testResult).toEqual({
+        0: 2,
+        1: 0,
+        2: 1,
+      });
     });
   });
 });
