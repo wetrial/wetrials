@@ -16,7 +16,7 @@ group:
 pro-table 在 antd 的 table 上进行了一层封装，支持了一些预设，并且封装了一些行为。这里只列出与 antd table 不同的 api。
 
 <Alert type="warning">
-在使用了ProLayout的页面中，如果启用了fixedHeader，ProTable会默认开启sticky并headerHeight的值来设置offsetHeader的高度
+在使用了ProLayout的页面中，如果启用了fixedHeader，当配置ProTable的sticky的情况下，ProTable会根据eaderHeight的值来设置offsetHeader的高度,用户可以覆盖默认值
 </Alert>
 
 ## 案例

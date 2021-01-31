@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo, useContext } from 'react';
 import { Table } from 'antd';
 import type { TableProps } from 'antd/lib/table';
+import type { TableSticky } from 'rc-table/lib/interface';
 import type { ConfigConsumerProps } from 'antd/es/config-provider';
 import { ConfigConsumer } from 'antd/es/config-provider';
 import { Resizable } from 'react-resizable';
@@ -112,6 +113,7 @@ function ProTable<RecordType extends object = any>(props: ProTableProps<RecordTy
     rowSelection: propsRowSelection = false,
     tableAlertRender,
     tableAlertOptionRender,
+    sticky,
     ...restProps
   } = props;
 
@@ -200,6 +202,13 @@ function ProTable<RecordType extends object = any>(props: ProTableProps<RecordTy
     });
   }, [resizeable, columnSize, tableColumns, handleResize]);
 
+  const stickV =
+    sticky !== true || typeof (sticky as TableSticky).offsetHeader === 'number'
+      ? sticky
+      : {
+          offsetHeader: (fixedHeader && headerHeight) || undefined,
+          offsetScroll: 6,
+        };
   return (
     <ConfigConsumer>
       {({ getPrefixCls }: ConfigConsumerProps) => (
@@ -214,12 +223,7 @@ function ProTable<RecordType extends object = any>(props: ProTableProps<RecordTy
             />
           )}
           <Table<RecordType>
-            sticky={
-              fixedHeader && {
-                offsetHeader: (fixedHeader && headerHeight) || undefined,
-                offsetScroll: 6,
-              }
-            }
+            sticky={stickV}
             {...restProps}
             {...tableProps}
             rowSelection={propsRowSelection === false ? undefined : rowSelection}

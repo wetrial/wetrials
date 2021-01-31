@@ -3,7 +3,8 @@
 @pro-table-prefix-cls: ~'@{ant-prefix}-wt-pro-table';
 
 .@{pro-table-prefix-cls} {
-  padding-right: 8px;
+  padding-right: @padding-sm;
+  padding-left: @padding-sm;
   background-color: white;
 
   .react-resizable {
@@ -21,9 +22,9 @@
     cursor: col-resize;
   }
 
-  // // TODO 需要移除，暂时解决antd的bug
-  // div.ant-table-content,
-  // div.ant-table-body {
-  //   overflow: auto hidden;
-  // }
+  // TODO 需要移除，暂时解决antd的bug
+  div.ant-table-content,
+  div.ant-table-body {
+    overflow: auto hidden;
+  }
 }
