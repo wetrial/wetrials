@@ -10,6 +10,12 @@ const LABELS = [
   { label: 'Feature Request', color: 'purple' },
 ];
 
+export interface IUserInfo {
+  name: string;
+  age: number;
+  geneder: number;
+}
+
 export interface IGitHubIssue {
   id: number;
   url: string;
@@ -26,6 +32,7 @@ export interface IGitHubIssue {
   closeTime?: number;
   progress: number;
   money: number;
+  author: IUserInfo;
 }
 
 export interface IPagedResult {
@@ -59,6 +66,11 @@ export const getList = (data) => {
         closeTime: Date.now() - Math.floor(Math.random() * 2000),
         progress: Math.ceil(Math.random() * 100),
         money: Math.random() * 10000,
+        author: {
+          name: `xxg-${i}`,
+          age: i,
+          geneder: i % 2,
+        },
       });
     }
     const result = {
