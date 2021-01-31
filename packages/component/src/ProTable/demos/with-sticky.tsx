@@ -12,6 +12,7 @@ export default () => {
   const [form] = Form.useForm();
   const { tableProps, search, sorter } = useFormTable(getList, {
     form,
+    defaultPageSize: 50,
     // defaultParams: [
     //   { current: 2, pageSize: 5 },
     //   { name: 'hello', email: 'abc@gmail.com', gender: 'female' },
