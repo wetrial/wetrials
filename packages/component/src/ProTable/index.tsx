@@ -77,7 +77,7 @@ const flattenDeepGetColumnKey = (columns: any[], parentKey?: string) => {
 const flatDeepGetColumns = (
   columns: any[],
   columnSize: any,
-  resizeable: boolean,
+  resizeable: boolean | undefined,
   handleResize: Function,
   parentKey?: string,
 ) => {
