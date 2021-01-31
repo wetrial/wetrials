@@ -202,7 +202,7 @@ function ProTable<RecordType extends object = any>(props: ProTableProps<RecordTy
     });
   }, [resizeable, columnSize, tableColumns, handleResize]);
 
-  const stickV =
+  const tableSticky =
     sticky !== true || typeof (sticky as TableSticky).offsetHeader === 'number'
       ? sticky
       : {
@@ -223,7 +223,7 @@ function ProTable<RecordType extends object = any>(props: ProTableProps<RecordTy
             />
           )}
           <Table<RecordType>
-            sticky={stickV}
+            sticky={tableSticky}
             {...restProps}
             {...tableProps}
             rowSelection={propsRowSelection === false ? undefined : rowSelection}

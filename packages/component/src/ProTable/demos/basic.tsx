@@ -175,7 +175,7 @@ export default () => {
         </QueryFilter>
       }
     >
-      <ProTable sticky rowKey="id" {...tableProps} columns={columns} />
+      <ProTable rowKey="id" {...tableProps} columns={columns} />
     </PageContainer>
   );
 };
