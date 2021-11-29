@@ -9,6 +9,7 @@ import { newGuid } from '../utils';
 import { encrypt, decrypt, encryptKey } from '../crypto';
 import type { TKeyValue } from '../core';
 import { CryptoType } from '../core';
+import requestManager from './requestManager';
 
 export interface IRequestOption extends AxiosRequestConfig {
   /**
@@ -23,6 +24,14 @@ export interface IRequestOption extends AxiosRequestConfig {
    * 加密传输方式
    */
   crypto?: CryptoType;
+  /**
+   * 请求的类型key(用于cancel请求)
+   */
+  requestKey?: string;
+  /**
+   * 是否忽略请求
+   */
+  ignoreCancel?: boolean;
 }
 
 // eslint-disable-next-line
@@ -88,6 +97,8 @@ const commonRequestInterceptor = [
         Authorization: `Bearer ${tokenStore.token}`,
       };
     }
+
+    // 加密
     if (config.crypto) {
       config['cryptoKey'] = newGuid();
       if (config.crypto === CryptoType.In || config.crypto === CryptoType.Both) {
@@ -98,6 +109,15 @@ const commonRequestInterceptor = [
         Triple_DES_Key: encryptKey(config['cryptoKey']),
       };
     }
+
+    // cancel
+    requestManager.cancelRequest(config);
+    const cancelTokenSource = axios.CancelToken.source();
+    requestManager.addToken(config, {
+      ignoreCancel: config.ignoreCancel,
+      token: cancelTokenSource,
+    });
+    config.cancelToken = cancelTokenSource.token;
 
     return config;
   },
@@ -123,10 +143,19 @@ const commonResponseInterceptor = [
         return Promise.resolve(JSON.parse(decryptData));
       }
     }
+    requestManager.removeToken(config);
     return Promise.resolve(data);
   },
-  ({ response }: { response: AxiosResponse }) => {
-    return Promise.reject(response);
+  (error) => {
+    error &&
+      error.response &&
+      error.response.config &&
+      requestManager.removeToken(error.response.config);
+    // cancel 不抛异常
+    if (axios.isCancel(error)) {
+      return;
+    }
+    return Promise.reject(error);
   },
 ];
 
@@ -199,7 +228,7 @@ const commonResponseWithRefreshTokenInterceptor = [
 
 export async function request<TResult = any>(opt: IRequestOption) {
   const result = await instance.request<TResult>(opt);
-  return (result as unknown) as TResult;
+  return result as unknown as TResult;
 }
 
 export async function get<TResult = any>(url: string, opt?: IRequestOption) {
@@ -299,4 +328,5 @@ export {
   ejectRequestInterceptor,
   addResponseInterceptor,
   ejectResponseInterceptor,
+  requestManager,
 };

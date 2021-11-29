@@ -1,6 +1,6 @@
 {
   "name": "@wetrial/provider",
-  "version": "4.0.0-beta.7",
+  "version": "5.0.0-beta.0",
   "description": "@wetrial/provider",
   "keywords": [
     "antd",
@@ -38,7 +38,7 @@
   "peerDependencies": {
     "antd": "^4.x",
     "lodash": "^4.x",
-    "react": "^16.x",
+    "react": "^17.x",
     "umi": "^3.x"
   },
   "publishConfig": {

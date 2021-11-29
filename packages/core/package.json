@@ -1,6 +1,6 @@
 {
   "name": "@wetrial/core",
-  "version": "4.0.0-beta.7",
+  "version": "5.0.0-beta.0",
   "description": "@wetrial/core",
   "module": "es/index.js",
   "main": "lib/index.js",
@@ -38,7 +38,7 @@
     "antd": "^4.x",
     "lodash": "^4.x",
     "path-to-regexp": "^6.x",
-    "react": "^16.x",
+    "react": "^17.x",
     "redux": "^4.x",
     "umi": "^3.x"
   },
@@ -46,9 +46,9 @@
     "access": "public"
   },
   "dependencies": {
-    "axios": "^0.20.0",
-    "crypto-js": "^4.0.0",
-    "jsencrypt": "^3.0.0-rc.1",
+    "axios": "^0.24.0",
+    "crypto-js": "^4.1.0",
+    "jsencrypt": "^3.2.1",
     "store": "^2.0.12"
   },
   "devDependencies": {

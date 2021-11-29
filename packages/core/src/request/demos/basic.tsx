@@ -14,8 +14,8 @@ addResponseInterceptor(...commonResponseInterceptor);
  * 获取当前用户信息
  */
 export async function getCurrent() {
-  return await get(`/api/user/getCurrent?pid=526337162939974206`, {
-    crypto: CryptoType.Out,
+  return await get(`https://proapi.azurewebsites.net/api/currentUserDetail`, {
+    // crypto: CryptoType.Out,
   });
 }
 
@@ -29,7 +29,7 @@ export default () => {
 
   return (
     <button onClick={handleRequest} type="button">
-      请求
+      请求(自带cancel)
     </button>
   );
 };

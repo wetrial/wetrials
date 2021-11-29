@@ -35,7 +35,7 @@ export { request, get, post, put, patch } from '@wetrial/core';
 ## 使用方式
 
 ```tsx |pure
-import { get, post, request } from '@/utils/request';
+import { get, post, request } from '@wetrial/core';
 
 const result = await get('');
 ```
@@ -75,6 +75,8 @@ const result = await get('');
 | --- | --- | --- | --- |
 | successTip | 是否显示操作成功的提示 | boolean? | get 请求 false,其他 true |
 | url | 请求的 url 地址 | string | - |
+| requestKey | 请求的 key | string? | - |
+| ignoreCancel | 是否忽略 cancel(仅对非重复有效) | boolean? | - |
 | method | 请求的 method,可以通过扩展方法比如，post 不需要提供该参数 | string? 'post'、'get'、'put','delete','patch' | - |
 | [更多配置](https://github.com/axios/axios#request-config) |  |  | - |
 
@@ -83,6 +85,14 @@ const result = await get('');
 - 会将 configGlobalHeader 中反回的值设置到 headers 中去
 - 会自动添加 Authorization 请求头,会调用 authority 中的 getToken 方法获取 token 值
 - 根据配置是否加密来对请求内容进行加密以及解密的密钥以请求头的形式传递给后端
+- 自动 cancel 重复的请求
+- 路由切换的时候 cancel 掉未完成的请求
+
+  ```jsx |pure
+  import { requestManager } from '@wetrial/core';
+  // 在路由切换之前，调用
+  requestManager.cancelAllRequest();
+  ```
 
 #### commonResponseInterceptor
 
